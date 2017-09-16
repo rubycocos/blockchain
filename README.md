@@ -1,6 +1,6 @@
 # Blockchain Lite
 
-blockchainlite gem - build your own blockchain with crypto hashes -  revolutionize the world with blockchains, blockchains, blockchains on block at a time
+blockchainlite gem - build your own blockchain with crypto hashes -  revolutionize the world with blockchains, blockchains, blockchains one block at a time
 
 * home  :: [github.com/rubylibs/blockchain.lite](https://github.com/rubylibs/blockchain.lite)
 * bugs  :: [github.com/rubylibs/blockchain.lite/issues](https://github.com/rubylibs/blockchain.lite/issues)
@@ -10,7 +10,7 @@ blockchainlite gem - build your own blockchain with crypto hashes -  revolutioni
 
 ## What's a Blockchain?
 
-> A blockchain (originally block chain) is a distributed database
+> A blockchain is a distributed database
 > with a linked list (that is, chain) of records (that is, blocks)
 > secured by crypto(graphic) hashes.
 
@@ -19,7 +19,7 @@ See the [Awesome Blockchains](https://github.com/planetopendata/awesome-blockcha
 
 ## Usage
 
-Let's get started.  Build your own blockchain a block at a time.
+Let's get started.  Build your own blockchain one block at a time.
 Example:
 
 

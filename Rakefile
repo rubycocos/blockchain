@@ -5,7 +5,7 @@ Hoe.spec 'blockchainlite' do
 
   self.version = BlockchainLite::VERSION
 
-  self.summary = "blockchainlite - build your own blockchain with crypto hashes -  revolutionize the world with blockchains, blockchains, blockchains on block at a time"
+  self.summary = "blockchainlite - build your own blockchain with crypto hashes -  revolutionize the world with blockchains, blockchains, blockchains one block at a time"
   self.description = summary
 
   self.urls    = ['https://github.com/rubylibs/blockchain.lite']
