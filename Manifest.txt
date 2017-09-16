@@ -6,3 +6,5 @@ Rakefile
 lib/blockchainlite.rb
 lib/blockchainlite/block.rb
 lib/blockchainlite/version.rb
+test/helper.rb
+test/test_version.rb

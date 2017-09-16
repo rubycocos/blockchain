@@ -12,7 +12,7 @@ require 'uri'
 
 ## our own code
 require 'blockchainlite/version'    # note: let version always go first
-require 'blockchainlist/block'
+require 'blockchainlite/block'
 
 
 
