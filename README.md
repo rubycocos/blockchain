@@ -14,7 +14,7 @@ blockchainlite gem / library - build your own blockchain with crypto hashes -  r
 > with a linked list (that is, chain) of records (that is, blocks)
 > secured by crypto(graphic) hashes.
 
-See the [Awesome Blockchains](https://github.com/planetopendata/awesome-blockchains) page for more.
+See the [Awesome Blockchains](https://github.com/openblockchains/awesome-blockchains) page for more.
 
 
 ## Usage
