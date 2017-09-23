@@ -4,33 +4,25 @@
 #  to run use
 #     ruby -I ./lib -I ./test test/test_blockchain.rb
 
-require 'helper'
+require 'test_helper'
 
-class TestBlockchain < MiniTest::Test
+class BlockchainTest < MiniTest::Test
   def test_new
     b = Blockchain.new
-
     b << 'Transaction Data...'
-
     ## add do-it-yourself built block
     b << Block.next(b.last, 'Transaction Data......')
-
     b << 'More Transaction Data...'
-
     pp b
-
     assert true ## (for now) everything ok if we get here
   end
 
   def test_with_block_class
     b = Blockchain.new(block_class: BlockchainLite::Basic::Block)
-
     b << 'Transaction Data...'
     b << 'Transaction Data......'
     b << 'More Transaction Data...'
-
     pp b
-
     assert true ## (for now) everything ok if we get here
   end
 
@@ -58,4 +50,4 @@ class TestBlockchain < MiniTest::Test
 
     pp b
   end
-end # class TestBlockchain
+end

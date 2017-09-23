@@ -4,9 +4,9 @@
 #  to run use
 #     ruby -I ./lib -I ./test test/test_block.rb
 
-require 'helper'
+require 'test_helper'
 
-class TestBlock < MiniTest::Test
+class BlockTest < MiniTest::Test
   def test_version
     pp BlockchainLite.version
     pp BlockchainLite.banner
@@ -27,4 +27,4 @@ class TestBlock < MiniTest::Test
 
     assert true ## (for now) everything ok if we get here
   end
-end # class TestBlock
+end

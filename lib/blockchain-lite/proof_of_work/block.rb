@@ -3,12 +3,8 @@
 module BlockchainLite
   module ProofOfWork
     class Block
-      attr_reader :index
-      attr_reader :timestamp
-      attr_reader :data
-      attr_reader :previous_hash
-      attr_reader :nonce ## proof of work if hash starts with leading zeros (00)
-      attr_reader :hash
+      ## proof of work if hash starts with leading zeros (00)
+      attr_reader :index, :timestamp, :data, :previous_hash, :nonce, :hash
 
       def initialize(index, data, previous_hash)
         @index         = index
@@ -20,12 +16,13 @@ module BlockchainLite
 
       def calc_hash
         sha = Digest::SHA256.new
-        sha.update(@nonce.to_s + @index.to_s + @timestamp.to_s + @data + @previous_hash)
+        sha.update("#{@nonce}#{@index}#{@timestamp}#{@data}#{@previous_hash}")
         sha.hexdigest
       end
 
-      def self.first(data = 'Genesis') # create genesis (big bang! first) block
-        ## uses index zero (0) and arbitrary previous_hash ('0')
+      # create genesis (big bang! first) block
+      # uses index zero (0) and arbitrary previous_hash ('0')
+      def self.first(data = 'Genesis')
         Block.new(0, data, '0')
       end
 
@@ -40,18 +37,20 @@ module BlockchainLite
         loop do
           hash = calc_hash_with_nonce(nonce)
           if hash.start_with?(difficulty)
-            return [nonce, hash] ## bingo! proof of work if hash starts with leading zeros (00)
+            # bingo! proof of work if hash starts with leading zeros (00)
+            return [nonce, hash]
           else
-            nonce += 1 ## keep trying (and trying and trying)
+            # keep trying (and trying and trying)
+            nonce += 1
           end
         end
       end
 
       def calc_hash_with_nonce(nonce = 0)
         sha = Digest::SHA256.new
-        sha.update(nonce.to_s + @index.to_s + @timestamp.to_s + @data + @previous_hash)
+        sha.update("#{nonce}#{@index}#{@timestamp}#{@data}#{@previous_hash}")
         sha.hexdigest
       end
-    end # class Block
-end  ##  module ProofOfWork
-end  ##  module BlockchainLite
+    end
+  end
+end

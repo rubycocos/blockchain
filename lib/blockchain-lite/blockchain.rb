@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-##
-# convenience wrapper for array holding blocks (that is, a blockchain)
-
+# Blockchain: convenience wrapper for array holding blocks (that is, a blockchain)
 class Blockchain
   def initialize(chain = nil, block_class: nil)
     if chain.nil?
@@ -20,10 +18,12 @@ class Blockchain
       end
     end
   end
+
   ## return last block in chain
-  def last() 
-    @chain.last; 
-  end 
+  def last
+    @chain.last
+  end
+
   def <<(arg)
     if arg.is_a? String ## assume its (just) data
       data = arg
@@ -38,11 +38,12 @@ class Blockchain
       b    = @block_class.next(bl, data)
     end
     @chain << b ## add/append (new) block to chain
-  end  def broken?
-    ## check for validation conventions
-    ##   - start with first block?
-    ##   - or start with last block (reversve)? -why? why not??
+  end
 
+  ## check for validation conventions
+  ##   - start with first block?
+  ##   - or start with last block (reversve)? -why? why not??
+  def broken?
     @chain.size.times do |i|
       # ##puts "checking block #{i+1}/#{@chain.size}..."
 
@@ -82,7 +83,7 @@ class Blockchain
     false ## chain OK -- chain is NOT broken if we get here
   end # method broken?
 
-  def valid?() 
-    !broken?; 
+  def valid?
+    !broken?
   end
-end ## class Blockchain
+end
