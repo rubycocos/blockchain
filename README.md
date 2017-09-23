@@ -13,7 +13,7 @@ blockchain-lite library / gem - build your own blockchain with crypto hashes - r
 > A blockchain is a distributed database with
 > a list (that is, chain) of records (that is, blocks)
 > linked and secured by digital fingerprints
-> (that is, hashes also known as (one-way) crypto(graphic) hash digest checksums).
+> (that is, crypto hashes).
 
 See the [Awesome Blockchains](https://github.com/openblockchains/awesome-blockchains) page for more.
 
