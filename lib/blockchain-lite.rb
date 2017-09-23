@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 require 'digest'
 require 'pp'
@@ -15,6 +16,4 @@ require 'blockchain-lite/blockchain'
 require 'blockchain-lite/block' ## configure "standard" default block (e.g. basic, proof-of-work, etc.)
 
 # say hello
-if defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG
-  puts BlockchainLite.banner
-end
+puts BlockchainLite.banner if defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG

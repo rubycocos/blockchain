@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 # Blockchain: convenience wrapper for array holding blocks (that is, a blockchain)
 class Blockchain
