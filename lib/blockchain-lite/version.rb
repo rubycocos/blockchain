@@ -1,12 +1,10 @@
 # encoding: utf-8
 
-
 module BlockchainLite
-
   MAJOR = 1
   MINOR = 1
   PATCH = 0
-  VERSION = [MAJOR,MINOR,PATCH].join('.')
+  VERSION = [MAJOR, MINOR, PATCH].join('.')
 
   def self.version
     VERSION
@@ -17,7 +15,6 @@ module BlockchainLite
   end
 
   def self.root
-    "#{File.expand_path( File.dirname(File.dirname(File.dirname(__FILE__))) )}"
+    File.expand_path(File.dirname(File.dirname(File.dirname(__FILE__)))).to_s
   end
-
 end # module BlockchainLite

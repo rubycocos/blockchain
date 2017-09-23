@@ -2,10 +2,9 @@ require 'hoe'
 require './lib/blockchain-lite/version.rb'
 
 Hoe.spec 'blockchain-lite' do
-
   self.version = BlockchainLite::VERSION
 
-  self.summary = "blockchain-lite - build your own blockchain with crypto hashes -  revolutionize the world with blockchains, blockchains, blockchains one block at a time"
+  self.summary = 'blockchain-lite - build your own blockchain with crypto hashes -  revolutionize the world with blockchains, blockchains, blockchains one block at a time'
   self.description = summary
 
   self.urls    = ['https://github.com/openblockchains/blockchain.lite.rb']
@@ -25,5 +24,4 @@ Hoe.spec 'blockchain-lite' do
   self.spec_extras = {
     required_ruby_version: '>= 2.3'
   }
-
 end
