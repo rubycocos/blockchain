@@ -4,7 +4,14 @@ Manifest.txt
 README.md
 Rakefile
 lib/blockchain-lite.rb
+lib/blockchain-lite/basic/block.rb
+lib/blockchain-lite/bitcoin/block.rb
 lib/blockchain-lite/block.rb
+lib/blockchain-lite/blockchain.rb
+lib/blockchain-lite/proof_of_work/block.rb
 lib/blockchain-lite/version.rb
 test/helper.rb
-test/test_version.rb
+test/test_block.rb
+test/test_block_basic.rb
+test/test_block_proof_of_work.rb
+test/test_blockchain.rb

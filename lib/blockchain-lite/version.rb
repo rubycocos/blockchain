@@ -3,7 +3,7 @@
 
 module BlockchainLite
 
-  MAJOR = 0
+  MAJOR = 1
   MINOR = 1
   PATCH = 0
   VERSION = [MAJOR,MINOR,PATCH].join('.')

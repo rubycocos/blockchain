@@ -12,7 +12,13 @@ require 'uri'
 
 ## our own code
 require 'blockchain-lite/version'    # note: let version always go first
-require 'blockchain-lite/block'
+
+require 'blockchain-lite/basic/block'
+require 'blockchain-lite/proof_of_work/block'
+
+require 'blockchain-lite/blockchain'
+
+require 'blockchain-lite/block'       ## configure "standard" default block (e.g. basic, proof-of-work, etc.)
 
 
 

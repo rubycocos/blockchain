@@ -1,6 +1,6 @@
 # Blockchain Lite (Ruby Edition)
 
-blockchainlite gem / library - build your own blockchain with crypto hashes -  revolutionize the world with blockchains, blockchains, blockchains one block at a time
+blockchain-lite library / gem - build your own blockchain with crypto hashes - revolutionize the world with blockchains, blockchains, blockchains one block at a time
 
 * home  :: [github.com/openblockchains/blockchain.lite.rb](https://github.com/openblockchains/blockchain.lite.rb)
 * bugs  :: [github.com/openblockchains/blockchain.lite.rb/issues](https://github.com/openblockchains/blockchain.lite.rb/issues)
@@ -23,14 +23,13 @@ See the [Awesome Blockchains](https://github.com/openblockchains/awesome-blockch
 Let's get started.  Build your own blockchain one block at a time.
 Example:
 
-
 ``` ruby
 require 'blockchain-lite'
 
-b0 = Block.first( "Genesis" )
-b1 = Block.next( b0, "Transaction Data..." )
-b2 = Block.next( b1, "Transaction Data......" )
-b3 = Block.next( b2, "More Transaction Data..." )
+b0 = Block.first( 'Genesis' )
+b1 = Block.next( b0, 'Transaction Data...' )
+b2 = Block.next( b1, 'Transaction Data......' )
+b3 = Block.next( b2, 'More Transaction Data...' )
 
 blockchain = [b0, b1, b2, b3]
 
@@ -65,12 +64,129 @@ pp blockchain
 #   @previous_hash = "be50017ee4bbcb33844b3dc2b7c4e476d46569b5df5762d14ceba9355f0a85f4">]
 ```
 
+### Blocks
+
+[Basic](#basic)
+[Proof-of-Work](#proof-of-work)
+
+Supported block types / classes for now include:
+
+#### Basic
+
+``` ruby
+class Block
+
+  attr_reader :index
+  attr_reader :timestamp
+  attr_reader :data
+  attr_reader :previous_hash
+  attr_reader :hash
+
+  def initialize(index, data, previous_hash)
+    @index         = index
+    @timestamp     = Time.now.utc    ## note: use coordinated universal time (utc)
+    @data          = data
+    @previous_hash = previous_hash
+    @hash          = calc_hash
+  end
+
+  def calc_hash
+    sha = Digest::SHA256.new
+    sha.update( @index.to_s + @timestamp.to_s + @data + @previous_hash )
+    sha.hexdigest
+  end
+  ...
+end
+```
+
+(Source: [basic/block.rb](lib/blockchain-lite/basic/block.rb))
+
+
+#### Proof-of-Work
+
+``` ruby
+class Block
+
+  attr_reader :index
+  attr_reader :timestamp
+  attr_reader :data
+  attr_reader :previous_hash
+  attr_reader :nonce        ## proof of work if hash starts with leading zeros (00)
+  attr_reader :hash
+
+  def initialize(index, data, previous_hash)
+    @index         = index
+    @timestamp     = Time.now.utc    ## note: use coordinated universal time (utc)
+    @data          = data
+    @previous_hash = previous_hash
+    @nonce, @hash  = compute_hash_with_proof_of_work
+  end
+
+  def calc_hash
+    sha = Digest::SHA256.new
+    sha.update( @nonce.to_s + @index.to_s + @timestamp.to_s + @data + @previous_hash )
+    sha.hexdigest
+  end
+  ...
+end
+```
+
+(Source: [proof_of_work/block.rb](lib/blockchain-lite/proof_of_work/block.rb))
+
+
+
+### Blockchain Helper / Convenience Wrapper
+
+The `Blockchain` class offers some convenience helpers
+for building and checking blockchains. Example:
+
+``` ruby
+b = Blockchain.new       # note: will (auto-) add the first (genesis) block
+
+b << 'Transaction Data...'
+b << 'Transaction Data......'
+b << 'More Transaction Data...'
+
+pp b
+```
+
+Check for broken chain links. Example:
+
+``` ruby
+
+b.broken?
+# => false      ## blockchain OK
+```
+
+or use the `Blockchain` class as a wrapper (pass in the blockchain array):
+
+``` ruby
+b0 = Block.first( 'Genesis' )
+b1 = Block.next( b0, 'Transaction Data...' )
+b2 = Block.next( b1, 'Transaction Data......' )
+b3 = Block.next( b2, 'More Transaction Data...' )
+
+blockchain = [b0, b1, b2, b3]
+
+
+b = Blockchain.new( blockchain )
+
+b.broken?
+# => false      ## blockchain OK
+```
+
+and so on.
+
+
+
 
 ## Install
 
 Just install the gem:
 
-    $ gem install blockchain-lite
+```
+$ gem install blockchain-lite
+```
 
 
 ## License
