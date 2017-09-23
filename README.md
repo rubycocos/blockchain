@@ -23,7 +23,7 @@ See the [Awesome Blockchains](https://github.com/openblockchains/awesome-blockch
 Let's get started.  Build your own blockchain one block at a time.
 Example:
 
-``` ruby
+```ruby
 require 'blockchain-lite'
 
 b0 = Block.first('Genesis')
@@ -73,7 +73,7 @@ Supported block types / classes for now include:
 
 #### Basic
 
-``` ruby
+```ruby
 class Block
   attr_reader :index, :timestamp, :data, :previous_hash, :hash
 
@@ -99,7 +99,7 @@ end
 
 #### Proof-of-Work
 
-``` ruby
+```ruby
 class Block
 
   attr_reader :index, :timestamp, :data, :previous_hash, :hash
@@ -121,7 +121,6 @@ class Block
   ...
 end
 ```
-
 (Source: [proof_of_work/block.rb](lib/blockchain-lite/proof_of_work/block.rb))
 
 
@@ -131,7 +130,7 @@ end
 The `Blockchain` class offers some convenience helpers
 for building and checking blockchains. Example:
 
-``` ruby
+```ruby
 b = Blockchain.new       # note: will (auto-) add the first (genesis) block
 
 b << 'Transaction Data...'
@@ -143,22 +142,20 @@ pp b
 
 Check for broken chain links. Example:
 
-``` ruby
-
+```ruby
 b.broken?
 # => false      ## blockchain OK
 ```
 
 or use the `Blockchain` class as a wrapper (pass in the blockchain array):
 
-``` ruby
+```ruby
 b0 = Block.first('Genesis')
 b1 = Block.next(b0, 'Transaction Data...')
 b2 = Block.next(b1, 'Transaction Data......')
 b3 = Block.next(b2, 'More Transaction Data...')
 
 blockchain = [b0, b1, b2, b3]
-
 
 b = Blockchain.new(blockchain )
 
@@ -169,8 +166,6 @@ b.broken?
 and so on.
 
 
-
-
 ## Install
 
 Just install the gem:
@@ -179,6 +174,13 @@ Just install the gem:
 $ gem install blockchain-lite
 ```
 
+## Develop
+
+### Test
+
+```shell
+  rake test
+```
 
 ## License
 
