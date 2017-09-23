@@ -1,0 +1,31 @@
+# encoding: utf-8
+# frozen_string_literal: true
+
+###
+#  to run use
+#     ruby -I ./lib -I ./test test/test_block.rb
+
+require 'test_helper'
+
+class BlockTest < MiniTest::Test
+  def test_version
+    pp BlockchainLite.version
+    pp BlockchainLite.banner
+    pp BlockchainLite.root
+
+    assert true ## (for now) everything ok if we get here
+  end
+
+  def test_example
+    b0 = Block.first('Genesis')
+    b1 = Block.next(b0, 'Transaction Data...')
+    b2 = Block.next(b1, 'Transaction Data......')
+    b3 = Block.next(b2, 'More Transaction Data...')
+
+    blockchain = [b0, b1, b2, b3]
+
+    pp blockchain
+
+    assert true ## (for now) everything ok if we get here
+  end
+end
