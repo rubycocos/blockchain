@@ -66,7 +66,7 @@ pp blockchain
 
 ### Blocks
 
-[Basic](#basic)
+[Basic](#basic) •
 [Proof-of-Work](#proof-of-work)
 
 Supported block types / classes for now include:
