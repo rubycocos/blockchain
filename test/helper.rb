@@ -7,4 +7,4 @@ require 'minitest/autorun'
 
 ## our own code
 
-require 'blockchainlite'
+require 'blockchain-lite'

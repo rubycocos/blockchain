@@ -3,8 +3,8 @@ LICENSE.md
 Manifest.txt
 README.md
 Rakefile
-lib/blockchainlite.rb
-lib/blockchainlite/block.rb
-lib/blockchainlite/version.rb
+lib/blockchain-lite.rb
+lib/blockchain-lite/block.rb
+lib/blockchain-lite/version.rb
 test/helper.rb
 test/test_version.rb

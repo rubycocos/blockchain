@@ -11,8 +11,8 @@ require 'uri'
 
 
 ## our own code
-require 'blockchainlite/version'    # note: let version always go first
-require 'blockchainlite/block'
+require 'blockchain-lite/version'    # note: let version always go first
+require 'blockchain-lite/block'
 
 
 

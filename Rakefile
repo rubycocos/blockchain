@@ -1,14 +1,14 @@
 require 'hoe'
-require './lib/blockchainlite/version.rb'
+require './lib/blockchain-lite/version.rb'
 
-Hoe.spec 'blockchainlite' do
+Hoe.spec 'blockchain-lite' do
 
   self.version = BlockchainLite::VERSION
 
-  self.summary = "blockchainlite - build your own blockchain with crypto hashes -  revolutionize the world with blockchains, blockchains, blockchains one block at a time"
+  self.summary = "blockchain-lite - build your own blockchain with crypto hashes -  revolutionize the world with blockchains, blockchains, blockchains one block at a time"
   self.description = summary
 
-  self.urls    = ['https://github.com/rubylibs/blockchain.lite']
+  self.urls    = ['https://github.com/openblockchains/blockchain.lite.rb']
 
   self.author  = 'Gerald Bauer'
   self.email   = 'wwwmake@googlegroups.com'
