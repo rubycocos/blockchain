@@ -178,6 +178,90 @@ b.broken?
 and so on.
 
 
+### Transactions
+
+Let's put the transactions from the (hyper) ledger book from [Tulips on the Blockchain!](https://github.com/openblockchains/tulips)
+on the blockchain:
+
+
+| From                | To           | What                      | Qty |
+|---------------------|--------------|---------------------------|----:|
+| Dutchgrown (†)      | Vincent      | Tulip Bloemendaal Sunset  |  10 |
+| Keukenhof (†)       | Anne         | Tulip Semper Augustus     |   7 |
+|                     |              |                           |     |
+| Flowers (†)         | Ruben        | Tulip Admiral van Eijck   |   5 |
+| Vicent              | Anne         | Tulip Bloemendaal Sunset  |   3 |
+| Anne                | Julia        | Tulip Semper Augustus     |   1 |
+| Julia               | Luuk         | Tulip Semper Augustus     |   1 |
+|                     |              |                           |     |
+| Bloom & Blossom (†) | Daisy        | Tulip Admiral of Admirals |   8 |
+| Vincent             | Max          | Tulip Bloemendaal Sunset  |   2 |
+| Anne                | Martijn      | Tulip Semper Augustus     |   2 |
+| Ruben               | Julia        | Tulip Admiral van Eijck   |   2 |
+|                     |              |                           |     |
+| Teleflora (†)       | Max          | Tulip Red Impression      |  11 |
+| Anne                | Naomi        | Tulip Bloemendaal Sunset  |   1 |
+| Daisy               | Vincent      | Tulip Admiral of Admirals |   3 |
+| Julia               | Mina         | Tulip Admiral van Eijck   |   1 |
+
+(†): Grower Transaction - New Tulips on the Market!
+
+
+```ruby
+b0 = Block.first(
+        { from: "Dutchgrown", to: "Vincent", what: "Tulip Bloemendaal Sunset", qty: 10 },
+        { from: "Keukenhof",  to: "Anne",    what: "Tulip Semper Augustus",    qty: 7  } )
+
+b1 = Block.next( b0,
+        { from: "Flowers", to: "Ruben", what: "Tulip Admiral van Eijck",  qty: 5 },
+        { from: "Vicent",  to: "Anne",  what: "Tulip Bloemendaal Sunset", qty: 3 },
+        { from: "Anne",    to: "Julia", what: "Tulip Semper Augustus",    qty: 1 },
+        { from: "Julia",   to: "Luuk",  what: "Tulip Semper Augustus",    qty: 1 } )
+
+b2 = Block.next( b1,
+        { from: "Bloom & Blossom", to: "Daisy",   what: "Tulip Admiral of Admirals", qty: 8 },
+        { from: "Vincent",         to: "Max",     what: "Tulip Bloemendaal Sunset",  qty: 2 },
+        { from: "Anne",            to: "Martijn", what: "Tulip Semper Augustus",     qty: 2 },
+        { from: "Ruben",           to: "Julia",   what: "Tulip Admiral van Eijck",   qty: 2 } )
+...
+```
+
+resulting in:
+
+```
+[#<Block:0x2da3da0
+  @index              = 0,
+  @timestamp          = 1637-09-24 11:40:15,
+  @previous_hash      = "0",
+  @hash               = "32bd169baebba0b70491b748329ab631c85175be15e1672f924ca174f628cb66",
+  @transactions_count = 2,
+  @transactions       =
+   [{:from=>"Dutchgrown", :to=>"Vincent", :what=>"Tulip Bloemendaal Sunset", :qty=>10},
+    {:from=>"Keukenhof",  :to=>"Anne",    :what=>"Tulip Semper Augustus",    :qty=>7}]>,
+ #<Block:0x2da2ff0
+  @index              = 1,
+  @timestamp          = 1637-09-24 11:50:15,
+  @previous_hash      = "32bd169baebba0b70491b748329ab631c85175be15e1672f924ca174f628cb66",
+  @hash               = "57b519a8903e45348ac8a739c788815e2bd90423663957f87e276307f77f1028",
+  @transactions_count = 4,
+  @transactions       =
+   [{:from=>"Flowers", :to=>"Ruben", :what=>"Tulip Admiral van Eijck",  :qty=>5},
+    {:from=>"Vicent",  :to=>"Anne",  :what=>"Tulip Bloemendaal Sunset", :qty=>3},
+    {:from=>"Anne",    :to=>"Julia", :what=>"Tulip Semper Augustus",    :qty=>1},
+    {:from=>"Julia",   :to=>"Luuk",  :what=>"Tulip Semper Augustus",    :qty=>1}]>,
+ #<Block:0x2da2720
+  @index              = 2,
+  @timestamp          = 1637-09-24 12:00:15,
+  @previous_hash      = "57b519a8903e45348ac8a739c788815e2bd90423663957f87e276307f77f1028",
+  @hash               = "ec7dd5ea86ab966d4d4db182abb7aa93c7e5f63857476e6301e7e38cebf36568",
+  @transactions_count = 4,
+  @transactions       =
+   [{:from=>"Bloom & Blossom", :to=>"Daisy",   :what=>"Tulip Admiral of Admirals", :qty=>8},
+    {:from=>"Vincent",         :to=>"Max",     :what=>"Tulip Bloemendaal Sunset",  :qty=>2},
+    {:from=>"Anne",            :to=>"Martijn", :what=>"Tulip Semper Augustus",     :qty=>2},
+    {:from=>"Ruben",           :to=>"Julia",   :what=>"Tulip Admiral van Eijck",   :qty=>2}]>,
+ ...
+```
 
 
 ## Install
