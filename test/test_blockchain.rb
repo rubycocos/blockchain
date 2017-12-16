@@ -14,11 +14,14 @@ def test_new
   b = Blockchain.new
 
   b << 'Transaction Data...'
+  b << ['Transaction Data...']
+  b << ['Transaction Data...', 'Transaction Data...']
+  b << []   ## empty block (no transactions)
 
   ## add do-it-yourself built block
-  b << Block.next( b.last, 'Transaction Data......' )
+  b << Block.next( b.last, 'Transaction Data...' )
 
-  b << 'More Transaction Data...'
+  b << 'Transaction Data...'
 
   pp b
 
@@ -31,8 +34,8 @@ def test_with_block_class
   b = Blockchain.new( block_class: BlockchainLite::Basic::Block )
 
   b << 'Transaction Data...'
-  b << 'Transaction Data......'
-  b << 'More Transaction Data...'
+  b << 'Transaction Data...'
+  b << 'Transaction Data...'
 
   pp b
 
@@ -44,8 +47,8 @@ def test_wrap
 
   b0 = Block.first( 'Genesis' )
   b1 = Block.next( b0, 'Transaction Data...' )
-  b2 = Block.next( b1, 'Transaction Data......' )
-  b3 = Block.next( b2, 'More Transaction Data...' )
+  b2 = Block.next( b1, 'Transaction Data...' )
+  b3 = Block.next( b2, 'Transaction Data...' )
   blockchain = [b0, b1, b2, b3]
 
   b = Blockchain.new( blockchain )
@@ -58,7 +61,7 @@ def test_wrap
   assert_equal true,  b.valid?
 
   ## corrupt data in block in chain
-  b2.instance_eval %{ @data='XXXXXXX' }
+  b2.instance_eval %{ @transactions=['XXXXXXX'] }
 
   assert_equal true,   b.broken?
   assert_equal false,  b.valid?

@@ -9,35 +9,51 @@ class Blockchain
 
   def initialize( chain=nil, block_class: nil )
     if chain.nil?
-      @block_class = block_class || BlockchainLite::ProofOfWork::Block
+      @block_class = if block_class
+        block_class
+      else
+        ## check if Block is defined
+        ##    if yes, use it othwerwise fallback for ProofOfWork::Block
+        defined?( Block ) ? Block : BlockchainLite::ProofOfWork::Block
+      end
+
       b0 = @block_class.first( 'Genesis' )
       @chain = [b0]
     else
       @chain = chain    # "wrap" passed in blockchain (in array)
-      if block_class          # configure block class ("factory")
-        @block_class = block_class
-      else
-        ### no block class configured; use class of first block
-        ##  todo/fix: throw except if chain is empty (no class configured) - why? why not??
-        @block_class = @chain.first.class    if @chain.first
-      end
+      @block_class = if block_class
+          block_class
+        else
+          ### no block class configured; use class of first block
+          if @chain.first
+            @chain.first.class
+          else
+            ##  todo/fix: throw except if chain is empty (no class configured) - why? why not??
+            ##   throw exception on add block if not a block - why? why not??
+          end
+        end
     end
   end
+
 
 
   def last() @chain.last; end     ## return last block in chain
 
 
+  ###
+  ##  make method-<< abstract/virtual - why? why not?
+  ##     must be added by to make sure proper block_class is always used - why? why not??
+
   def <<( arg )
-    if arg.is_a? String   ## assume its (just) data
+    if arg.is_a? Array   ## assume its (just) data
       data = arg
       bl   = @chain.last
       b    = @block_class.next( bl, data )
     elsif arg.class.respond_to?( :first ) &&       ## check if respond_to? Block.first? and Block.next? - assume it's a block
           arg.class.respond_to?( :next )           ##  check/todo: use is_a? @block_class why? why not?
       b = arg
-    else  ## fallback; assume its (just) data (not a block)
-      data = arg.to_s    ## note: always convert arg to string!!  - why? why not??
+    else  ## fallback; assume single transaction record; wrap in array - allow fallback - why? why not??
+      data = [arg]
       bl   = @chain.last
       b    = @block_class.next( bl, data )
     end

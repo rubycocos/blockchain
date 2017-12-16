@@ -16,10 +16,11 @@ def test_example
 
   b0 = block_class.first( 'Genesis' )
   b1 = block_class.next( b0, 'Transaction Data...' )
-  b2 = block_class.next( b1, 'Transaction Data......' )
-  b3 = block_class.next( b2, 'More Transaction Data...' )
+  b2 = block_class.next( b1, 'Transaction Data...', 'Transaction Data...' )
+  b3 = block_class.next( b2 )   ## no transaction data
+  b4 = block_class.next( b3, ['Transaction Data...', 'Transaction Data...'] )
 
-  blockchain = [b0, b1, b2, b3]
+  blockchain = [b0, b1, b2, b3, b4]
 
   pp blockchain
 
