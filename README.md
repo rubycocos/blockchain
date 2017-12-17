@@ -40,29 +40,33 @@ will pretty print (pp) something like:
 
 ```
 [#<Block:0x1eed2a0
-  @index         = 0,
-  @timestamp     = 2017-09-15 20:52:38,
-  @data          = "Genesis",
-  @previous_hash = "0",
-  @hash          ="edbd4e11e69bc399a9ccd8faaea44fb27410fe8e3023bb9462450a0a9c4caa1b">,
+  @index              = 0,
+  @timestamp          = 2017-09-15 20:52:38,
+  @transactions_count = 1,
+  @transactions       = ["Genesis"],
+  @previous_hash      = "0",
+  @hash               = "edbd4e11e69bc399a9ccd8faaea44fb27410fe8e3023bb9462450a0a9c4caa1b">,
  #<Block:0x1eec9a0
-  @index         = 1,
-  @timestamp     = 2017-09-15 20:52:38,
-  @data          = "Transaction Data...",
-  @hash          = "eb8ecbf6d5870763ae246e37539d82e37052cb32f88bb8c59971f9978e437743",
-  @previous_hash = "edbd4e11e69bc399a9ccd8faaea44fb27410fe8e3023bb9462450a0a9c4caa1b">,
+  @index              = 1,
+  @timestamp          = 2017-09-15 20:52:38,
+  @transactions_count = 1,
+  @transactions       = ["Transaction Data..."],
+  @hash               = "eb8ecbf6d5870763ae246e37539d82e37052cb32f88bb8c59971f9978e437743",
+  @previous_hash      = "edbd4e11e69bc399a9ccd8faaea44fb27410fe8e3023bb9462450a0a9c4caa1b">,
  #<Block:0x1eec838
-  @index         = 2,
-  @timestamp     = 2017-09-15 20:52:38,
-  @data          = "Transaction Data...",
-  @hash          = "be50017ee4bbcb33844b3dc2b7c4e476d46569b5df5762d14ceba9355f0a85f4",
-  @previous_hash = "eb8ecbf6d5870763ae246e37539d82e37052cb32f88bb8c59971f9978e437743">,
+  @index              = 2,
+  @timestamp          = 2017-09-15 20:52:38,
+  @transactions_count = 1,
+  @transactions       = ["Transaction Data..."],
+  @hash               = "be50017ee4bbcb33844b3dc2b7c4e476d46569b5df5762d14ceba9355f0a85f4",
+  @previous_hash      = "eb8ecbf6d5870763ae246e37539d82e37052cb32f88bb8c59971f9978e437743">,
  #<Block:0x1eec6d0
-  @index         = 3,
-  @timestamp     = 2017-09-15 20:52:38
-  @data          = "Transaction Data...",
-  @hash          = "5ee2981606328abfe0c3b1171440f0df746c1e1f8b3b56c351727f7da7ae5d8d",
-  @previous_hash = "be50017ee4bbcb33844b3dc2b7c4e476d46569b5df5762d14ceba9355f0a85f4">]
+  @index              = 3,
+  @timestamp          = 2017-09-15 20:52:38
+  @transactions_count = 1,
+  @transactions       = ["Transaction Data..."],
+  @hash               = "5ee2981606328abfe0c3b1171440f0df746c1e1f8b3b56c351727f7da7ae5d8d",
+  @previous_hash      = "be50017ee4bbcb33844b3dc2b7c4e476d46569b5df5762d14ceba9355f0a85f4">]
 ```
 
 
@@ -117,22 +121,29 @@ class Block
 
   attr_reader :index
   attr_reader :timestamp
-  attr_reader :data
+  attr_reader :transactions_count
+  attr_reader :transactions       
   attr_reader :previous_hash
   attr_reader :nonce        ## proof of work if hash starts with leading zeros (00)
   attr_reader :hash
 
-  def initialize(index, data, previous_hash)
-    @index         = index
-    @timestamp     = Time.now.utc    ## note: use coordinated universal time (utc)
-    @data          = data
-    @previous_hash = previous_hash
-    @nonce, @hash  = compute_hash_with_proof_of_work
+  def initialize(index, transactions, previous_hash)
+    @index              = index
+    @timestamp          = Time.now.utc    ## note: use coordinated universal time (utc)
+    @transactions       = transactions
+    @transactions_count = transactions.size
+    @previous_hash      = previous_hash
+    @nonce, @hash       = compute_hash_with_proof_of_work
   end
 
   def calc_hash
     sha = Digest::SHA256.new
-    sha.update( @nonce.to_s + @index.to_s + @timestamp.to_s + @data + @previous_hash )
+    sha.update( @nonce.to_s +
+                @index.to_s +
+                @timestamp.to_s +
+                @transactions.to_s +
+                @transactions_count.to_s +
+                @previous_hash )
     sha.hexdigest
   end
   ...

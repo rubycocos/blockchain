@@ -41,7 +41,7 @@ class Block
 
 
 
-  def self.first( *transactions )    # create genesis (big bang! first) block
+  def self.first( *transactions, **opts )    # create genesis (big bang! first) block
     ##  note: allow/support splat-* for now for convenience (auto-wraps args into array)
     if transactions.size == 1 && transactions[0].is_a?( Array )
       t = transactions[0]   ## "unwrap" array in array
@@ -49,17 +49,18 @@ class Block
       t = transactions      ## use "auto-wrapped" splat array
     end
     ## uses index zero (0) and arbitrary previous_hash ('0')
-    Block.new( 0, t, '0'  )
+    ##  note: pass along (optional) custom timestamp (e.g. used for 1637 etc.)
+    Block.new( 0, t, '0', timestamp: opts[:timestamp] )
   end
 
-  def self.next( previous, *transactions )
+  def self.next( previous, *transactions, **opts )
     ## note: allow/support splat-* for now for convenience (auto-wraps args into array)
     if transactions.size == 1 && transactions[0].is_a?( Array )
       t = transactions[0]   ## "unwrap" array in array
     else
       t = transactions      ## use "auto-wrapped" splat array
     end
-    Block.new( previous.index+1, t, previous.hash )
+    Block.new( previous.index+1, t, previous.hash, timestamp: opts[:timestamp] )
   end
 
 
