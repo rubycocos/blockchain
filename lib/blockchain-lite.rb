@@ -9,6 +9,9 @@ require 'json'
 require 'uri'
 
 
+## 3rd party libs
+require 'merkletree'
+
 
 ## our own code
 require 'blockchain-lite/version'    # note: let version always go first

@@ -61,7 +61,10 @@ def test_wrap
   assert_equal true,  b.valid?
 
   ## corrupt data in block in chain
-  b2.instance_eval %{ @transactions=['XXXXXXX'] }
+  b2.instance_eval <<RUBY
+     @transactions      = ['xxxxxx']
+     @transactions_hash = MerkleTree.compute_root_for( @transactions )
+RUBY
 
   assert_equal true,   b.broken?
   assert_equal false,  b.valid?

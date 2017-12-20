@@ -30,10 +30,8 @@ class Block
 
   def calc_hash
     sha = Digest::SHA256.new
-    sha.update( @index.to_s +
-                @timestamp.to_s +
+    sha.update( @timestamp.to_s +
                 @transactions.to_s +
-                @transactions_count.to_s +
                 @previous_hash )
     sha.hexdigest
   end

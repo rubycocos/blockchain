@@ -18,6 +18,7 @@ Hoe.spec 'blockchain-lite' do
   self.history_file = 'HISTORY.md'
 
   self.extra_deps = [
+    ['merkletree'],
   ]
 
   self.licenses = ['Public Domain']

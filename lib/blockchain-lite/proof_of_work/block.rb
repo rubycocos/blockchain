@@ -10,6 +10,7 @@ class Block
   attr_reader :timestamp
   attr_reader :transactions_count   # use alias - txn_count - why? why not?
   attr_reader :transactions         # use alias - txn       - why? why not?
+  attr_reader :transactions_hash    # use alias - merkle_root - why? why not?
   attr_reader :previous_hash
   attr_reader :nonce                # ("lucky" number used once) - proof of work if hash starts with leading zeros (00)
   attr_reader :hash
@@ -20,6 +21,9 @@ class Block
     ## note: assumes / expects an array for transactions
     @transactions       = transactions
     @transactions_count = transactions.size
+
+    ## todo: add empty array check to merkletree.compute why? why not?
+    @transactions_hash  = transactions.empty? ? '0' : MerkleTree.compute_root_for( transactions )
 
     @previous_hash = previous_hash
 
@@ -68,10 +72,8 @@ private
   def calc_hash_with_nonce( nonce=0 )
     sha = Digest::SHA256.new
     sha.update( nonce.to_s +
-                @index.to_s +
                 @timestamp.to_s +
-                @transactions.to_s +
-                @transactions_count.to_s +
+                @transactions_hash +
                 @previous_hash )
     sha.hexdigest
   end

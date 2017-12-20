@@ -100,10 +100,8 @@ class Block
 
   def calc_hash
     sha = Digest::SHA256.new
-    sha.update( @index.to_s +
-                @timestamp.to_s +
+    sha.update( @timestamp.to_s +
                 @transactions.to_s +
-                @transactions_count.to_s +
                 @previous_hash )
     sha.hexdigest
   end
@@ -123,6 +121,7 @@ class Block
   attr_reader :timestamp
   attr_reader :transactions_count
   attr_reader :transactions       
+  attr_reader :transactions_hash    ## merkle_root
   attr_reader :previous_hash
   attr_reader :nonce        ## proof of work if hash starts with leading zeros (00)
   attr_reader :hash
@@ -132,6 +131,7 @@ class Block
     @timestamp          = Time.now.utc    ## note: use coordinated universal time (utc)
     @transactions       = transactions
     @transactions_count = transactions.size
+    @transactions_hash  = MerkleTree.compute_root_for( transactions )
     @previous_hash      = previous_hash
     @nonce, @hash       = compute_hash_with_proof_of_work
   end
@@ -139,10 +139,8 @@ class Block
   def calc_hash
     sha = Digest::SHA256.new
     sha.update( @nonce.to_s +
-                @index.to_s +
                 @timestamp.to_s +
-                @transactions.to_s +
-                @transactions_count.to_s +
+                @transactions_hash +
                 @previous_hash )
     sha.hexdigest
   end
