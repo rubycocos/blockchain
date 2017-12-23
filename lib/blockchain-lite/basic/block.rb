@@ -38,25 +38,25 @@ class Block
 
 
 
-  def self.first( *transactions )    # create genesis (big bang! first) block
+  def self.first( *args )    # create genesis (big bang! first) block
     ##  note: allow/support splat-* for now for convenience (auto-wraps args into array)
-    if transactions.size == 1 && transactions[0].is_a?( Array )
-      t = transactions[0]   ## "unwrap" array in array
+    if args.size == 1 && args[0].is_a?( Array )
+      transactions = args[0]   ## "unwrap" array in array
     else
-      t = transactions      ## use "auto-wrapped" splat array
+      transactions = args      ## use "auto-wrapped" splat array
     end
     ## uses index zero (0) and arbitrary previous_hash ('0')
-    Block.new( 0, t, '0'  )
+    Block.new( 0, transactions, '0'  )
   end
 
-  def self.next( previous, *transactions )
+  def self.next( previous, *args )
     ## note: allow/support splat-* for now for convenience (auto-wraps args into array)
-    if transactions.size == 1 && transactions[0].is_a?( Array )
-      t = transactions[0]   ## "unwrap" array in array
+    if args.size == 1 && args[0].is_a?( Array )
+      transactions = args[0]   ## "unwrap" array in array
     else
-      t = transactions      ## use "auto-wrapped" splat array
+      transactions = args      ## use "auto-wrapped" splat array
     end
-    Block.new( previous.index+1, t, previous.hash )
+    Block.new( previous.index+1, transactions, previous.hash )
   end
 
 end  # class Block

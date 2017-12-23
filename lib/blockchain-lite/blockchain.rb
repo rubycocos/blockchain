@@ -45,7 +45,7 @@ class Blockchain
   ##     must be added by to make sure proper block_class is always used - why? why not??
 
   def <<( arg )
-    if arg.is_a? Array   ## assume its (just) data
+    if arg.is_a?( Array )   ## assume its (just) data
       data = arg
       bl   = @chain.last
       b    = @block_class.next( bl, data )
