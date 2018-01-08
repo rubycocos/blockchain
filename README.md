@@ -281,13 +281,18 @@ resulting in:
 ```
 
 
-## Install
+## Ledger Lite in the Real World
 
-Just install the gem:
+- [**centralbank**](https://github.com/openblockchains/centralbank) - command line tool (and core library) - print your own money / cryptocurrency; run your own federated central bank nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
+- [**tulipmania**](https://github.com/openblockchains/tulipmania) - command line tool (and core library) - tulips on the blockchain; learn by example from the real world (anno 1637) - buy! sell! hodl! enjoy the beauty of admiral of admirals, semper augustus, and more; run your own hyper ledger tulip exchange nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
+- [**shilling**](https://github.com/bitshilling/bitshilling.tools) - command line tool (and core library) - shilling (or schilling) on the blockchain! rock-solid alpine dollar from austria; print (mine) your own shillings; run your own federated shilling central bank nodes w/ public distributed (hyper) ledger book on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
+- You? Add your tool / service
 
-```
-$ gem install blockchain-lite
-```
+
+## References
+
+[**Programming Cryptocurrencies and Blockchains (in Ruby)**](http://yukimotopress.github.io/blockchains) by Gerald Bauer et al, 2018, Yuki & Moto Press
+
 
 
 ## License
