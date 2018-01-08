@@ -281,7 +281,7 @@ resulting in:
 ```
 
 
-## Ledger Lite in the Real World
+## Blockchain Lite in the Real World
 
 - [**centralbank**](https://github.com/openblockchains/centralbank) - command line tool (and core library) - print your own money / cryptocurrency; run your own federated central bank nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
 - [**tulipmania**](https://github.com/openblockchains/tulipmania) - command line tool (and core library) - tulips on the blockchain; learn by example from the real world (anno 1637) - buy! sell! hodl! enjoy the beauty of admiral of admirals, semper augustus, and more; run your own hyper ledger tulip exchange nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
