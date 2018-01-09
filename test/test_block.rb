@@ -10,13 +10,7 @@ require 'helper'
 
 class TestBlock < MiniTest::Test
 
-def test_version
-   pp BlockchainLite.version
-   pp BlockchainLite.banner
-   pp BlockchainLite.root
-
-   assert true  ## (for now) everything ok if we get here
-end
+include ProofOfWork   ## adds Block = BlockchainLite::ProofOfWork::Block etc.
 
 
 def test_example
@@ -36,20 +30,20 @@ end
 
 def test_tulips_example
   b0 = Block.first(
-        { from: "Dutchgrown", to: "Vincent", what: "Tulip Bloemendaal Sunset", qty: 10 },
-        { from: "Keukenhof",  to: "Anne",    what: "Tulip Semper Augustus",    qty: 7  } )
+        { from: "Dutchgrown", to: "Vincent", name: "Tulip Bloemendaal Sunset", qty: 10 },
+        { from: "Keukenhof",  to: "Anne",    name: "Tulip Semper Augustus",    qty: 7  } )
 
   b1 = Block.next( b0,
-        { from: "Flowers", to: "Ruben", what: "Tulip Admiral van Eijck",  qty: 5 },
-        { from: "Vicent",  to: "Anne",  what: "Tulip Bloemendaal Sunset", qty: 3 },
-        { from: "Anne",    to: "Julia", what: "Tulip Semper Augustus",    qty: 1 },
-        { from: "Julia",   to: "Luuk",  what: "Tulip Semper Augustus",    qty: 1 } )
+        { from: "Flowers", to: "Ruben", name: "Tulip Admiral van Eijck",  qty: 5 },
+        { from: "Vicent",  to: "Anne",  name: "Tulip Bloemendaal Sunset", qty: 3 },
+        { from: "Anne",    to: "Julia", name: "Tulip Semper Augustus",    qty: 1 },
+        { from: "Julia",   to: "Luuk",  name: "Tulip Semper Augustus",    qty: 1 } )
 
   b2 = Block.next( b1,
-        { from: "Bloom & Blossom", to: "Daisy",   what: "Tulip Admiral of Admirals", qty: 8 },
-        { from: "Vincent",         to: "Max",     what: "Tulip Bloemendaal Sunset",  qty: 2 },
-        { from: "Anne",            to: "Martijn", what: "Tulip Semper Augustus",     qty: 2 },
-        { from: "Ruben",           to: "Julia",   what: "Tulip Admiral van Eijck",   qty: 2 } )
+        { from: "Bloom & Blossom", to: "Daisy",   name: "Tulip Admiral of Admirals", qty: 8 },
+        { from: "Vincent",         to: "Max",     name: "Tulip Bloemendaal Sunset",  qty: 2 },
+        { from: "Anne",            to: "Martijn", name: "Tulip Semper Augustus",     qty: 2 },
+        { from: "Ruben",           to: "Julia",   name: "Tulip Admiral van Eijck",   qty: 2 } )
 
   blockchain = [b0, b1, b2]
 
@@ -71,22 +65,22 @@ def timestamp1637
 def test_tulips_1637_example
 
   b0 = Block.first(
-        { from: "Dutchgrown", to: "Vincent", what: "Tulip Bloemendaal Sunset", qty: 10 },
-        { from: "Keukenhof",  to: "Anne",    what: "Tulip Semper Augustus",    qty: 7  },
+        { from: "Dutchgrown", to: "Vincent", name: "Tulip Bloemendaal Sunset", qty: 10 },
+        { from: "Keukenhof",  to: "Anne",    name: "Tulip Semper Augustus",    qty: 7  },
         timestamp: timestamp1637 )
 
   b1 = Block.next( b0,
-        { from: "Flowers", to: "Ruben", what: "Tulip Admiral van Eijck",  qty: 5 },
-        { from: "Vicent",  to: "Anne",  what: "Tulip Bloemendaal Sunset", qty: 3 },
-        { from: "Anne",    to: "Julia", what: "Tulip Semper Augustus",    qty: 1 },
-        { from: "Julia",   to: "Luuk",  what: "Tulip Semper Augustus",    qty: 1 },
+        { from: "Flowers", to: "Ruben", name: "Tulip Admiral van Eijck",  qty: 5 },
+        { from: "Vicent",  to: "Anne",  name: "Tulip Bloemendaal Sunset", qty: 3 },
+        { from: "Anne",    to: "Julia", name: "Tulip Semper Augustus",    qty: 1 },
+        { from: "Julia",   to: "Luuk",  name: "Tulip Semper Augustus",    qty: 1 },
         timestamp: timestamp1637 )
 
   b2 = Block.next( b1,
-        { from: "Bloom & Blossom", to: "Daisy",   what: "Tulip Admiral of Admirals", qty: 8 },
-        { from: "Vincent",         to: "Max",     what: "Tulip Bloemendaal Sunset",  qty: 2 },
-        { from: "Anne",            to: "Martijn", what: "Tulip Semper Augustus",     qty: 2 },
-        { from: "Ruben",           to: "Julia",   what: "Tulip Admiral van Eijck",   qty: 2 },
+        { from: "Bloom & Blossom", to: "Daisy",   name: "Tulip Admiral of Admirals", qty: 8 },
+        { from: "Vincent",         to: "Max",     name: "Tulip Bloemendaal Sunset",  qty: 2 },
+        { from: "Anne",            to: "Martijn", name: "Tulip Semper Augustus",     qty: 2 },
+        { from: "Ruben",           to: "Julia",   name: "Tulip Admiral van Eijck",   qty: 2 },
         timestamp: timestamp1637 )
 
   blockchain = [b0, b1, b2]

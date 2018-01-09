@@ -9,10 +9,18 @@ require 'helper'
 
 class TestBlockchain < MiniTest::Test
 
+include ProofOfWork   ## adds:
+                      ##   Block = BlockchainLite::ProofOfWork::Block etc.
+                      ##   class Blockchain < BlockchainLite::Blockchain
+                      ##      def block_class() Block; end
+                      ##   end
+
+
 def test_new
 
   b = Blockchain.new
 
+  b << 'Genesis'
   b << 'Transaction Data...'
   b << ['Transaction Data...']
   b << ['Transaction Data...', 'Transaction Data...']
@@ -21,20 +29,6 @@ def test_new
   ## add do-it-yourself built block
   b << Block.next( b.last, 'Transaction Data...' )
 
-  b << 'Transaction Data...'
-
-  pp b
-
-  assert true  ## (for now) everything ok if we get here
-end
-
-
-def test_with_block_class
-
-  b = Blockchain.new( block_class: BlockchainLite::Basic::Block )
-
-  b << 'Transaction Data...'
-  b << 'Transaction Data...'
   b << 'Transaction Data...'
 
   pp b
