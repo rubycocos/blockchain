@@ -1,0 +1,6 @@
+HISTORY.md
+Manifest.txt
+README.md
+Rakefile
+lib/p2p.rb
+lib/p2p/version.rb

@@ -1,0 +1,29 @@
+require 'hoe'
+require './lib/p2p/version.rb'
+
+Hoe.spec 'p2p' do
+
+  self.version = PeerToPeer::VERSION
+
+  self.summary = "p2p - build your own peer-to-peer (p2p) networks; run your own peer-to-peer (p2p) nodes over HTTP"
+  self.description = summary
+
+  self.urls    = ['https://github.com/openblockchains/peer-to-peer.rb']
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'HISTORY.md'
+
+  self.extra_deps = [
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end
