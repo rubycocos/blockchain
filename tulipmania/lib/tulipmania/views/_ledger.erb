@@ -1,0 +1,15 @@
+<div class="ledger">
+  <h2>Ledger</h2>
+  <table>
+    <tr>
+      <th>Address</th>
+      <th>Tulips</th>
+    </tr>
+    <% @node.exchange.ledger.wallets.each do |address, tulips| %>
+      <tr>
+        <td><%= address[0..15] %></td>
+        <td><%= fmt_tulips( tulips ) %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

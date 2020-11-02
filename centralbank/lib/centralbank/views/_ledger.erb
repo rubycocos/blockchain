@@ -1,0 +1,15 @@
+<div class="ledger">
+  <h2>Ledger</h2>
+  <table>
+    <tr>
+      <th>Address</th>
+      <th>Balance</th>
+    </tr>
+    <% @node.bank.ledger.wallets.each do |address, amount| %>
+      <tr>
+        <td><%= address[0..15] %></td>
+        <td>$<%= amount %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

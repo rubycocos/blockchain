@@ -1,0 +1,172 @@
+
+body {
+  padding: 0;
+  margin: 0;
+  min-width: 960px;
+
+  font-family: 'menlo', monospace;
+  font-size: 14px;
+
+  background: #fff;
+  color: #2B2D2F;
+}
+
+
+.columns {
+  display: flex;
+
+  .left {
+    width: 50%;
+  }
+
+  .right {
+    width: 50%;
+  }
+}
+
+
+h1 {
+  font-size: 24px;
+  font-weight: normal;
+  padding-left: 15px;
+  margin-bottom: 20px;
+}
+
+
+h2 {
+  font-size: 16px;
+}
+
+h2 span {
+  font-size: 14px;
+  color: #597898;
+  font-weight: normal;
+}
+
+label {
+  display: inline-block;
+  // width: 80px;
+  text-align: right;
+  padding-right: 10px;
+}
+
+input[type=text] {
+  display: inline-block;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 0;
+  border: 0;
+}
+
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+  }
+
+  td {
+    vertical-align: top;
+    padding: 5px 15px 5px 0;
+  }
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+input[type=submit] {
+  font-size: 14px;
+  font-family: menlo, monospace;
+  border-radius: 5px;
+  padding: 8px 20px;
+  background: #FFDC00;
+  color: #2B2D2F;
+  border: 0;
+}
+
+input[type=submit].small {
+  font-size: 10px;
+  padding: 4px 10px;
+}
+
+
+
+.wallet {
+  padding: 15px;
+  background: #7FDBFF;
+
+  h2 {
+   margin-bottom: 0;
+ }
+
+  .balance {
+   font-size: 22px;
+  }
+}
+
+
+.pending-transactions {
+  padding: 15px;
+  background: #A3E6FF;
+}
+
+.peers {
+  padding: 15px;
+  background: #C6EFFF;
+
+  li form {
+    display: inline;
+  }
+
+  li {
+    padding: 5px 0px;
+  }
+}
+
+
+.ledger {
+  padding: 15px;
+  background: #E3F7FF;
+}
+
+
+.blockchain {
+  padding: 15px;
+  position: relative;
+  background: #001F3F;
+  color: #fff;
+
+  form {
+    position: absolute;
+    top: 30px;
+    right: 15px;
+  }
+
+  .blocks {
+    border: 1px solid #597898;
+    border-bottom: 0;
+
+     .block {
+      margin: 0;
+      border-bottom: 2px dashed #597898;
+      padding: 10px;
+
+      .header {
+        text-align: center;
+        padding: 0 8px 8px 8px;
+        color: #597898;
+        border-bottom: 1px solid #354c63;
+        margin-bottom: 10px;
+      }
+
+      .id {
+        color: #597898;
+      }
+    }
+  }
+}

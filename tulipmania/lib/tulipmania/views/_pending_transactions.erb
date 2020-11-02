@@ -1,0 +1,25 @@
+<div class="pending-transactions">
+  <h2>Pending Transactions</h2>
+  <% if @node.exchange.pending.any? %>
+    <table>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>What</th>
+        <th>Qty &nbsp;</th>
+        <th>Id</th>
+      </tr>
+      <% @node.exchange.pending.each do |tx| %>
+        <tr>
+          <td><%= tx.from[0..15] %></td>
+          <td><%= tx.to[0..15] %></td>
+          <td><%= tx.what %></td>
+          <td>× <%= tx.qty %></td>
+          <td><%= tx.id[0..2] %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <i>No pending transactions</i>
+  <% end %>
+</div>

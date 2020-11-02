@@ -1,0 +1,23 @@
+<div class="pending-transactions">
+  <h2>Pending Transactions</h2>
+  <% if @node.bank.pending.any? %>
+    <table>
+      <tr>
+        <th>From</th>
+        <th>To</th>
+        <th>$</th>
+        <th>Id</th>
+      </tr>
+      <% @node.bank.pending.each do |tx| %>
+        <tr>
+          <td><%= tx.from[0..15] %></td>
+          <td><%= tx.to[0..15] %></td>
+          <td><%= tx.amount %></td>
+          <td><%= tx.id[0..2] %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <i>No pending transactions</i>
+  <% end %>
+</div>

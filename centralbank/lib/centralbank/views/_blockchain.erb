@@ -1,0 +1,37 @@
+<div class="blockchain">
+  <h2>
+    Blockchain<br>
+    <span><%= @node.bank.chain.size %> blocks</span>
+  </h2>
+  <form action="/mine" method="post">
+    <input type="submit" class="button" value="Mine a Block">
+  </form>
+
+  <div class="blocks">
+    <% @node.bank.chain.last(10).reverse.each do |block| %>
+      <div class="block">
+        <div class="header">
+          <%= block.index %> — <%= block.timestamp %><br>
+        </div>
+        <table>
+          <% block.transactions.each do |tx| %>
+            <tr>
+              <td class="id">
+                <%= tx.id[0..2] %>
+              </td>
+              <td>
+                $<%= tx.amount %>
+              </td>
+              <td>
+                <%= tx.from[0..15] %> → <%= tx.to[0..15] %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
+  </div>
+  <p>
+    †: Miner Transaction - New $$ on the Market!
+  </p>
+</div>

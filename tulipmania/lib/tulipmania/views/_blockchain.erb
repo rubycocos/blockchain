@@ -1,0 +1,37 @@
+<div class="blockchain">
+  <h2>
+    Blockchain<br>
+    <span><%= @node.exchange.chain.size %> blocks</span>
+  </h2>
+  <form action="/mine" method="post">
+    <input type="submit" class="button" value="Mine a Block">
+  </form>
+
+  <div class="blocks">
+    <% @node.exchange.chain.last(10).reverse.each do |block| %>
+      <div class="block">
+        <div class="header">
+          <%= block.index %> — <%= block.timestamp %><br>
+        </div>
+        <table>
+          <% block.transactions.each do |tx| %>
+            <tr>
+              <td class="id">
+                <%= tx.id[0..2] %>
+              </td>
+              <td>
+                <%= tx.from[0..15] %> → <%= tx.to[0..15] %>
+              </td>
+              <td>
+                 <%= tx.what %> × <%= tx.qty %> 
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
+  </div>
+  <p>
+    †: Grower Transaction - New Tulips on the Market!
+  </p>
+</div>

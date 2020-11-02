@@ -1,0 +1,40 @@
+
+<div class="wallet">
+  <div class="details">
+    <h2>Address</h2>
+    <div><%= @node.wallet.address %></div>
+    <h2>Tulips</h2>
+    <div class="balance"><%= fmt_tulips(@node.exchange.ledger.wallets[@node.wallet.address] || {}) %></div>
+  </div>
+  <form action="/send" method="post" class="transaction-form">
+
+
+  <div style="display: flex; align-items: center; padding: 4px;">
+     <div>
+       <label for="to">To</label>
+       <input type="text" name="to" id="to" placeholder="address" size="7" />
+     </div>
+      <div>
+      <%  Tulipmania.config.tulips.each_with_index do |tulip,i|
+             enabled = @node.exchange.ledger.sufficient_tulips?( @node.wallet.address, 1, tulip )
+             next unless enabled   ## skip tulips w/o balance for now
+       %>
+       <div style="padding: 2px;">
+         <input type="radio" id="what<%= i %>" name="what" value="<%= tulip %>"
+            <%= enabled ?  '' : 'disabled' %> >
+         <label for="what<%= i %>" style="text-align: left;"
+            <%= enabled ?  '' : 'disabled' %> ><%= tulip %></label>
+       </div>
+      <% end %>
+    </div>
+
+   <div>
+    <label for="qty">Qty</label>
+    <input type="text" name="qty" id="qty" placeholder="1,2,3,..." size="3" />
+  </div>
+    <div style="padding-left: 6px;">
+      <input type="submit" class="button" value="Send" />
+    </div>
+  </div> <!-- inner flex box -->
+  </form>
+</div>
