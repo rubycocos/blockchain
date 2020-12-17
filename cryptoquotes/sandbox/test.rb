@@ -25,7 +25,6 @@ puts q['quote']
 
 Oracle.say
 Oracle.say
-Oracle.say
-
+Oracle.says
 
 puts "bye"

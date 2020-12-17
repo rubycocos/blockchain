@@ -2,5 +2,12 @@ CHANGELOG.md
 Manifest.txt
 README.md
 Rakefile
+bin/oracle
+data/Amy_Castor.yml
+data/David_Gerard.yml
+data/Frances_Coppola.yml
+data/Nouriel_Roubini.yml
+data/Patrick_McKenzie.yml
+data/Trolly_McTrollface.yml
 lib/cryptoquotes.rb
 lib/cryptoquotes/version.rb
