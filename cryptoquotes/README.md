@@ -170,7 +170,7 @@ That's it for now.
 ## Sources
 
 The crypto quotes sourced from
-[100+ Crypto Quotes - On the New New "In Math We Trust" Ponzi Economics - On Get-Rich-Quick Blockchain Secrets - On Bitcon Maximalists, Scammers, Morons, Clowns, Shills & BagHODLers and More»](https://github.com/openblockchains/crypto-quotes)
+[100+ Crypto Quotes - I HODL, you HODL, we HODL! - BREAKING: BITCOIN JUST BROKE $22 000!»](https://github.com/openblockchains/crypto-quotes)
 
 
 
