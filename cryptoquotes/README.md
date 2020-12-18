@@ -81,11 +81,25 @@ the largest fraud since Madoff's ponzi scheme.
     - Patrick McKenzie
 
 
-Bitcoin manipulated well before tether started to manipulate it...
+BREAKING: BITCOIN JUST BROKE $22,000!
 
-See "A Bot Named Willy: Did Mt. Gox's Automated Trading Pump Bitcoin's Price?"
+We have just reached escape velocity.
 
-    - Nouriel Roubini
+> Austrian Maximalist I comments:
+>
+> 1 Bitcoin = 1 Honda Civic
+>
+> Soon:
+>
+> 1 Bitcoin = 1 Tesla, then
+> 1 Bitcoin = 1 Lambo, then
+> 1 Bitcoin = 1 Super Yacht
+>
+> Austrian Maximalist II comments:
+>
+> Just keep HODLing until 1 Bitcoin = 1 Moonbase
+
+    - Bitcoiner
 ```
 
 
