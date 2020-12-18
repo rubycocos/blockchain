@@ -170,7 +170,7 @@ That's it for now.
 ## Sources
 
 The crypto quotes sourced from
-[100+ Crypto Quotes - I HODL, you HODL, we HODL! - BREAKING: BITCOIN JUST BROKE $22 000!»](https://github.com/openblockchains/crypto-quotes)
+[100+ Best of Crypto Quotes - I HODL, you HODL, we HODL! - BREAKING: BITCOIN JUST BROKE $22 000!»](https://github.com/openblockchains/crypto-quotes)
 
 
 
