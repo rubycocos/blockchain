@@ -8,7 +8,7 @@ Yes, but what if there's only 21 million of it?
 
 
 
-# Crypto Quotes
+# Crypto Quotes   - I HODL, you HODL, we HODL!
 
 cryptoquotes library / gem - incl. oracle tool to get a random crypto quote of the day on the command line - on the new new "in math we trust" ponzi economics - on get-rich-quick blockchain secrets - on bitcon maximalists, scammers, morons, clowns, shills & bagHODLers and more
 
@@ -134,7 +134,18 @@ Bitcoin user guide:
 
     - Trolly McTrollface
 ```
+or
+```
+Right now at the all-time high (ATH) no one who has HODL is down. That's a good feeling.
+    
+I HODL, you HODL, we HODL!
+    
+> Austrian Maximalist comments:
+>
+>  I bought at the all-time high (ATH) and I'm UP.
 
+    - Bitcoiner
+```
 
 If you want to get quotes in the source format
 (in memory)
