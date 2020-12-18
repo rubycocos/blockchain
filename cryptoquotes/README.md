@@ -8,7 +8,7 @@ Yes, but what if there's only 21 million of it?
 
 
 
-# Crypto Quotes   - I HODL, you HODL, we HODL!
+# Crypto Quotes   - I HODL, you HODL, we HODL! -  BREAKING: BITCOIN JUST BROKE $22 000!
 
 cryptoquotes library / gem - incl. oracle tool to get a random crypto quote of the day on the command line - on the new new "in math we trust" ponzi economics - on get-rich-quick blockchain secrets - on bitcon maximalists, scammers, morons, clowns, shills & bagHODLers and more
 
