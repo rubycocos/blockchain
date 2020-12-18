@@ -37,10 +37,13 @@ module Quotes
 
   def self.sources    ## rename to authors or datafiles or such - why? why not?
     ['Amy_Castor',
+     'Bitcoiner',
+     'Crypto_US$_Stablecoin_Printer',
      'David_Gerard',
      'Frances_Coppola',
      'Nouriel_Roubini',
      'Patrick_McKenzie',
+     'Preston_Byrne',
      'Trolly_McTrollface']
   end
 

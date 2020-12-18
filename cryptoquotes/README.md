@@ -7,6 +7,7 @@ Yes, but what if there's only 21 million of it?
   \- Trolly McTrollface
 
 
+
 # Crypto Quotes
 
 cryptoquotes library / gem - incl. oracle tool to get a random crypto quote of the day on the command line - on the new new "in math we trust" ponzi economics - on get-rich-quick blockchain secrets - on bitcon maximalists, scammers, morons, clowns, shills & bagHODLers and more

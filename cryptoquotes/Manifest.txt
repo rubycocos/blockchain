@@ -4,10 +4,13 @@ README.md
 Rakefile
 bin/oracle
 data/Amy_Castor.yml
+data/Bitcoiner.yml
+data/Crypto_US$_Stablecoin_Printer.yml
 data/David_Gerard.yml
 data/Frances_Coppola.yml
 data/Nouriel_Roubini.yml
 data/Patrick_McKenzie.yml
+data/Preston_Byrne.yml
 data/Trolly_McTrollface.yml
 lib/cryptoquotes.rb
 lib/cryptoquotes/version.rb
