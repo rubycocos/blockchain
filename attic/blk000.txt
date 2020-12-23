@@ -1,0 +1,8 @@
+---
+index         : 0
+timestamp     : 2017-09-19 10:01:38
+previous_hash : 0
+hash          : edbd4e11e69bc399a9ccd8faaea44fb27410fe8e3023bb9462450a0a9c4caa1b
+---
+
+Servus! Der Schilling ist zurück! The Schilling is back on the blockchain! Blockchain! Blockchain! Pack ma's! 
