@@ -171,4 +171,4 @@ end # class MerkleTree
 
 
 # say hello
-puts MerkleTree.banner    if defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG
+puts MerkleTree.banner      ## if defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG
