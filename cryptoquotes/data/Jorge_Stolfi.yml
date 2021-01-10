@@ -1,0 +1,78 @@
+######################
+#
+# Jorge Stolfi, Computer Scientist 
+
+- quote: |
+    Bitcoin is a Ponzi.
+    Investing in bitcoin, like "investing" in lottery tickets, is a very negative-sum game. 
+    Namely, at any time, the total amount that all investors have taken out is considerably 
+    less than what they have put into the scheme; the difference being the amount that the operators have taken out. 
+    Thus the investors, as a whole, are always in the red, and their collective loss only increases with time.
+  date: 2020-12-31
+  source: https://www.ic.unicamp.br/~stolfi/bitcoin/2020-12-31-bitcoin-ponzi.html
+
+- quote: | 
+    Bitcoin is a Ponzi.
+    As a minimum, the operators should warn investors of the negative-sum character and negative expected profit. 
+    In the case of bitcoin (and all other cryptos), not only that does not happen, 
+    but there are thousands of promoters and "investment experts" who predict impressive price increases 
+    and/or claim that bitcoin will have massive uses in the future that would somehow make it valuable. 
+    Apart from the mendacity of those claims, those promoters never point out that such massive uses 
+    would not translate into revenue for the investors.
+  date: 2020-12-31
+  source: https://www.ic.unicamp.br/~stolfi/bitcoin/2020-12-31-bitcoin-ponzi.html
+
+- quote: |
+    Bitcoin is a Ponzi.
+    The observation that investing in cryptocurrencies is a ponzi scheme is not new or a cheap shot. 
+    Among many others, it was expressed in 2014 by economists Nouriel Roubini of New York University  
+    and Kaushik Basu of the World Bank and echoed by investment analyst David Webb in 2017 
+    and by the World Bank's president Jim Yomh Kim in 2018.
+  date: 2020-12-31
+  source: https://www.ic.unicamp.br/~stolfi/bitcoin/2020-12-31-bitcoin-ponzi.html
+
+- quote: |
+    Bitcoin is a Ponzi. 
+    Objection! The operator must lie to investors about the source of profit in a Ponzi!
+    
+    Crypto promoters from Andreessen to Zhao actively spread many lies and misleading claims 
+    about the scheme, through malice or ignorance. Investment "experts" like Tom Lee, Mike Novogratz
+    and Dan Morehead often give extremely optimistic predictions 
+    for the price on business or mainstream media. Those predictions have no rational basis whatsoever, 
+    and, while qualified with "perhapses" an "maybes" and "not investment advice" disclaimers, 
+    they are obviously intended to promote investment in the coins.
+  date: 2020-12-31
+  source: https://www.ic.unicamp.br/~stolfi/bitcoin/2020-12-31-bitcoin-ponzi.html
+
+- quote: |
+    Bitcoin is a Ponzi. 
+    Objection! The operator must lie to investors about the source of profit in a Ponzi!
+    
+    Crypto promoters also make dozens of claims about the virtues of the currency and/or the payment system, 
+    such as that it will "one day" replace credit cards, replace national currencies, 
+    protect people's savings from inflation or confiscation by government, make banks obsolete, 
+    starve governments to death by depriving them of taxes or "money printing", 
+    enable support of dissidents in oppressive regimes, "bank the unbanked", 
+    allow free internet trade of drugs and other illegal items, 
+    end corruption, poverty, and inequality, etc. etc. etc.
+  date: 2020-12-31
+  source: https://www.ic.unicamp.br/~stolfi/bitcoin/2020-12-31-bitcoin-ponzi.html
+
+- quote: |
+    Bitcoin is a Ponzi. 
+    Objection! By that definition the U.S. Dollar (USD$) is a Ponzi! 
+
+    No, national currencies fail to fit the definition, because people do not "invest" 
+    in them with the expectation of gain. In fact, governments make their currencies 
+    slightly inflationary precisely to discourage hoarding.
+  date: 2020-12-31
+  source: https://www.ic.unicamp.br/~stolfi/bitcoin/2020-12-31-bitcoin-ponzi.html
+
+
+- quote: |
+    If a transaction has two inputs of 3 BTC and 1 BTC, 
+    and two outputs of 2 BTC and 2 BTC, you cannot tell which output came from which input.
+    
+    That is the basic principle of ~~money laundering~~ coin mixing services.
+  date: 2021-01-04
+  source: https://twitter.com/JorgeStolfi/status/1345873579116818437

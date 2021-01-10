@@ -15,7 +15,7 @@
   source: https://prestonbyrne.com/2017/12/08/bitcoin_ponzi/
 
 - quote: |
-    The Bitcoin "Nakamoto Scheme" have no central operator. 
+    The Bitcoin "Nakamoto Scheme" has no central operator. 
     This ensures that no single member or entity can be held liable 
     (as with a Ponzi or pyramid) and obscures the identity of participants from law enforcement.
 
@@ -48,3 +48,22 @@
     in order to access the billions of dollars currently sloshing around in the Bitcoin markets. 
   date: 2017-12-08
   source: https://prestonbyrne.com/2017/12/08/bitcoin_ponzi/
+
+
+- quote: |
+    An investment scheme backed by introducing new investors...
+ 
+    ...and not backed by income-generating assets can be called a number of things. 
+    I leave it to you to decide what name you will choose.
+  date: 2017-10-13
+  source: https://prestonbyrne.com/2017/10/13/basecoin-bitshares-2-electric-boogaloo/
+
+- quote: |
+    A stablecoin that is collateralized by itself is a complex and fragile 
+    "Nakamoto Scheme" - an automated hybrid of a Ponzi and pyramid scheme - 
+    doomed to fail.
+
+    A stablecoin that is collateralized by real assets and structured correctly 
+    is not a stablecoin, but a unit trust.
+  date: 2017-12-10
+  source: https://prestonbyrne.com/2017/12/10/stablecoins-are-doomed-to-fail/ 

@@ -171,3 +171,76 @@
   date: 2020-12-01
   source: https://twitter.com/Tr0llyTr0llFace/status/1333835035758235655
 
+
+- quote: |
+    The only way to pay out old Bitcoin investors is to get money from new investors. 
+    The only difference with a genuine Ponzi scheme, is who pays the old investors. 
+    It's not the "fraudsters", but exchanges. Neat!
+  date: 2020-12-30
+  source: http://www.tr0lly.com/bitcoin/bitcoin-is-not-a-literal-ponzi-scheme/
+
+- quote: |
+    One argument against Bitcoin being a Ponzi scheme, is that there's no intent to deceive.
+    Really? You have thousands of Bitcoin "personalities" spewing out crap daily.
+    
+    > I believe gold is sunsetting, whereas bitcoin is just starting.
+    >
+    > I believe the current (or what I call the legacy) system is broken. 
+    > And bitcoin fixes this. 
+    > 
+    > -- Changpeng Zhao ("CZ Binance"), Bitcoin Billionaire, Binance Exchange Founder
+  date: 2020-12-30
+  source: http://www.tr0lly.com/bitcoin/bitcoin-is-not-a-literal-ponzi-scheme/
+
+- quote: |
+    For the next three and a half years, block rewards will be worth 6.25 Bitcoins, 
+    or around 200,000 USD at current prices. 
+    Remember – there's one block reward every ten minutes, so that's $28M per day. 
+    That's a lot of money, and a huge incentive for miners to buy new ASICs and run them, burning electricity.
+    [...]
+    In a perfect market equilibrium, the cost of mining Bitcoin is equal to the rewards. 
+    It's never the exactly the case, but it's a good rule of thumb for evaluating how much it costs to run the network.
+  date: 2020-12-30
+  source: http://www.tr0lly.com/bitcoin/bitcoin-is-not-a-literal-ponzi-scheme/
+
+- quote: |
+    Forget the meme that "Bitcoin transactions are cheap". 
+    The true cost of a transaction isn't the "transaction fees" - those are indeed manageable, 
+    a few dollars per transaction - but the cost of maintaining the network. 
+    As the Bitcoin network currently processes around 300,000 transactions per day at a cost of $28M 
+    (plus transaction fees), the true cost of one transaction is around $100.
+  date: 2020-12-30
+  source: http://www.tr0lly.com/bitcoin/bitcoin-is-not-a-literal-ponzi-scheme/
+
+- quote: |
+    Over 200 cryptocurrency exchanges live off of trading fees. 
+    Transaction fees and bid/ask spreads, multiplied x-fold when traders put on leverage, 
+    stand for billions of dollars per year. 
+    It's safe to assume that exchanges make more money than miners, as a whole.
+  date: 2020-12-30
+  source: http://www.tr0lly.com/bitcoin/bitcoin-is-not-a-literal-ponzi-scheme/
+
+
+- quote: |
+    Now you have Tether and USDT. 22 billion almost dollars governed by a five-page disclaimer 
+    that USDTs are backed by whatever Tether wants, at whatever valuations Tether finds convenient. 
+    No credit rating, no bank, no auditor, no offices, no CEO and CFO, no guarantee whatsoever.
+  date: 2021-01-08
+  source: http://www.tr0lly.com/uncategorized/tether-heads-i-win-tails-you-lose/
+
+- quote: |
+    The USDT/USD peg is founded on the premise that people won't try to cash out en masse. 
+    As long as they don't, USDT printing can continue.
+  date: 2021-01-07
+  source: http://www.tr0lly.com/bitcoin/the-tether-press-and-bitcoins-speculative-mania/ 
+
+- quote: |
+    Why should Tether spend all its money (it is theirs, after all - 
+    USDT holders don't have a legal claim on Tether's reserves) 
+    trying to save the crypto markets, when they collapse? 
+    How many years would it take them to rebuild their war chest, 
+    assuming that crypto bounces back? 
+    Why not party on a yacht in Monaco instead?
+  date: 2021-01-08
+  source: http://www.tr0lly.com/uncategorized/tether-heads-i-win-tails-you-lose/
+
