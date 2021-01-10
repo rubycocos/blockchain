@@ -1,12 +1,14 @@
-# centralbank library / gem and command line tool
+# centralbank
 
+central bank library / gem and command line tool -
 print your own money / cryptocurrency; run your own federated central bank nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
 
 
-* home  :: [github.com/openblockchains/centralbank](https://github.com/openblockchains/centralbank)
-* bugs  :: [github.com/openblockchains/centralbank/issues](https://github.com/openblockchains/centralbank/issues)
+* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
+* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
 * gem   :: [rubygems.org/gems/centralbank](https://rubygems.org/gems/centralbank)
 * rdoc  :: [rubydoc.info/gems/centralbank](http://rubydoc.info/gems/centralbank)
+
 
 
 ## Command Line
@@ -14,7 +16,7 @@ print your own money / cryptocurrency; run your own federated central bank nodes
 Use the `centralbank` command line tool. Try:
 
 ```
-$ centralbank -h     
+$ centralbank -h
 ```
 
 resulting in:
@@ -108,6 +110,8 @@ In your browser open up the page e.g. `http://localhost:9292`. Voila! Happy mini
 ## References
 
 [**Programming Cryptocurrencies and Blockchains (in Ruby)**](http://yukimotopress.github.io/blockchains) by Gerald Bauer et al, 2018, Yuki & Moto Press
+
+And many more @ [**Best of Crypto Books**](https://openblockchains.github.io/crypto-books/) - a collection of books, white papers & more about crypto and blockchains
 
 
 ## License

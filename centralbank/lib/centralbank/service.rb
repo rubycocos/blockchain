@@ -5,7 +5,7 @@ module Centralbank
   class Service < Sinatra::Base
 
     def self.banner
-      "centralbank/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}] on Sinatra/#{Sinatra::VERSION} (#{ENV['RACK_ENV']})"
+      "centralbank/#{VERSION} on Ruby #{RUBY_VERSION} (#{RUBY_RELEASE_DATE}) [#{RUBY_PLATFORM}] on Sinatra/#{Sinatra::VERSION} (#{ENV['RACK_ENV']}) in (#{Centralbank.root})"
     end
 
 
@@ -13,7 +13,7 @@ module Centralbank
   VIEWS_FOLDER  = "#{Centralbank.root}/lib/centralbank/views"
 
   set :public_folder, PUBLIC_FOLDER # set up the static dir (with images/js/css inside)
-  set :views, VIEWS_FOLDER # set up the views dir
+  set :views,         VIEWS_FOLDER  # set up the views dir
 
   set :static, true # set up static file routing  -- check - still needed?
 

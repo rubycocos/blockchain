@@ -8,14 +8,14 @@ Hoe.spec 'centralbank' do
   self.summary = 'centralbank - print your own money / cryptocurrency; run your own federated central bank nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time'
   self.description = summary
 
-  self.urls    = ['https://github.com/openblockchains/centralbank']
+  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'ruby-talk@ruby-lang.org'
 
   # switch extension to .markdown for gihub formatting
   self.readme_file  = 'README.md'
-  self.history_file = 'History.md'
+  self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
     ['sinatra', '>=2.0'],
