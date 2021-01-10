@@ -25,4 +25,4 @@ require 'blockchain-lite/blockchain'
 
 
 # say hello
-puts BlockchainLite.banner    if defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG
+puts BlockchainLite.banner     ## if defined?($RUBYLIBS_DEBUG) && $RUBYLIBS_DEBUG

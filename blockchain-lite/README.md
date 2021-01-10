@@ -2,15 +2,16 @@
 
 blockchain-lite library / gem - build your own blockchain with crypto hashes - revolutionize the world with blockchains, blockchains, blockchains one block at a time
 
-* home  :: [github.com/openblockchains/blockchain.lite.rb](https://github.com/openblockchains/blockchain.lite.rb)
-* bugs  :: [github.com/openblockchains/blockchain.lite.rb/issues](https://github.com/openblockchains/blockchain.lite.rb/issues)
+* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
+* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
 * gem   :: [rubygems.org/gems/blockchain-lite](https://rubygems.org/gems/blockchain-lite)
 * rdoc  :: [rubydoc.info/gems/blockchain-lite](http://rubydoc.info/gems/blockchain-lite)
 
 
+
 ## What's a Blockchain?
 
-> A blockchain is a distributed database with
+> A blockchain is a
 > a list (that is, chain) of records (that is, blocks)
 > linked and secured by digital fingerprints
 > (that is, crypto hashes).
@@ -41,28 +42,28 @@ will pretty print (pp) something like:
 ```
 [#<Block:0x1eed2a0
   @index              = 0,
-  @timestamp          = 2017-09-15 20:52:38,
+  @timestamp          = 2021-09-15 20:52:38,
   @transactions_count = 1,
   @transactions       = ["Genesis"],
   @previous_hash      = "0",
   @hash               = "edbd4e11e69bc399a9ccd8faaea44fb27410fe8e3023bb9462450a0a9c4caa1b">,
  #<Block:0x1eec9a0
   @index              = 1,
-  @timestamp          = 2017-09-15 21:02:38,
+  @timestamp          = 2021-09-15 21:02:38,
   @transactions_count = 1,
   @transactions       = ["Transaction Data..."],
   @hash               = "eb8ecbf6d5870763ae246e37539d82e37052cb32f88bb8c59971f9978e437743",
   @previous_hash      = "edbd4e11e69bc399a9ccd8faaea44fb27410fe8e3023bb9462450a0a9c4caa1b">,
  #<Block:0x1eec838
   @index              = 2,
-  @timestamp          = 2017-09-15 21:12:38,
+  @timestamp          = 2021-09-15 21:12:38,
   @transactions_count = 1,
   @transactions       = ["Transaction Data..."],
   @hash               = "be50017ee4bbcb33844b3dc2b7c4e476d46569b5df5762d14ceba9355f0a85f4",
   @previous_hash      = "eb8ecbf6d5870763ae246e37539d82e37052cb32f88bb8c59971f9978e437743">,
  #<Block:0x1eec6d0
   @index              = 3,
-  @timestamp          = 2017-09-15 21:22:38
+  @timestamp          = 2021-09-15 21:22:38
   @transactions_count = 1,
   @transactions       = ["Transaction Data..."],
   @hash               = "5ee2981606328abfe0c3b1171440f0df746c1e1f8b3b56c351727f7da7ae5d8d",
@@ -283,15 +284,21 @@ resulting in:
 
 ## Blockchain Lite in the Real World
 
-- [**centralbank**](https://github.com/openblockchains/centralbank) - command line tool (and core library) - print your own money / cryptocurrency; run your own federated central bank nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
-- [**tulipmania**](https://github.com/openblockchains/tulipmania) - command line tool (and core library) - tulips on the blockchain; learn by example from the real world (anno 1637) - buy! sell! hodl! enjoy the beauty of admiral of admirals, semper augustus, and more; run your own hyper ledger tulip exchange nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
-- [**shilling**](https://github.com/bitshilling/bitshilling.tools) - command line tool (and core library) - shilling (or schilling) on the blockchain! rock-solid alpine dollar from austria; print (mine) your own shillings; run your own federated shilling central bank nodes w/ public distributed (hyper) ledger book on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
+- [**centralbank**](../centralbank) - command line tool (and core library) - print your own money / cryptocurrency; run your own federated central bank nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
+- [**tulipmania**](../tulipmania) - command line tool (and core library) - tulips on the blockchain; learn by example from the real world (anno 1637) - buy! sell! hodl! enjoy the beauty of admiral of admirals, semper augustus, and more; run your own hyper ledger tulip exchange nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
+
+<!--
+- [**shilling**](https://github.com/bitshilling/bitshilling) - command line tool (and core library) - shilling (or schilling) on the blockchain! rock-solid alpine dollar from austria; print (mine) your own shillings; run your own federated shilling central bank nodes w/ public distributed (hyper) ledger book on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
+-->
+
 - You? Add your tool / service
 
 
 ## References
 
 [**Programming Cryptocurrencies and Blockchains (in Ruby)**](http://yukimotopress.github.io/blockchains) by Gerald Bauer et al, 2018, Yuki & Moto Press
+
+And many more @ [**Best of Crypto Books**](https://openblockchains.github.io/crypto-books/) - a collection of books, white papers & more about crypto and blockchains
 
 
 

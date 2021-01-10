@@ -8,14 +8,14 @@ Hoe.spec 'blockchain-lite' do
   self.summary = "blockchain-lite - build your own blockchain with crypto hashes -  revolutionize the world with blockchains, blockchains, blockchains one block at a time"
   self.description = summary
 
-  self.urls    = ['https://github.com/openblockchains/blockchain.lite.rb']
+  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'wwwmake@googlegroups.com'
 
   # switch extension to .markdown for gihub formatting
   self.readme_file  = 'README.md'
-  self.history_file = 'HISTORY.md'
+  self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
     ['merkletree'],

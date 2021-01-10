@@ -30,6 +30,8 @@ Pass along all (leaf / data block) hashes as strings or packaged in an array.
 Example:
 
 ``` ruby
+require 'merkletree'
+
 merkle = MerkleTree.new(
   'eb8ecbf6d5870763ae246e37539d82e37052cb32f88bb8c59971f9978e437743',
   'edbd4e11e69bc399a9ccd8faaea44fb27410fe8e3023bb9462450a0a9c4caa1b',
@@ -144,13 +146,16 @@ puts merkle_root_value
 
 ## Merkle Tree in the Real World
 
-- [**blockchain-lite**](https://github.com/rubycoco/blockchain) - build your own blockchain with crypto hashes - revolutionize the world with blockchains, blockchains, blockchains one block at a time
+- [**blockchain-lite**](../blockchain-lite) - build your own blockchain with crypto hashes - revolutionize the world with blockchains, blockchains, blockchains one block at a time
 - You? Add your library / service
 
 
 ## References
 
 [**Programming Cryptocurrencies and Blockchains (in Ruby)**](http://yukimotopress.github.io/blockchains) by Gerald Bauer et al, 2018, Yuki & Moto Press
+
+
+And many more @ [**Best of Crypto Books**](https://openblockchains.github.io/crypto-books/) - a collection of books, white papers & more about crypto and blockchains
 
 
 
