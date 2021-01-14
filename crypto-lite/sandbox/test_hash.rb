@@ -51,3 +51,6 @@ pp sha256( "c", :openssl )
 
 puts "Hello, Cryptos!:"
 pp sha256( "Hello, Cryptos!" )
+
+
+puts "bye"
