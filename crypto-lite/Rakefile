@@ -1,0 +1,30 @@
+require 'hoe'
+require './lib/crypto-lite/version.rb'
+
+
+Hoe.spec 'crypto-lite' do
+
+  self.version = CryptoLite::VERSION
+
+  self.summary = "crypto-lite  - cryptographic secure hash functions and public key signature algorithms made easy"
+  self.description = summary
+
+  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end

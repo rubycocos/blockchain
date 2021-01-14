@@ -1,0 +1,11 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/crypto-lite.rb
+lib/crypto-lite/version.rb
+lib/crypto.rb
+lib/crypto/lite.rb
+test/helper.rb
+test/test_hash.rb
+test/test_version.rb
