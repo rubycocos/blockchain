@@ -53,4 +53,13 @@ puts "Hello, Cryptos!:"
 pp sha256( "Hello, Cryptos!" )
 
 
+pp keccak256( "Hello, Cryptos!" )
+pp rmd160( "Hello, Cryptos!" )
+
+
+pp hash160hex( '02b9d1cc0b793b03b9f64d022e9c67d5f32670b03f636abf0b3147b34123d13990' )
+pp hash160hex( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
+
+pp hash256hex( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
+
 puts "bye"

@@ -1,6 +1,6 @@
 ###
 #  to run use
-#     ruby -I ./lib -I ./test test/test_hash.rb
+#     ruby -I ./lib -I ./test test/test_hash_sha.rb
 
 
 require 'helper'

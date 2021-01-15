@@ -12,7 +12,7 @@
 
 ### Secure Hashing / Hash Functions
 
-SHA256 - Secure Hash Algorithm (SHA) 256-bits (32 bytes)
+**SHA256 - Secure Hash Algorithm (SHA) 256-Bits (32 Bytes)**
 
 
 ``` ruby
@@ -45,10 +45,64 @@ sha256( "Hello, Cryptos!" )  #=> "33eedea60b0662c66c289ceba71863a864cf84b00e1000
 
 
 
+**Keccak 256-Bit**
+
+``` ruby
+keccak256( "Hello, Cryptos!" )  #=> "2cf14baa817e931f5cc2dcb63c889619d6b7ae0794fc2223ebadf8e672c776f5"
+```
+
+
+**RMD  - RACE¹ Integrity Primitives Evaluation Message Digest 160-Bit**
+
+¹: Research and development in Advanced Communications technologies in Europe
+
+
+``` ruby
+rmd160( "Hello, Cryptos!" )  #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
+```
+
+
+
+#### Helpers
+
+**HASH160 -  RMD160(SHA256())**
+
+All-in-one "best-of-both-worlds" helper - first hash with sha256 and than hash with rmd160. Why?  Get the higher security of sha256 and the smaller size of rmd160.
+
+
+``` ruby
+hash160hex( '02b9d1cc0b793b03b9f64d022e9c67d5f32670b03f636abf0b3147b34123d13990' )
+=> "e6b145a3908a4d6616b13c1109717add8672c900"
+
+hash160hex( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
+=> "93ce48570b55c42c2af816aeaba06cfee1224fae"
+```
+
+Why hex? The input string is a hex string.
+Note: It's optional to start a hex string with `0x` or `0X`.
+
+
+
+**HASH256 -  SHA256(SHA256())**
+
+All-in-one double sha256 hash helper, that is, first hash with sha256 and than hash with sha256 again. Why?  Arguably higher security.
+
+``` ruby
+hash256hex( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
+=> "02335f08b8fe4ddad263a50b7a33c5d38ea1cbd8fd2056a1320a3ddece541711"
+```
+
+
+Why hex? The input string is a hex string.
+Note: It's optional to start a hex string with `0x` or `0X`.
+
+
+
+
 
 ### Public Key Signature Algorithms
 
-RSA - Rivest-Shamir-Adleman
+**RSA - Rivest, Shamir and Adleman**
 
 
 

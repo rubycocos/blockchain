@@ -19,6 +19,7 @@ Hoe.spec 'crypto-lite' do
   self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
+     ['digest-sha3-patched']
   ]
 
   self.licenses = ['Public Domain']
