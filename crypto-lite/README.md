@@ -28,6 +28,10 @@ sha256hex( '616263' )     #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb
 sha256hex( '0x616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 sha256hex( '0X616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 
+# "auto-magic" hex string to binary string conversion heuristic
+sha256( '0x616263' )      #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( '0X616263' )      #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+
 
 ## try a
 sha256( "a" )         #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
@@ -38,9 +42,82 @@ sha256( 0x61 )        #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807
 sha256hex( '61' )     #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 sha256hex( '0x61' )   #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 
+# "auto-magic" hex string to binary string conversion heuristic
+sha256( '0x61' )      #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+
 
 ## try some more
 sha256( "Hello, Cryptos!" )  #=> "33eedea60b0662c66c289ceba71863a864cf84b00e10002ca1069bf58f9362d5"
+```
+
+
+
+#### Aside - Hex String `'0x616263'` vs Binary String `'abc' == "\x61\x62\x63"`
+
+Note: All hash functions operate on binary strings ("byte arrays")
+and NOT hex strings.
+
+Note: For hex strings the `0x` or `0X` prefix is optional.
+Examples of hex strings:
+
+``` ruby
+# hex string      binary string ("byte array")
+'61'              'a' == "\x61"
+'0x61'            'a' == "\x61"
+
+'616263'          'abc' == "\x61\x62\x63"
+'0x616263'        'abc' == "\x61\x62\x63"
+'0X616263'        'abc' == "\x61\x62\x63"
+
+# or   160-bit hex string (hash)
+'93ce48570b55c42c2af816aeaba06cfee1224fae'
+'0x93ce48570b55c42c2af816aeaba06cfee1224fae'
+
+# or 256-bit hex string (hash)
+'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
+'0xba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
+```
+
+You can use `[str].pack( 'H*' )`
+to convert a hex string into a binary string.
+Note: The standard `Array#pack` conversion
+will NOT "auto-magically" cut-off the `0x` or `0X` prefix.
+
+
+If you know you have a hex string use the hex-variant of the hash function that will handle the hex-to-bin conversion for you. Example:
+
+``` ruby
+sha256hex( '61' )     #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+sha256hex( '0x61' )   #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+
+sha256hex( '616263' )     #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256hex( '0x616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256hex( '0X616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+```
+
+What about the built-in "auto-magic" hex-to-bin conversion / heuristic?
+
+Yes, if your passed in string starts with the
+the `0x` or `0X` prefix the string gets "auto-magically" converted
+to binary. Or if your passed in string is all hexadecimal characters,
+that is, `0-9` and `a-f` and has a minimum length of ten characters.
+Example:
+
+
+``` ruby
+# "auto-magic" hex string to binary string conversion heuristic
+
+sha256( '0x616263' )      #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( '0X616263' )      #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+
+# or without 0x or 0X BUT with minimum heuristic length
+hash160( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
+#=> "93ce48570b55c42c2af816aeaba06cfee1224fae"
+
+hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
+#=> "02335f08b8fe4ddad263a50b7a33c5d38ea1cbd8fd2056a1320a3ddece541711"
+
+# and so on
 ```
 
 
@@ -71,15 +148,12 @@ All-in-one "best-of-both-worlds" helper - first hash with sha256 and than hash w
 
 
 ``` ruby
-hash160hex( '02b9d1cc0b793b03b9f64d022e9c67d5f32670b03f636abf0b3147b34123d13990' )
-=> "e6b145a3908a4d6616b13c1109717add8672c900"
+hash160( '02b9d1cc0b793b03b9f64d022e9c67d5f32670b03f636abf0b3147b34123d13990' )
+#=> "e6b145a3908a4d6616b13c1109717add8672c900"
 
-hash160hex( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
-=> "93ce48570b55c42c2af816aeaba06cfee1224fae"
+hash160( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
+#=> "93ce48570b55c42c2af816aeaba06cfee1224fae"
 ```
-
-Why hex? The input string is a hex string.
-Note: It's optional to start a hex string with `0x` or `0X`.
 
 
 
@@ -88,13 +162,9 @@ Note: It's optional to start a hex string with `0x` or `0X`.
 All-in-one double sha256 hash helper, that is, first hash with sha256 and than hash with sha256 again. Why?  Arguably higher security.
 
 ``` ruby
-hash256hex( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
-=> "02335f08b8fe4ddad263a50b7a33c5d38ea1cbd8fd2056a1320a3ddece541711"
+hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
+#=> "02335f08b8fe4ddad263a50b7a33c5d38ea1cbd8fd2056a1320a3ddece541711"
 ```
-
-
-Why hex? The input string is a hex string.
-Note: It's optional to start a hex string with `0x` or `0X`.
 
 
 

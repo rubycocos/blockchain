@@ -10,15 +10,17 @@ require 'digest/sha3'  # e.g. keccak (original submission/proposal NOT official 
 
 
 
-
-
-
 ## our own code
 require 'crypto-lite/version'    # note: let version always go first
 
 
 
 module Crypto
+
+  ## check if it is a hex (string)
+  ##  - allow optiona 0x or 0X  and allow abcdef and ABCDEF
+  HEX_RE = /\A(?:0x)?[0-9a-f]+\z/i
+
 
 
   def self.message( input )  ## convert input to (binary) string
@@ -56,8 +58,10 @@ module Crypto
   end
 
   def self.keccak256( input )
+    input = hex_to_bin_automagic( input )  ## add automagic hex (string) to bin (string) check - why? why not?
     keccak256bin( input ).unpack( 'H*' )[0]
   end
+
 
 
   def self.rmd160bin( input )
@@ -66,6 +70,7 @@ module Crypto
   end
 
   def self.rmd160( input )
+    input = hex_to_bin_automagic( input )  ## add automagic hex (string) to bin (string) check - why? why not?
     rmd160bin( input ).unpack( 'H*' )[0]
   end
   ## todo/fix: add alias RIPEMD160 - why? why not?
@@ -86,20 +91,16 @@ module Crypto
   end
 
   def self.sha256( input, engine=nil )
+    input = hex_to_bin_automagic( input )  ## add automagic hex (string) to bin (string) check - why? why not?
     sha256bin( input, engine ).unpack( 'H*' )[0]
   end
 
 
-  def self.sha256hex( input, engine=nil )
-    ## convenience helper - lets you pass in hex string
+  def self.sha256hex( input, engine=nil )  ## convenience helper - lets you pass in hex string
+    raise ArgumentError, "expected hex string (0-9a-f) - got >#{input}< - can't pack string; sorry"   unless input =~ HEX_RE
 
-    ##  check if input starts with 0x or 0X if yes - (auto-)cut off!!!!!
-    if input.start_with?( '0x') || input.start_with?( '0X' )
-      input = input[2..-1]
-    end
-
-    raise ArgumentError, "expected hex string (0-9a-f) - got >#{input}< - can't pack string; sorry"   if input.downcase =~ /[^0-9a-f]/
-    sha256( [input].pack( 'H*' ), engine )
+    input = strip0x( input )  ##  check if input starts with 0x or 0X if yes - (auto-)cut off!!!!!
+    sha256bin( [input].pack( 'H*' ), engine ).unpack( 'H*' )[0]
   end
 
 
@@ -113,38 +114,80 @@ module Crypto
   #              ripemd160.unpack( "H*" )[0]    # Convert back to hex
   # end
 
-  def self.hash160hex( input )
-    ## convenience helper - lets you pass in hex string
+  def self.hash160bin( input )
+    message = message( input )   ## "normalize" / convert to (binary) string
 
-    ##  check if input starts with 0x or 0X if yes - (auto-)cut off!!!!!
-    if input.start_with?( '0x') || input.start_with?( '0X' )
-      input = input[2..-1]
-    end
-
-    raise ArgumentError, "expected hex string (0-9a-f) - got >#{input}< - can't pack string; sorry"   if input.downcase =~ /[^0-9a-f]/
-    sha256bin = sha256bin( [input].pack( 'H*' ) )
-    rmd160    = rmd160bin( sha256bin ).unpack( "H*" )[0]
-    rmd160
+    rmd160bin(sha256bin( message ))
   end
 
-  def self.hash256hex( input )
-    ## convenience helper - lets you pass in hex string
-
-    ##  check if input starts with 0x or 0X if yes - (auto-)cut off!!!!!
-    if input.start_with?( '0x') || input.start_with?( '0X' )
-      input = input[2..-1]
-    end
-
-    raise ArgumentError, "expected hex string (0-9a-f) - got >#{input}< - can't pack string; sorry"   if input.downcase =~ /[^0-9a-f]/
-    sha256bin = sha256bin( [input].pack( 'H*' ) )
-    sha256    = sha256bin( sha256bin ).unpack( "H*" )[0]
-    sha256
+  def self.hash160( input )
+    input = hex_to_bin_automagic( input )  ## add automagic hex (string) to bin (string) check - why? why not?
+    hash160bin( input ).unpack( 'H*' )[0]
   end
 
+  def self.hash160hex( input )  ## convenience helper - lets you pass in hex string
+    raise ArgumentError, "expected hex string (0-9a-f) - got >#{input}< - can't pack string; sorry"   unless input =~ HEX_RE
+
+    input = strip0x( input )  ##  check if input starts with 0x or 0X if yes - (auto-)cut off!!!!!
+    hash160bin( [input].pack( 'H*' ) ).unpack( 'H*' )[0]
+  end
+
+
+
+  def self.hash256bin( input )
+    message = message( input )   ## "normalize" / convert to (binary) string
+
+    sha256bin(sha256bin( message ))
+  end
+
+  def self.hash256( input )
+    input = hex_to_bin_automagic( input )  ## add automagic hex (string) to bin (string) check - why? why not?
+    hash256bin( input ).unpack( 'H*' )[0]
+  end
+
+  def self.hash256hex( input )  ## convenience helper - lets you pass in hex string
+    raise ArgumentError, "expected hex string (0-9a-f) - got >#{input}< - can't pack string; sorry"   unless input =~ HEX_RE
+
+    input = strip0x( input )  ##  check if input starts with 0x or 0X if yes - (auto-)cut off!!!!!
+    hash256bin( [input].pack( 'H*' ) ).unpack( "H*" )[0]
+  end
+
+
+  ########
+  # more helpers
+  def self.hex_to_bin_automagic( input )
+    ## todo/check/fix: add configure setting to turn off automagic - why? why not?
+     if input.is_a?( String ) && input =~ HEX_RE
+        if input[0,2] == '0x' || input[0,2] == '0X'
+          ## starting with 0x or 0X always assume hex string for now - why? why not?
+          input = input[2..-1]
+          [input].pack( 'H*' )
+        elsif input.size >= 10
+          ## note: hex heuristic!!
+          ##   for now assumes string MUST have more than 10 digits to qualify!!!
+          [input].pack( 'H*' )
+        else
+          input ## pass through as is!!! (e.g.   a, abc, etc.)
+        end
+     else
+          input  ## pass through as is
+     end
+  end
+
+
+  def self.strip0x( str )    ## todo/check: add alias e.g. strip_hex_prefix or such - why? why not?
+    (str[0,2] == '0x' || str[0,2] == '0X') ?  str[2..-1] : str
+  end
+
+  def self.hex_to_bin( str )
+    str = strip0x( str )  ##  check if input starts with 0x or 0X if yes - (auto-)cut off!!!!!
+    [str].pack( 'H*' )
+  end
 
   def self.pluralize( count, noun )
      count == 1 ? "#{count} #{noun}" : "#{count} #{noun}s"
   end
+
 
 
 
@@ -186,8 +229,11 @@ def keccak256( input )    Crypto.keccak256( input ); end
 
 def rmd160( input )    Crypto.rmd160( input ); end
 
-def hash160hex( input )   Crypto.hash160hex( input ); end
-def hash256hex( input )   Crypto.hash256hex( input ); end
+def hash160( input )    Crypto.hash160( input ); end
+def hash160hex( input ) Crypto.hash160hex( input ); end
+
+def hash256( input )    Crypto.hash256( input ); end
+def hash256hex( input ) Crypto.hash256hex( input ); end
 
 
 RSA = Crypto::RSA
