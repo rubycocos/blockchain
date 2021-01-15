@@ -52,7 +52,7 @@ sha256( "Hello, Cryptos!" )  #=> "33eedea60b0662c66c289ceba71863a864cf84b00e1000
 
 
 
-#### Aside - Hex String `'0x616263'` vs Binary String `'abc' == "\x61\x62\x63"`
+#### Aside - Hex String `"0x616263"` vs Binary String `"\x61\x62\x63" == "abc"`
 
 Note: All hash functions operate on binary strings ("byte arrays")
 and NOT hex strings.
@@ -62,20 +62,20 @@ Examples of hex strings:
 
 ``` ruby
 # hex string      binary string ("byte array")
-'61'              'a' == "\x61"
-'0x61'            'a' == "\x61"
+"61"              "\x61" == "a" 
+"0x61"            "\x61" == "a"
 
-'616263'          'abc' == "\x61\x62\x63"
-'0x616263'        'abc' == "\x61\x62\x63"
-'0X616263'        'abc' == "\x61\x62\x63"
+"616263"          "\x61\x62\x63" == "abc"
+"0x616263"        "\x61\x62\x63" == "abc"
+"0X616263"        "\x61\x62\x63" == "abc"
 
 # or   160-bit hex string (hash)
-'93ce48570b55c42c2af816aeaba06cfee1224fae'
-'0x93ce48570b55c42c2af816aeaba06cfee1224fae'
+"93ce48570b55c42c2af816aeaba06cfee1224fae"
+"0x93ce48570b55c42c2af816aeaba06cfee1224fae"
 
 # or 256-bit hex string (hash)
-'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
-'0xba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
+"ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+"0xba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 ```
 
 You can use `[str].pack( 'H*' )`
