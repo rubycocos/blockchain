@@ -1,0 +1,29 @@
+require 'hoe'
+require './lib/base58-alphabets/version.rb'
+
+Hoe.spec 'base58-alphabets' do
+
+  self.version = Base58::VERSION
+
+  self.summary = "base58-alphabets - base58 encoding / decoding with bitcoin or flickr notation / alphabet"
+  self.description = summary
+
+  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end

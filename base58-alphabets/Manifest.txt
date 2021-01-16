@@ -1,0 +1,11 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/base58-alphabets.rb
+lib/base58-alphabets/base.rb
+lib/base58-alphabets/base58.rb
+lib/base58-alphabets/bitcoin.rb
+lib/base58-alphabets/version.rb
+test/helper.rb
+test/test_base58_bitcoin.rb
