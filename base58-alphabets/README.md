@@ -13,6 +13,18 @@ Encode / decode numbers with Bitcoin or Flickr base58 notation / alphabet
 
 ## What's Base 58?
 
+The number of characters you are left with when you use
+all the characters in the alphanumeric alphabet,
+but remove all the easily mistakable characters like `0`, `O`, `l` and `I`
+is... 58.
+
+alphanumeric = `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz` (62 characters)
+
+base58       = ` 123456789ABCDEFGH JKLMN PQRSTUVWXYZabcdefghijk mnopqrstuvwxyz` (58 characters)
+
+
+
+From the Wikipedia:
 
 > Similar to Base64, but modified to avoid both non-alphanumeric
 > characters (`+` and `/`) and letters which might look ambiguous
@@ -25,17 +37,31 @@ Encode / decode numbers with Bitcoin or Flickr base58 notation / alphabet
 
 
 
+Why use base58?
+
+The more characters you have in your base, the less you will need to use to represent big numbers.
+The bigger your base, the shorter your "number". Example:
+
+``` ruby
+base10( 9999 )  #=> 9999      - decimal
+base16( 9999 )  #=> 270f      - hexadecimal
+base58( 9999 )  #=> 3yQ
+```
+
+
+
 ## Bitcoin
 
 The bitcoin notation / alphabet (`123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`)
 
 
 Triva Quiz: What characters (digits/letters) are
-missing in the base 56 alphabets?
+missing in the base 58 alphabets?
 
 -  `0` (Zero), `O` (Upper-O), `I` (Upper-I), `l` (Lower-L)
 
-Why use base56 (and not "standard" base64)?
+
+Why use base58 (and not "standard" base64)?
 
 ```
 // - Don't want 0OIl characters that look the same in some fonts and

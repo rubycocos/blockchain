@@ -9,3 +9,4 @@ lib/base58-alphabets/bitcoin.rb
 lib/base58-alphabets/version.rb
 test/helper.rb
 test/test_base58_bitcoin.rb
+test/test_bytes.rb

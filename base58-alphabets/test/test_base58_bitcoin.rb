@@ -13,10 +13,12 @@ def test_bitcoin
   assert_equal "2j",     Base58::Bitcoin.encode( 100 )
   assert_equal "4fr",    Base58::Bitcoin.encode( 12345 )
   assert_equal "b2pH",   Base58::Bitcoin.encode( 6639914 )
+  assert_equal "BukQL",  Base58::Bitcoin.encode( 123456789 )
 
-  assert_equal 100,      Base58::Bitcoin.decode( "2j" )
-  assert_equal 12345,    Base58::Bitcoin.decode( "4fr" )
-  assert_equal 6639914,  Base58::Bitcoin.decode( "b2pH" )
+  assert_equal 100,       Base58::Bitcoin.decode( "2j" )
+  assert_equal 12345,     Base58::Bitcoin.decode( "4fr" )
+  assert_equal 6639914,   Base58::Bitcoin.decode( "b2pH" )
+  assert_equal 123456789, Base58::Bitcoin.decode( "BukQL" )
 
 
   Base58.format = :bitcoin
