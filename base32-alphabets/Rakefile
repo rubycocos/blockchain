@@ -1,0 +1,29 @@
+require 'hoe'
+require './lib/base32-alphabets/version.rb'
+
+Hoe.spec 'base32-alphabets' do
+
+  self.version = Base32::VERSION
+
+  self.summary = "base32-alphabets - base32 (2^5) encoding / decoding in 5-bit groups with kai, crockford or electrologica notation / alphabet"
+  self.description = summary
+
+  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end

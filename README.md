@@ -3,6 +3,8 @@
 Gems:
 
 - [crypto-lite](crypto-lite) - cryptographic secure hash functions and public key signature algorithms made easy
+- [base32-alphabets](base32-alphabets) - base32 encoding / decoding in 5-bit groups (2^5=32) with kai, crockford or electrologica notations / alphabets
+
 
 <!-- break -->
 

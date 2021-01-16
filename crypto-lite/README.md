@@ -62,7 +62,7 @@ Examples of hex strings:
 
 ``` ruby
 # hex string      binary string ("byte array")
-"61"              "\x61" == "a" 
+"61"              "\x61" == "a"
 "0x61"            "\x61" == "a"
 
 "616263"          "\x61\x62\x63" == "abc"
@@ -126,7 +126,39 @@ hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
 
 ``` ruby
 keccak256( "Hello, Cryptos!" )  #=> "2cf14baa817e931f5cc2dcb63c889619d6b7ae0794fc2223ebadf8e672c776f5"
+keccak256( '' )                 #=> "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
 ```
+
+
+#### Aside - Keccak vs SHA3 / Original vs Official
+
+In 2004 the U.S. National Institute of Standards and Technology (NIST)
+changed the padding to `SHA3-256(M) = KECCAK [512] (M || 01, 256)`.
+This is different from the padding proposed by the Keccak team in
+the original Keccak SHA-3 submission version 3 (the final, winning version).
+The difference is the additional `'01'` bits appended to the message.
+
+To help avoid confusion the "submitted original version 3" SHA-3 Keccak
+hashing is now called "Keccak"
+and the finalized NIST SHA-3 standard "SHA3".
+
+Tip: If you don't know what variant of the hash function you have -
+original or official? - check your hash:
+
+For keccak 256-bit:
+
+``` ruby
+keccak256( '' )          #=> "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+keccak256( 'Hello, Cryptos!' ) #=> "2cf14baa817e931f5cc2dcb63c889619d6b7ae0794fc2223ebadf8e672c776f5"
+```
+
+For sha3 256-bit:
+
+``` ruby
+sha3_256( '' )           #=> "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+sha3_256( 'Hello, Cryptos!' )  # => ??
+```
+
 
 
 **RMD  - RACE¹ Integrity Primitives Evaluation Message Digest 160-Bit**
