@@ -35,10 +35,17 @@
    - <https://github.com/oleganza/btcruby/blob/master/lib/btcruby/base58.rb>
    - <https://github.com/oleganza/btcruby/blob/master/spec/base58_spec.rb>
 
-## More base58 libs in go, etc.
+## More base58 libs in go, elixir, python etc.
 
 - <https://github.com/decred/base58>
   - <https://github.com/decred/base58/blob/master/base58.go>
   - <https://github.com/decred/base58/blob/master/base58_test.go>
+
+- <https://hexdocs.pm/basefiftyeight/B58.html>
+  - <https://hexdocs.pm/basefiftyeight/faq.html>
+
+- <https://pypi.org/project/base58/>
+
+
 
 
