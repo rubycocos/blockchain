@@ -23,7 +23,8 @@ NUM_TESTS = [
 ]
 
 HEX_TESTS = [
-  ["", ""],
+  ["",  ""],
+  ["00","1"],
   ["00000000000000000000", "1111111111"],
   ["00000000000000000000123456789abcdef0", "111111111143c9JGph3DZ"],
   ["13", "L"],
@@ -33,12 +34,17 @@ HEX_TESTS = [
   ["636363", "aPEr"],
   ["73696d706c792061206c6f6e6720737472696e67", "2cFupjhnEsSn59qHXstmK2ffpLv2"],
   ["00eb15231dfceb60925886b67d065299925915aeb172c06647", "1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L"],
+  ["0093ce48570b55c42c2af816aeaba06cfee1224faebb6127fe", "1EUXSxuUVy2PC5enGXR1a3yxbEjNWMHuem"],
   ["516b6fcd0f", "ABnLTmg"],
   ["bf4f89001e670274dd", "3SEo3LWLoPntC"],
   ["572e4794", "3EFU7m"],
   ["ecac89cad93923c02321", "EJDM8drfXA6uyA"],
   ["10c8511e", "Rt5zm"],
 ]
+
+
+
+
 
 BIN_TESTS = [
    ["\xCE\xE99\x86".b, "6Hknds"],
@@ -48,7 +54,19 @@ BIN_TESTS = [
    ["\xCE\xEA\xAA(".b, "6HmGgw"],
    ["\xCE\xD1\x9Ek".b, "6Hcrkr"],
    ["\x01\xAD<l'\xAF!\x96N\x93u\x93\xE2\xAF\x92p\x96=\x89n\xD7\x953\x17\x12\x8E\xBD\xA2\x04\x84~Z".b, "7Ycsh3K7oGpLTcQpNx1h7Z19fVbZ4TXqEYePfdFwDZT"],
-]
+
+   ["".b,   ""],
+   [" ".b, "Z"],
+   ["-".b, "n"],
+   ["0".b, "q"],
+   ["1".b, "r"],
+   ["-1".b, "4SU"],
+   ["11".b, "4k8"],
+   ["abc".b, "ZiCa"],
+   ["1234598760".b, "3mJr7AoUXx2Wqd"],
+   ["abcdefghijklmnopqrstuvwxyz".b, "3yxU3u1igY8WkgtjK92fbJQCd4BZiiT1v25f"],
+   ["00000000000000000000000000000000000000000000000000000000000000".b, "3sN2THZeE9Eh9eYrwkvZqNstbHGvrxSAM7gXUXvyFQP8XvQLUqNCS27icwUeDT7ckHm4FUHM2mTVh1vbLmk7y"],
+  ]
 
 
 
