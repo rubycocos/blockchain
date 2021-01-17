@@ -193,6 +193,11 @@ hash160( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
 
 All-in-one double sha256 hash helper, that is, first hash with sha256 and than hash with sha256 again. Why?  Arguably higher security.
 
+> SHA256(SHA256()) was proposed by Ferguson and Schneier in their excellent book "Practical Cryptography" 
+> (later updated by Ferguson, Schneier, and Kohno and renamed "Cryptography Engineering") as a way to make SHA256 invulnerable 
+> to "length-extension" attack. They called it "SHA256d". 
+
+
 ``` ruby
 hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
 #=> "02335f08b8fe4ddad263a50b7a33c5d38ea1cbd8fd2056a1320a3ddece541711"
