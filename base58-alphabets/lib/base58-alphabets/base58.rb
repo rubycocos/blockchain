@@ -1,12 +1,10 @@
 module Base58
 
-  BASE = 58    #  ALPHABET.length == 58   ## 58 chars/letters/digits
-
   class Configuration
 
      MAPPING = {
        bitcoin:    Bitcoin,
-       ## flickr:     Flickr,
+       flickr:     Flickr,
      }
 
      attr_reader :format
@@ -44,38 +42,15 @@ module Base58
 
 
 
-  def self.encode( num_or_bytes, klass: configuration.format )
-    klass.encode( num_or_bytes )
-  end
+  def self.encode_num( num,  klass: configuration.format ) klass.encode_num( num );  end
+  def self.encode_bin( data, klass: configuration.format ) klass.encode_bin( data ); end
+  def self.encode_hex( str,  klass: configuration.format ) klass.encode_hex( str );  end
 
-  def self.decode( str_or_bytes, klass: configuration.format )
-    klass.decode( str_or_bytes )
-  end
-
-
+  def self.decode_num( str,  klass: configuration.format ) klass.decode_num( str ); end
+  def self.decode_bin( str,  klass: configuration.format ) klass.decode_bin( str ); end
+  def self.decode_hex( str,  klass: configuration.format ) klass.decode_hex( str ); end
 
 
-  ####
-  # (private) helper - note: leading underscore in name e.g. _bytes
-  def self._bytes( num )
-    b = []
-    while num >= BASE
-      mod = num % BASE
-      b << mod
-      num = (num - mod) / BASE
-    end
-    b << num
-    b = b.reverse
-    b
-  end
-
-  def self._pack( bytes )
-    num = 0
-    bytes.reverse.each_with_index do |byte,index|
-      num += byte * (BASE**(index))
-    end
-    num
-  end
 
   ## encoding alphabet - letter-to-number by index / array
   def self.alphabet( klass: configuration.format ) klass.alphabet; end

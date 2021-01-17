@@ -8,6 +8,7 @@ require 'base58-alphabets/version'    # note: let version always go first
 
 require 'base58-alphabets/base'
 require 'base58-alphabets/bitcoin'
+require 'base58-alphabets/flickr'
 require 'base58-alphabets/base58'
 
 

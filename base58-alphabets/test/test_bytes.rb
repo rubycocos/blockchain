@@ -12,15 +12,15 @@ class TestBytes < MiniTest::Test
 
 
 def test_bytes
-   bytes = Base58._bytes( 123456789 )
+   bytes = Base58::Base._bytes( 123456789 )
    ## pp bytes
 
    assert_equal [10,52,43,23,19], bytes
 
-   assert_equal 123456789, Base58._pack( bytes )
+   assert_equal 123456789, Base58::Base._pack( bytes )
 
 
-   assert_equal 123456789, Base58._pack( Base58._bytes( 123456789 ))
+   assert_equal 123456789, Base58::Base._pack( Base58::Base._bytes( 123456789 ))
 end
 
 end  # class TestBytes

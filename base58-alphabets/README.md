@@ -55,12 +55,6 @@ base58( 9999 )  #=> 3yQ
 The bitcoin notation / alphabet (`123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`)
 
 
-Triva Quiz: What characters (digits/letters) are
-missing in the base 58 alphabets?
-
--  `0` (Zero), `O` (Upper-O), `I` (Upper-I), `l` (Lower-L)
-
-
 Why use base58 (and not "standard" base64)?
 
 ```
@@ -94,6 +88,19 @@ Why use base58 (and not "standard" base64)?
 | 48  | **q**     |  49 | **r**     |  50 | **s**     |  51 | **t**   |
 | 52  | **u**     |  53 | **v**     |  54 | **w**     |  55 | **x**   |
 | 56  | **y**     |  57 | **z**     |
+
+Note: `0` (Zero), `O` (Upper-O), `I` (Upper-I), `l` (Lower-L) - these four characters (digits/letters) are
+missing in the base 58 alphabets.
+
+
+
+
+
+
+## Flickr
+
+The flickr notation / alphabet (`123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ`)
+
 
 
 
