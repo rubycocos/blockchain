@@ -1,6 +1,6 @@
 # Base58 Encoding / Decoding
 
-Encode / decode numbers with Bitcoin or Flickr base58 notation / alphabet
+Encode / decode numbers, hex or binary strings (incl. leading zeros) with Bitcoin or Flickr base58 notation / alphabet
 
 
 * home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
@@ -11,46 +11,14 @@ Encode / decode numbers with Bitcoin or Flickr base58 notation / alphabet
 
 
 
-## What's Base 58?
+## Base58 Alphabets
 
-The number of characters you are left with when you use
-all the characters in the alphanumeric alphabet,
-but remove all the easily mistakable characters like `0`, `O`, `l` and `I`
-is... 58.
-
-alphanumeric = `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz` (62 characters)
-
-base58       = ` 123456789ABCDEFGH JKLMN PQRSTUVWXYZabcdefghijk mnopqrstuvwxyz` (58 characters)
+[Bitcoin](#bitcoin) •
+[Flickr](#flickr)
 
 
 
-From the Wikipedia:
-
-> Similar to Base64, but modified to avoid both non-alphanumeric
-> characters (`+` and `/`) and letters which might look ambiguous
-> when printed (`0` - zero, `I` - capital i, `O` - capital o and `l` - lower case L).
-> Satoshi Nakamoto invented the base58 encoding scheme when creating bitcoin.
-> Some messaging and social media systems line break on non-alphanumeric
-> strings. This is avoided by not using URI reserved characters such as `+`.
->
-> (Source: [Base58 @ Wikipedia](https://en.wikipedia.org/wiki/Binary-to-text_encoding#Base58))
-
-
-
-Why use base58?
-
-The more characters you have in your base, the less you will need to use to represent big numbers.
-The bigger your base, the shorter your "number". Example:
-
-``` ruby
-base10( 9999 )  #=> 9999      - decimal
-base16( 9999 )  #=> 270f      - hexadecimal
-base58( 9999 )  #=> 3yQ
-```
-
-
-
-## Bitcoin
+### Bitcoin
 
 The bitcoin notation / alphabet (`123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`)
 
@@ -72,7 +40,7 @@ Why use base58 (and not "standard" base64)?
 
 
 
-### Bitcoin (Base58) Notation
+#### Bitcoin (Base58) Notation
 
 |Num  |Character  |Num  |Character  |Num  |Character  |Num  |Character|
 |----:|----------:|----:|----------:|----:|----------:|----:|--------:|
@@ -173,7 +141,7 @@ Base58::Bitcoin.decode_bin( "6Hknds" )   #=> "\xCE\xE99\x86"
 
 
 
-## Flickr
+### Flickr
 
 The flickr notation / alphabet (`123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ`)
 
@@ -200,6 +168,44 @@ Base58::Flickr.decode_num( "4ER" )     #=> 12345
 
 That's it.
 
+
+
+## What's Base 58?
+
+The number of characters you are left with when you use
+all the characters in the alphanumeric alphabet,
+but remove all the easily mistakable characters like `0`, `O`, `l` and `I`
+is... 58.
+
+alphanumeric = `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz` (62 characters)
+
+base58       = ` 123456789ABCDEFGH JKLMN PQRSTUVWXYZabcdefghijk mnopqrstuvwxyz` (58 characters)
+
+
+
+From the Wikipedia:
+
+> Similar to Base64, but modified to avoid both non-alphanumeric
+> characters (`+` and `/`) and letters which might look ambiguous
+> when printed (`0` - zero, `I` - capital i, `O` - capital o and `l` - lower case L).
+> Satoshi Nakamoto invented the base58 encoding scheme when creating bitcoin.
+> Some messaging and social media systems line break on non-alphanumeric
+> strings. This is avoided by not using URI reserved characters such as `+`.
+>
+> (Source: [Base58 @ Wikipedia](https://en.wikipedia.org/wiki/Binary-to-text_encoding#Base58))
+
+
+
+Why use base58?
+
+The more characters you have in your base, the less you will need to use to represent big numbers.
+The bigger your base, the shorter your "number". Example:
+
+``` ruby
+base10( 9999 )  #=> 9999      - decimal
+base16( 9999 )  #=> 270f      - hexadecimal
+base58( 9999 )  #=> 3yQ
+```
 
 
 ## Install

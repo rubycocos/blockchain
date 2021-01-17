@@ -5,7 +5,7 @@ Hoe.spec 'base58-alphabets' do
 
   self.version = Base58::VERSION
 
-  self.summary = "base58-alphabets - base58 encoding / decoding with bitcoin or flickr notation / alphabet"
+  self.summary = "base58-alphabets - base58 encoding / decoding numbers, hex or binary strings (incl. leading zeros) with bitcoin or flickr notation / alphabet"
   self.description = summary
 
   self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
