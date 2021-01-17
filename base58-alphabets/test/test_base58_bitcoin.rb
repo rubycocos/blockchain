@@ -27,6 +27,7 @@ HEX_TESTS = [
   ["00","1"],
   ["00000000000000000000", "1111111111"],
   ["00000000000000000000123456789abcdef0", "111111111143c9JGph3DZ"],
+  ["0000287fb4cd", "111233QC4"],  ## todo/check: one 1 too many?
   ["13", "L"],
   ["2e", "o"],
   ["61", "2g"],
@@ -46,7 +47,7 @@ HEX_TESTS = [
   ["eff69ef2b1bd93a66ed5219add4fb51e11a840f404876325a1e8ffe0529a2c",
    "4fE3H2E6XMp4SsxtwinF7w9a34ooUrwWe4WsW1458Pd"],
   ["c7207fee197d27c618aea621406f6bf5ef6fca38681d82b2f06fddbdce6feab6",
-   "EQJsjkd6JaGwxrjEhfeqPenqHwrBmPQZjJGNSCHBkcF7"],
+   "EQJsjkd6JaGwxrjEhfeqPenqHwrBmPQZjJGNSCHBkcF7"],  
 ]
 
 
@@ -73,6 +74,9 @@ BIN_TESTS = [
    ["1234598760".b, "3mJr7AoUXx2Wqd"],
    ["abcdefghijklmnopqrstuvwxyz".b, "3yxU3u1igY8WkgtjK92fbJQCd4BZiiT1v25f"],
    ["00000000000000000000000000000000000000000000000000000000000000".b, "3sN2THZeE9Eh9eYrwkvZqNstbHGvrxSAM7gXUXvyFQP8XvQLUqNCS27icwUeDT7ckHm4FUHM2mTVh1vbLmk7y"],
+  
+   ["Hello World!".b, "2NEpo7TZRRrLZSi2U"],   ## todo/check if ok
+   ["The quick brown fox jumps over the lazy dog.".b, "USm3fpXnKG5EUBx2ndxBDMPVciP5hGey2Jh4NDv6gmeo1LkMeiKrLJUUBk6Z"],  ## todo/check if ok
   ]
 
 
