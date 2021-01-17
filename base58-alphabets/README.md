@@ -54,6 +54,9 @@ base58( 9999 )  #=> 3yQ
 
 The bitcoin notation / alphabet (`123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`)
 
+The order of it's 58 characters is numeric, uppercase-alpha, lowercase-alpha.
+
+
 
 Why use base58 (and not "standard" base64)?
 
@@ -93,6 +96,79 @@ Note: `0` (Zero), `O` (Upper-O), `I` (Upper-I), `l` (Lower-L) - these four chara
 missing in the base 58 alphabets.
 
 
+**Usage**
+
+
+Encode / Decode Numbers
+
+```ruby
+require 'base58-alphabets'
+
+Base58.encode_num( 100 )        #=> "2j"
+Base58.encode_num( 123456789 )  #=> "BukQL"
+
+Base58.decode_num( "2j")        #=> 100
+Base58.decode_num( "BukQL" )    #=> 123456789
+
+# or
+
+Base58::Bitcoin.encode_num( 100 )        #=> "2j"
+Base58::Bitcoin.encode_num( 123456789 )  #=> "BukQL"
+
+Base58::Bitcoin.decode_num( "2j")        #=> 100
+Base58::Bitcoin.decode_num( "BukQL" )    #=> 123456789
+```
+
+Encode / Decode Hex Strings
+
+```ruby
+Base58.encode_hex( "626262" )      #=> "a3gV"
+# Note: The `0x` or `0X` hex prefix is optional.
+Base58.encode_hex( "0x626262" )    #=> "a3gV"
+Base58.encode_hex( "0X626262" )    #=> "a3gV"
+Base58.encode_hex( "516b6fcd0f" )  #=> "ABnLTmg"
+
+Base58.decode_hex( "a3gV" )      #=> "626262"
+Base58.decode_hex( "ABnLTmg" )   #=> "516b6fcd0f"
+
+# or
+
+Base58::Bitcoin.encode_hex( "626262" )      #=> "a3gV"
+Base58::Bitcoin.encode_hex( "516b6fcd0f" )  #=> "ABnLTmg"
+
+Base58::Bitcoin.decode_hex( "a3gV" )      #=> "626262"
+Base58::Bitcoin.decode_hex( "ABnLTmg" )   #=> "516b6fcd0f"
+```
+
+
+What about leading zeros?
+
+Yes, if you use a hex or binary string - the leading zero bytes
+will get encoded / decoded (converted from `00` to `1` and back):
+
+```ruby
+Base58.encode_hex( "00000000000000000000" ) #=> "1111111111"
+Base58.encode_hex( "00000000000000000000123456789abcdef0" ) #=> "111111111143c9JGph3DZ"
+
+Base58.decode_hex( "1111111111" )  #=> "00000000000000000000"
+Base58.decode_hex( "111111111143c9JGph3DZ" )  #=> "00000000000000000000123456789abcdef0"
+```
+
+
+
+Encode / Decode Bin(ary) Strings
+
+```ruby
+Base58.encode_bin( "\xCE\xE99\x86".b )   #=>  "6Hknds"
+
+Base58.decode_bin( "6Hknds" )   #=> "\xCE\xE99\x86"
+
+# or
+
+Base58::Bitcoin.encode_bin( "\xCE\xE99\x86".b )   #=>  "6Hknds"
+
+Base58::Bitcoin.decode_bin( "6Hknds" )   #=> "\xCE\xE99\x86"
+```
 
 
 
@@ -101,8 +177,36 @@ missing in the base 58 alphabets.
 
 The flickr notation / alphabet (`123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ`)
 
+The order of it's 58 characters is numeric, lowercase-alpha, uppercase-alpha.
 
 
+
+Encode / Decode Numbers
+
+```ruby
+Base58.format = :flickr    # switch to flickr alphabet (default is bitcoin)
+
+Base58.encode_num( 12345 )     #=> "4ER"
+
+Base58.decode_num( "4ER" )     #=> 12345
+
+# or
+
+Base58::Flickr.encode_num( 12345 )     #=> "4ER"
+
+Base58::Flickr.decode_num( "4ER" )     #=> 12345
+```
+
+
+That's it.
+
+
+
+## Install
+
+Just install the gem:
+
+    $ gem install base58-alphabets
 
 
 
