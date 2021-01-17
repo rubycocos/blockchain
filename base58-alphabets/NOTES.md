@@ -20,7 +20,7 @@
 
 - <https://learnmeabitcoin.com/technical/base58>
 - <https://en.bitcoin.it/wiki/Base58Check_encoding>
-
+- <https://tools.ietf.org/id/draft-msporny-base58-01.html>
 
 
 ## More ruby base58 gems / libraries
