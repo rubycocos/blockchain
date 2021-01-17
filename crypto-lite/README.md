@@ -12,7 +12,7 @@
 
 ### Secure Hashing / Hash Functions
 
-**SHA256 - Secure Hash Algorithm (SHA) 256-Bits (32 Bytes)**
+**SHA256 - Secure Hash Algorithm (SHA) 256-Bit (32 Bytes)**
 
 
 ``` ruby
@@ -148,15 +148,15 @@ original or official? - check your hash:
 For keccak 256-bit:
 
 ``` ruby
-keccak256( '' )          #=> "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+keccak256( '' )                #=> "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
 keccak256( 'Hello, Cryptos!' ) #=> "2cf14baa817e931f5cc2dcb63c889619d6b7ae0794fc2223ebadf8e672c776f5"
 ```
 
 For sha3 256-bit:
 
 ``` ruby
-sha3_256( '' )           #=> "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
-sha3_256( 'Hello, Cryptos!' )  # => ??
+sha3_256( '' )                 #=> "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+sha3_256( 'Hello, Cryptos!' )  #=> "7dddf4bc9b86352b67e8823e5010ddbd2a90a854469e2517992ca7ca89e5bd58"
 ```
 
 
@@ -167,14 +167,16 @@ sha3_256( 'Hello, Cryptos!' )  # => ??
 
 
 ``` ruby
-rmd160( "Hello, Cryptos!" )  #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
+rmd160( "Hello, Cryptos!" )     #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
+# or use the alias / alternate name
+ripemd160( "Hello, Cryptos!" )  #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
 ```
 
 
 
-#### Helpers
+#### Hash Function Helpers
 
-**HASH160 -  RMD160(SHA256())**
+**HASH160 -  RMD160(SHA256(X))**
 
 All-in-one "best-of-both-worlds" helper - first hash with sha256 and than hash with rmd160. Why?  Get the higher security of sha256 and the smaller size of rmd160.
 
@@ -188,14 +190,13 @@ hash160( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
 ```
 
 
-
-**HASH256 -  SHA256(SHA256())**
+**HASH256 -  SHA256(SHA256(X))**
 
 All-in-one double sha256 hash helper, that is, first hash with sha256 and than hash with sha256 again. Why?  Arguably higher security.
 
-> SHA256(SHA256()) was proposed by Ferguson and Schneier in their excellent book "Practical Cryptography" 
+> SHA256(SHA256(X)) was proposed by Ferguson and Schneier in their excellent book "Practical Cryptography" 
 > (later updated by Ferguson, Schneier, and Kohno and renamed "Cryptography Engineering") as a way to make SHA256 invulnerable 
-> to "length-extension" attack. They called it "SHA256d". 
+> to "length-extension" attack. They called it "SHA256D". 
 
 
 ``` ruby
@@ -203,7 +204,35 @@ hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
 #=> "02335f08b8fe4ddad263a50b7a33c5d38ea1cbd8fd2056a1320a3ddece541711"
 ```
 
+##### Base58 Encoding / Decoding Helpers
 
+**BASE58**
+
+Base58 encoding / decoding with leading zero bytes (in hex or binary strings) getting encoded from `00` to `1` and back: 
+
+``` ruby
+base58( "516b6fcd0f" )    #=> "ABnLTmg"
+base58( "00000000000000000000123456789abcdef0" )   #=> "111111111143c9JGph3DZ"
+# or with optional 0x or 0X prefix
+base58( "0x516b6fcd0f" )  #=> "ABnLTmg"
+base58( "0x00000000000000000000123456789abcdef0" ) #=> "111111111143c9JGph3DZ"
+
+unbase58( "ABnLTmg" )  #=> "516b6fcd0f" 
+unbase58( "111111111143c9JGph3DZ" ) #=> "00000000000000000000123456789abcdef0" 
+```
+
+
+**BASE58CHECK -  BASE58(X || SHA256(SHA256(X))[:4])**
+
+Base58 encoding with an extra 4-byte secure hash checksum.
+
+``` ruby
+base58check( "516b6fcd0f" )  #=> ??
+base58check( "00000000000000000000123456789abcdef0" ) #=> ??
+
+unbase58check( ?? )   #=> "516b6fcd0f"
+unbase58check( ?? )   #=> "00000000000000000000123456789abcdef0"
+```
 
 
 
