@@ -138,6 +138,7 @@ module Crypto
        if engine && ['openssl'].include?( engine.to_s.downcase )
          puts "  engine: #{engine}"    if debug?
          digest = OpenSSL::Digest::SHA256.new
+         ## or use OpenSSL::Digest.new( 'SHA256' )
          digest.update( message )
          digest.digest
        else  ## use "built-in" hash function from digest module
@@ -156,6 +157,27 @@ module Crypto
 
     input = strip0x( input )  ##  check if input starts with 0x or 0X if yes - (auto-)cut off!!!!!
     sha256bin( [input].pack( 'H*' ), engine ).unpack( 'H*' )[0]
+  end
+
+
+  def self.sha3_256bin( input )
+    message = message( input )  ## "normalize" / convert to (binary) string
+
+    digest = OpenSSL::Digest.new( 'SHA3-256' )
+    digest.update( message )
+    digest.digest
+  end
+
+  def self.sha3_256( input )
+    input = hex_to_bin_automagic( input )  ## add automagic hex (string) to bin (string) check - why? why not?
+    sha3_256bin( input ).unpack( 'H*' )[0]
+  end
+
+  def self.sha3_256hex( input )
+    raise ArgumentError, "expected hex string (0-9a-f) - got >#{input}< - can't pack string; sorry"   unless input =~ HEX_RE
+
+    input = strip0x( input )  ##  check if input starts with 0x or 0X if yes - (auto-)cut off!!!!!
+    sha3_256bin( [input].pack( 'H*' ) ).unpack( 'H*' )[0]
   end
 
 
@@ -279,6 +301,9 @@ end # module Crypto
 ## add convenience "top-level" helpers
 def sha256( input, engine=nil )    Crypto.sha256( input, engine ); end
 def sha256hex( input, engine=nil ) Crypto.sha256hex( input, engine ); end
+
+def sha3_256( input )    Crypto.sha3_256( input ); end
+def sha3_256hex( input ) Crypto.sha3_256hex( input ); end
 
 def keccak256( input )    Crypto.keccak256( input ); end
 

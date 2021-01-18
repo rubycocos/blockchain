@@ -61,6 +61,67 @@ sha256( "Hello, Cryptos!" )  #=> "33eedea60b0662c66c289ceba71863a864cf84b00e1000
 ```
 
 
+**SHA3-256 - Secure Hashing Algorthim (SHA) 3, 256-Bit (32 Bytes)**
+
+``` ruby
+sha3_256( "Hello, Cryptos!" )  #=> "7dddf4bc9b86352b67e8823e5010ddbd2a90a854469e2517992ca7ca89e5bd58"
+```
+
+Note:  Yes, SHA256 vs SHA3-256 / SHA-2 vs SHA-3 the hashing functions are
+different (although the 256-bit hash size output is the same).
+The sha256 hashing function is part of the Secure Hash Algorithm (SHA) 2 family / standards first published in 2001.
+The sha3_256 is part of the (newer) Secure Hash Algorithm (SHA) 3 family / standards first published in 2015
+(and uses the Keccak cryptographic primitive "under the hood").
+
+
+
+**Keccak 256-Bit**
+
+``` ruby
+keccak256( "Hello, Cryptos!" )  #=> "2cf14baa817e931f5cc2dcb63c889619d6b7ae0794fc2223ebadf8e672c776f5"
+```
+
+
+#### Aside - Keccak vs SHA3 / Original vs Official
+
+In 2004 the U.S. National Institute of Standards and Technology (NIST)
+changed the padding to `SHA3-256(M) = KECCAK [512] (M || 01, 256)`.
+This is different from the padding proposed by the Keccak team in
+the original Keccak SHA-3 submission version 3 (the final, winning version).
+The difference is the additional `'01'` bits appended to the message.
+
+To help avoid confusion the "submitted original version 3" SHA-3 Keccak
+hashing is now called "Keccak"
+and the finalized NIST SHA-3 standard "SHA3".
+
+Tip: If you don't know what variant of the hash function you have -
+original or official? - check your hash:
+
+For keccak 256-bit:
+
+``` ruby
+keccak256( '' )   #=> "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+```
+
+For sha3 256-bit:
+
+``` ruby
+sha3_256( '' )   #=> "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+```
+
+
+
+**RMD / RIPE-MD  - RACE¹ Integrity Primitives Evaluation Message Digest 160-Bit**
+
+¹: Research and development in Advanced Communications technologies in Europe
+
+
+``` ruby
+rmd160( "Hello, Cryptos!" )     #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
+# or use the alias / alternate name
+ripemd160( "Hello, Cryptos!" )  #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
+```
+
 
 #### Aside - Hex String `"0x616263"` vs Binary String `"\x61\x62\x63" == "abc"`
 
@@ -131,70 +192,6 @@ hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
 ```
 
 
-
-**SHA3-256 - Secure Hashing Algorthim (SHA) 3, 256-Bit (32 Bytes)**
-
-``` ruby
-sha3_256( "Hello, Cryptos!" )  #=> "7dddf4bc9b86352b67e8823e5010ddbd2a90a854469e2517992ca7ca89e5bd58"
-```
-
-Note:  Yes, SHA256 vs SHA3-256 / SHA-2 vs SHA-3 the hashing functions are
-different (although the 256-bit hash size output is the same).
-The sha256 hashing function is part of the Secure Hash Algorithm (SHA) 2 family / standards first published in 2001.
-The sha3_256 is part of the (newer) Secure Hash Algorithm (SHA) 3 family / standards first published in 2015
-(and uses the Keccak cryptographic primitive "under the hood").
-
-
-
-**Keccak 256-Bit**
-
-``` ruby
-keccak256( "Hello, Cryptos!" )  #=> "2cf14baa817e931f5cc2dcb63c889619d6b7ae0794fc2223ebadf8e672c776f5"
-```
-
-
-#### Aside - Keccak vs SHA3 / Original vs Official
-
-In 2004 the U.S. National Institute of Standards and Technology (NIST)
-changed the padding to `SHA3-256(M) = KECCAK [512] (M || 01, 256)`.
-This is different from the padding proposed by the Keccak team in
-the original Keccak SHA-3 submission version 3 (the final, winning version).
-The difference is the additional `'01'` bits appended to the message.
-
-To help avoid confusion the "submitted original version 3" SHA-3 Keccak
-hashing is now called "Keccak"
-and the finalized NIST SHA-3 standard "SHA3".
-
-Tip: If you don't know what variant of the hash function you have -
-original or official? - check your hash:
-
-For keccak 256-bit:
-
-``` ruby
-keccak256( '' )                #=> "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
-```
-
-For sha3 256-bit:
-
-``` ruby
-sha3_256( '' )                 #=> "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
-```
-
-
-
-**RMD / RIPE-MD  - RACE¹ Integrity Primitives Evaluation Message Digest 160-Bit**
-
-¹: Research and development in Advanced Communications technologies in Europe
-
-
-``` ruby
-rmd160( "Hello, Cryptos!" )     #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
-# or use the alias / alternate name
-ripemd160( "Hello, Cryptos!" )  #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
-```
-
-
-
 #### Hash Function Helpers
 
 **HASH160 -  RMD160(SHA256(X))**
@@ -225,7 +222,7 @@ hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
 #=> "02335f08b8fe4ddad263a50b7a33c5d38ea1cbd8fd2056a1320a3ddece541711"
 ```
 
-##### Base58 Encoding / Decoding Helpers
+#### Base58 Encoding / Decoding Helpers
 
 **BASE58**
 
