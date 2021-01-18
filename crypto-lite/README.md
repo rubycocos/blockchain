@@ -443,6 +443,20 @@ References
 - [How to create Bitcoin Address](https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses#How_to_create_Bitcoin_Address)
 - [Ruby Quiz #15 - Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](https://github.com/planetruby/quiz/tree/master/015)
 
+Bonus:  Bitcon Tip - How to Buy Bitcoin (The CO₂-Friendly Way)
+
+> 1. Take one $50 bill, five $10 bills, or ten $5 bills (I wouldn't recommend change - stay with paper money).
+> 2. Go to the bathroom.
+> 3. Lift the lid of the loo.
+> 4. Throw money in.
+> 5. Flush down water.
+>
+> Congrats! You just purchased $50 worth of Bitcoin - without fucking the planet!  
+>
+>  -- Trolly McTrollface, Bitcon Greater Fool Court Jester
+
+Read more [Crypto Quotes »](https://github.com/openblockchains/crypto-quotes)
+
 
 
 
