@@ -31,8 +31,18 @@ sha256hex( '0X616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb
 # "auto-magic" hex string to binary string conversion heuristic
 sha256( '0x616263' )      #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 sha256( '0X616263' )      #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+```
 
 
+Bonus Back Stage Tip: How does SHA256 work?
+
+Try this [amazing animation of the SHA256 hash function in your very own terminal](https://github.com/in3rsha/sha256-animation) by Greg Walker.
+
+
+
+Onwards with more sha256 examples:
+
+``` ruby
 ## try a
 sha256( "a" )         #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 sha256( "\x61" )      #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
@@ -122,11 +132,24 @@ hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
 
 
 
+**SHA3-256 - Secure Hashing Algorthim (SHA) 3, 256-Bit (32 Bytes)**
+
+``` ruby
+sha3_256( "Hello, Cryptos!" )  #=> "7dddf4bc9b86352b67e8823e5010ddbd2a90a854469e2517992ca7ca89e5bd58"
+```
+
+Note:  Yes, SHA256 vs SHA3-256 / SHA-2 vs SHA-3 the hashing functions are
+different (although the 256-bit hash size output is the same).
+The sha256 hashing function is part of the Secure Hash Algorithm (SHA) 2 family / standards first published in 2001.
+The sha3_256 is part of the (newer) Secure Hash Algorithm (SHA) 3 family / standards first published in 2015
+(and uses the Keccak cryptographic primitive "under the hood").
+
+
+
 **Keccak 256-Bit**
 
 ``` ruby
 keccak256( "Hello, Cryptos!" )  #=> "2cf14baa817e931f5cc2dcb63c889619d6b7ae0794fc2223ebadf8e672c776f5"
-keccak256( '' )                 #=> "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
 ```
 
 
@@ -149,19 +172,17 @@ For keccak 256-bit:
 
 ``` ruby
 keccak256( '' )                #=> "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
-keccak256( 'Hello, Cryptos!' ) #=> "2cf14baa817e931f5cc2dcb63c889619d6b7ae0794fc2223ebadf8e672c776f5"
 ```
 
 For sha3 256-bit:
 
 ``` ruby
 sha3_256( '' )                 #=> "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
-sha3_256( 'Hello, Cryptos!' )  #=> "7dddf4bc9b86352b67e8823e5010ddbd2a90a854469e2517992ca7ca89e5bd58"
 ```
 
 
 
-**RMD  - RACE¹ Integrity Primitives Evaluation Message Digest 160-Bit**
+**RMD / RIPE-MD  - RACE¹ Integrity Primitives Evaluation Message Digest 160-Bit**
 
 ¹: Research and development in Advanced Communications technologies in Europe
 
@@ -451,7 +472,7 @@ Bonus:  Bitcon Tip - How to Buy Bitcoin (The CO₂-Friendly Way)
 > 4. Throw money in.
 > 5. Flush down water.
 >
-> Congrats! You just purchased $50 worth of Bitcoin - without fucking the planet!  
+> Congrats! You just purchased $50 worth of Bitcoin - without fucking the planet!
 >
 >  -- Trolly McTrollface, Bitcon Greater Fool Court Jester
 
