@@ -194,9 +194,9 @@ hash160( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
 
 All-in-one double sha256 hash helper, that is, first hash with sha256 and than hash with sha256 again. Why?  Arguably higher security.
 
-> SHA256(SHA256(X)) was proposed by Ferguson and Schneier in their excellent book "Practical Cryptography" 
-> (later updated by Ferguson, Schneier, and Kohno and renamed "Cryptography Engineering") as a way to make SHA256 invulnerable 
-> to "length-extension" attack. They called it "SHA256D". 
+> SHA256(SHA256(X)) was proposed by Ferguson and Schneier in their excellent book "Practical Cryptography"
+> (later updated by Ferguson, Schneier, and Kohno and renamed "Cryptography Engineering") as a way to make SHA256 invulnerable
+> to "length-extension" attack. They called it "SHA256D".
 
 
 ``` ruby
@@ -208,7 +208,7 @@ hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
 
 **BASE58**
 
-Base58 encoding / decoding with leading zero bytes (in hex or binary strings) getting encoded from `00` to `1` and back: 
+Base58 encoding / decoding with leading zero bytes (in hex or binary strings) getting encoded from `00` to `1` and back:
 
 ``` ruby
 base58( "516b6fcd0f" )    #=> "ABnLTmg"
@@ -217,8 +217,8 @@ base58( "00000000000000000000123456789abcdef0" )   #=> "111111111143c9JGph3DZ"
 base58( "0x516b6fcd0f" )  #=> "ABnLTmg"
 base58( "0x00000000000000000000123456789abcdef0" ) #=> "111111111143c9JGph3DZ"
 
-unbase58( "ABnLTmg" )  #=> "516b6fcd0f" 
-unbase58( "111111111143c9JGph3DZ" ) #=> "00000000000000000000123456789abcdef0" 
+unbase58( "ABnLTmg" )  #=> "516b6fcd0f"
+unbase58( "111111111143c9JGph3DZ" ) #=> "00000000000000000000123456789abcdef0"
 ```
 
 
@@ -227,11 +227,11 @@ unbase58( "111111111143c9JGph3DZ" ) #=> "00000000000000000000123456789abcdef0"
 Base58 encoding with an extra 4-byte secure hash checksum.
 
 ``` ruby
-base58check( "516b6fcd0f" )  #=> ??
-base58check( "00000000000000000000123456789abcdef0" ) #=> ??
+base58check( "516b6fcd0f" )  #=> "237LSrY9NUUas"
+base58check( "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31" ) #=> "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs"
 
-unbase58check( ?? )   #=> "516b6fcd0f"
-unbase58check( ?? )   #=> "00000000000000000000123456789abcdef0"
+unbase58check( "237LSrY9NUUas" )   #=> "516b6fcd0f"
+unbase58check( "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs" )   #=> "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
 ```
 
 
@@ -353,6 +353,95 @@ RSA.valid_signature?( tx_hash, tx_signature, alice_pub )
 
 
 and some more.
+
+
+
+
+
+## Examples
+
+### Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key
+
+Let's follow the steps from [How to create Bitcoin Address](https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses#How_to_create_Bitcoin_Address):
+
+``` ruby
+# Lets start with the public key ("raw" hex string encoded)
+pk = "0250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b2352"
+
+# 1. Perform SHA-256 hashing on the public key
+step1 = sha256( pk )
+#=> "0b7c28c9b7290c98d7438e70b3d3f7c848fbd7d1dc194ff83f4f7cc9b1378e98"
+
+# 2. Perform RIPEMD-160 hashing on the result of SHA-256
+step2 = ripemd160( step1 )
+#=> "f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
+
+# 3. Add version byte in front of RIPEMD-160 hash (0x00 for Main Network)
+step3 = "00" + step2
+#=> "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
+
+# 4. Perform SHA-256 hash on the extended RIPEMD-160 result
+step4 = sha256( step3 )
+#=> "ad3c854da227c7e99c4abfad4ea41d71311160df2e415e713318c70d67c6b41c"
+
+# 5. Perform SHA-256 hash on the result of the previous SHA-256 hash
+step5 = sha256( step4 )
+#=> "c7f18fe8fcbed6396741e58ad259b5cb16b7fd7f041904147ba1dcffabf747fd"
+
+# 6. Take the first 4 bytes of the second SHA-256 hash. This is the address checksum
+step6 = step5[0..7]      # note: 4 bytes in hex string are 8 digits/chars
+#=> "c7f18fe8"
+
+# 7. Add the 4 checksum bytes from step 6 at the end of
+#    extended RIPEMD-160 hash from step 3.
+#    This is the 25-byte binary Bitcoin Address.
+step7 = step3 + step6
+#=> "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31c7f18fe8"
+
+# 8. Convert the result from a byte string into a base58 string using Base58 encoding.
+#  This is the most commonly used Bitcoin Address format.
+addr  = base58( step7 )
+#=> "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs"
+```
+
+Or let's try again with the shortcut helpers:
+
+- `HASH160     -  RMD160(SHA256(X))`
+- `BASE58CHECK -  BASE58(X || SHA256(SHA256(X))[:4])`
+
+``` ruby
+# Lets start with the public key ("raw" hex string encoded)
+pk = "0250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b2352"
+
+# 1. Perform HASH-160 hashing on the public key
+#    a) Perform SHA-256 hashing on the public key
+#    b) Perform RIPEMD-160 hashing on the result of SHA-256
+step1 = hash160( pk )
+#=> "f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
+
+# 2. Add version byte in front of RIPEMD-160 hash (0x00 for Main Network)
+step2 = "00" + step1
+#=> "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
+
+# 3. Encode with BASE58CHECK
+#    a) Perform SHA-256 hash on the extended RIPEMD-160 result
+#    b) Perform SHA-256 hash on the result of the previous SHA-256 hash
+#    c) Take the first 4 bytes of the second SHA-256 hash. This is the address checksum
+#    d) Add the 4 checksum bytes at the end of
+#       extended RIPEMD-160 hash from step 2.
+#       This is the 25-byte binary Bitcoin Address.
+#    e) Convert the result from a byte string into a base58 string
+#       using Base58 encoding.
+#       This is the most commonly used Bitcoin Address format.
+addr  = base58check( step2 )
+#=> "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs"
+```
+
+
+References
+
+- [How to create Bitcoin Address](https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses#How_to_create_Bitcoin_Address)
+- [Ruby Quiz #15 - Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](https://github.com/planetruby/quiz/tree/master/015)
 
 
 

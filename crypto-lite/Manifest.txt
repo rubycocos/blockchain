@@ -3,10 +3,13 @@ Manifest.txt
 README.md
 Rakefile
 lib/crypto-lite.rb
+lib/crypto-lite/config.rb
 lib/crypto-lite/version.rb
 lib/crypto.rb
 lib/crypto/lite.rb
 test/helper.rb
+test/test_base58.rb
+test/test_bitcoin_addr.rb
 test/test_hash_keccak.rb
 test/test_hash_sha.rb
 test/test_version.rb
