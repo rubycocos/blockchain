@@ -38,6 +38,7 @@ Bonus Back Stage Tip: How does SHA256 work?
 
 Try this [amazing animation of the SHA256 hash function in your very own terminal](https://github.com/in3rsha/sha256-animation) by Greg Walker.
 
+More of a code golfer? See [½ Kilo of SHA256](https://idiosyncratic-ruby.com/51-half-kilo-of-sha256.html) by Jan Lelis - yes, the SHA256 algorithm coded (from scratch) in 500 bytes of ruby.
 
 
 Onwards with more sha256 examples:
