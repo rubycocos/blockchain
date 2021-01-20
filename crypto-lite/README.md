@@ -24,9 +24,9 @@ sha256( "abc".b )         #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb
 sha256( "\x61\x62\x63" )  #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 sha256( 0x616263 )        #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 
-sha256hex( '616263' )     #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256hex( '0x616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256hex( '0X616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '616263' )     #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '0x616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '0X616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 
 # "auto-magic" hex string to binary string conversion heuristic
 sha256( '0x616263' )      #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
@@ -49,8 +49,8 @@ sha256( "\x61" )      #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807
 sha256( 0b01100001 )  #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 sha256( 0x61 )        #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 
-sha256hex( '61' )     #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
-sha256hex( '0x61' )   #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+sha256( hex: '61' )     #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+sha256( hex: '0x61' )   #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 
 # "auto-magic" hex string to binary string conversion heuristic
 sha256( '0x61' )      #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
@@ -155,15 +155,18 @@ Note: The standard `Array#pack` conversion
 will NOT "auto-magically" cut-off the `0x` or `0X` prefix.
 
 
-If you know you have a hex string use the hex-variant of the hash function that will handle the hex-to-bin conversion for you. Example:
+If you know you have a hex string use the `hex:` keyword to pass
+in the arg(ument)
+to the hash function and that will "automagically"
+handle the hex-to-bin conversion for you. Example:
 
 ``` ruby
-sha256hex( '61' )     #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
-sha256hex( '0x61' )   #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+sha256( hex: '61' )     #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+sha256( hex: '0x61' )   #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 
-sha256hex( '616263' )     #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256hex( '0x616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256hex( '0X616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '616263' )     #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '0x616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '0X616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 ```
 
 What about the built-in "auto-magic" hex-to-bin conversion / heuristic?

@@ -30,7 +30,7 @@ class TestHashSha < MiniTest::Test
 def test_bin
    BIN_TESTS.each do |item|
      assert_equal item[1], sha256( item[0].b )
-     assert_equal item[1], sha256( item[0].b, :openssl )
+     assert_equal item[1], sha256( item[0].b, engine: 'openssl' )
    end
 end
 
@@ -42,14 +42,14 @@ def test_abc
    0x616263
   ].each do |input|
     assert_equal SHA256_ABC, sha256( input )
-    assert_equal SHA256_ABC, sha256( input, :openssl )
+    assert_equal SHA256_ABC, sha256( input, engine: 'openssl' )
   end
 
   ['616263',
    '0x616263',
    '0X616263'
   ].each do |input|
-    assert_equal SHA256_ABC, sha256hex( input )
+    assert_equal SHA256_ABC, sha256( hex: input )
   end
 ## pp sha256hex( 'hello' )  -- fails - uses non-hex chars
 
@@ -61,14 +61,14 @@ def test_abc
     0x61
   ].each do |input|
     assert_equal SHA256_A, sha256( input )
-    assert_equal SHA256_A, sha256( input, :openssl )
+    assert_equal SHA256_A, sha256( input, engine: 'openssl' )
   end
 
   ['61',
    '0x61',
    '0X61'
   ].each do |input|
-    assert_equal SHA256_A, sha256hex( input )
+    assert_equal SHA256_A, sha256( hex: input )
   end
 
   [ 'b',

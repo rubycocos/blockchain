@@ -16,12 +16,12 @@ pp sha256( "abc".b )            #=>
 pp sha256( "\x61\x62\x63" )
 pp sha256( 0x616263 )
 
-pp sha256hex( '616263' )
-pp sha256hex( '0x616263' )
-pp sha256hex( '0X616263' )
-## pp sha256hex( 'hello' )  -- fails - uses non-hex chars
+pp sha256( hex: '616263' )
+pp sha256( hex: '0x616263' )
+pp sha256( hex: '0X616263' )
+## pp sha256( hex: 'hello' )  -- fails - uses non-hex chars
 
-pp sha256( "abc", :openssl )
+pp sha256( "abc", engine: 'openssl' )
 
 
 # a =  dec (97), hex (61), bin (01100001)
@@ -32,10 +32,10 @@ pp sha256( "a" ) #=>
 pp sha256( "\x61" )  #=>
 pp sha256( 0b01100001 )  #=>
 pp sha256( 0x61 )
-pp sha256( "a", :openssl )
+pp sha256( "a", engine: 'openssl' )
 
-pp sha256hex( '61' )
-pp sha256hex( '0x61' )
+pp sha256( hex: '61' )
+pp sha256( hex: '0x61' )
 
 
 puts "b:"
@@ -57,9 +57,10 @@ pp keccak256( "Hello, Cryptos!" )
 pp rmd160( "Hello, Cryptos!" )
 
 
-pp hash160hex( '02b9d1cc0b793b03b9f64d022e9c67d5f32670b03f636abf0b3147b34123d13990' )
-pp hash160hex( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
+pp hash160( hex: '02b9d1cc0b793b03b9f64d022e9c67d5f32670b03f636abf0b3147b34123d13990' )
+pp hash160( hex: '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
 
-pp hash256hex( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
+pp hash256( hex: '6fe6b145a3908a4d6616b13c1109717add8672c900' )
+
 
 puts "bye"
