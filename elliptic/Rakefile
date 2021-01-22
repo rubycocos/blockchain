@@ -1,11 +1,11 @@
 require 'hoe'
-require './lib/ellipticcurve/version.rb'
+require './lib/elliptic/version.rb'
 
-Hoe.spec 'ellipticcurve' do
+Hoe.spec 'elliptic' do
 
   self.version = EC::VERSION
 
-  self.summary = "ellipticcurve - elliptic curve digital signature algorithm (ECDSA) cryptography with OpenSSL made easy (incl. secp256k1 curve)"
+  self.summary = "elliptic - elliptic curve digital signature algorithm (ECDSA) cryptography with OpenSSL made easy (incl. secp256k1 curve)"
   self.description = summary
 
   self.urls    = { home: 'https://github.com/rubycoco/blockchain' }

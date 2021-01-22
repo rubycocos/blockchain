@@ -1,10 +1,10 @@
-# ellipticcurve - elliptic curve digital signature algorithm (ECDSA) cryptography with OpenSSL made easy (incl. secp256k1 curve)
+# elliptic - elliptic curve digital signature algorithm (ECDSA) cryptography with OpenSSL made easy (incl. secp256k1 curve)
 
 
 * home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
 * bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
-* gem   :: [rubygems.org/gems/ellipticcurve](https://rubygems.org/gems/ellipticcurve)
-* rdoc  :: [rubydoc.info/gems/ellipticcurve](http://rubydoc.info/gems/ellipticcurve)
+* gem   :: [rubygems.org/gems/elliptic](https://rubygems.org/gems/elliptic)
+* rdoc  :: [rubydoc.info/gems/elliptic](http://rubydoc.info/gems/elliptic)
 
 
 
@@ -71,7 +71,7 @@ An ECDSA (Elliptic Curve Digital Signature Algorithm) private key is a random nu
 
 
 ``` ruby
-require 'ellipticcurve'
+require 'elliptic'
 
 # note: Algo will auto-generate (random) private key if no private key passed in
 algo = EC::Algo.new    # by default uses Secp256k1 curve (used in Bitcoin and Ethereum)
@@ -278,7 +278,7 @@ What's an Elliptic Curve?
 
 Just install the gem:
 
-    $ gem install ellipticcurve
+    $ gem install elliptic
 
 
 ## License

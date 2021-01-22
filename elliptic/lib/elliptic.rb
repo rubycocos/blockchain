@@ -4,7 +4,7 @@ require 'base64'
 require 'openssl'
 
 ## our own code
-require 'ellipticcurve/version'    # note: let version always go first
+require 'elliptic/version'    # note: let version always go first
 
 
 

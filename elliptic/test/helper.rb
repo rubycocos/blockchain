@@ -7,5 +7,5 @@ require 'minitest/autorun'
 
 ## our own code
 
-require 'ellipticcurve'
+require 'elliptic'
 
