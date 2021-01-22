@@ -262,7 +262,7 @@ What's an Elliptic Curve?
 
 
 
-**Bitcon Public Service Announcment:**
+**Bitcon Public Service Announcement:**
 
 > If we all buy Bitcoin from one another at ever higher
 > prices we'll all be rich beyond our wildest dreams.
