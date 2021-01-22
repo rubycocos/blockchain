@@ -1,0 +1,10 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+i/secp256k1.png
+lib/ellipticcurve.rb
+lib/ellipticcurve/version.rb
+test/helper.rb
+test/test_sign.rb
+test/test_version.rb
