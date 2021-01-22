@@ -261,6 +261,19 @@ What's an Elliptic Curve?
 
 
 
+
+Bitcon Public Service Announcment:
+
+> If we all buy Bitcoin from one another at ever higher
+> prices we'll all be rich beyond our wildest dreams.
+>
+> -- Trolly McTrollface
+
+**BEWARE: [Yes, Bitcoin Is a Ponzi - Learn How the Investment Fraud Works »](https://github.com/openblockchains/bitcoin-ponzi)**
+
+
+
+
 ## Install
 
 Just install the gem:
