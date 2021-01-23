@@ -194,7 +194,7 @@ That's all the magic.
 
 
 
-## Public Key Formats
+### Public Key Formats
 
 To get the all-in-one-string
 public key from a point with the coordinates x and y

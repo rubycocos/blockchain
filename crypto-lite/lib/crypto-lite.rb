@@ -11,6 +11,7 @@ require 'digest/sha3'  # e.g. keccak (original submission/proposal NOT official 
 ## our own 3rd party (2nd party?)
 require 'base32-alphabets'
 require 'base58-alphabets'
+require 'elliptic'
 
 
 

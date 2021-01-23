@@ -22,6 +22,7 @@ Hoe.spec 'crypto-lite' do
      ['digest-sha3-patched'],
      ['base32-alphabets'],
      ['base58-alphabets'],
+     ['elliptic'],
   ]
 
   self.licenses = ['Public Domain']
