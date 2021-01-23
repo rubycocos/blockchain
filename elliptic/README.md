@@ -73,10 +73,10 @@ An ECDSA (Elliptic Curve Digital Signature Algorithm) private key is a random nu
 ``` ruby
 require 'elliptic'
 
-# note: Algo will auto-generate (random) private key if no private key passed in
-algo = EC::Algo.new    # by default uses Secp256k1 curve (used in Bitcoin and Ethereum)
+# Auto-generate (random) private key
+private_key = EC::PrivateKey.generate    # by default uses Secp256k1 curve (used in Bitcoin and Ethereum)
 
-algo.private_key
+private_key.to_i
 #=> 72190737707147846840353520312904745954595478835413056312168022784020322830309
 ```
 
@@ -92,11 +92,10 @@ Let's try:
 
 ``` ruby
 # This private key is just an example. It should be much more secure!
-privatekey = 1234
+private_key = EC::PrivateKey.new( 1234 )   # by default uses Secp256k1 curve (used in Bitcoin and Ethereum)
 
-# Elliptic curve (EC) machinery - pass in our own key
-algo = EC::Algo.new( privatekey )  # by default uses Secp256k1 curve (used in Bitcoin and Ethereum)
-point = algo.public_key    ## the "magic" one-way K=k*G curve multiplication (K=public key,k=private key, G=generator point)
+public_key =  private_key.public_key   ## the "magic" one-way K=k*G curve multiplication (K=public key,k=private key, G=generator point)
+point = public_key.point
 
 point.x
 #=> 102884003323827292915668239759940053105992008087520207150474896054185180420338
@@ -120,10 +119,12 @@ tx = 'from: Alice  to: Bob     cryptos: 43_000_000_000'
 txhash = Digest::SHA256.digest( tx )
 
 # Step 2 - Get the Signer's Private key
-privatekey = 1234     # This private key is just an example. It should be much more secure!
+private_key = EC::PrivateKey.new( 1234 )     # This private key is just an example. It should be much more secure!
 
 # Sign!
-signature = EC.sign( txhash, privatekey )
+signature = private_key.sign( txhash )
+# -or-
+signature = EC.sign( txhash, private_key )
 
 signature.r
 #=> 80563021554295584320113598933963644829902821722081604563031030942154621916407
@@ -145,7 +146,7 @@ tx = 'from: Alice  to: Bob     cryptos: 43_000_000_000'
 txhash = Digest::SHA256.digest( tx )
 
 # Step 2 - Get the Signer's Public Key
-pubkey = EC::Point.new(
+public_key = EC::PublicKey.new(
    102884003323827292915668239759940053105992008087520207150474896054185180420338,
    49384988101491619794462775601349526588349137780292274540231125201115197157452
 )
@@ -157,13 +158,15 @@ signature = EC::Signature.new(
 )
 
 # Don't Trust - Verify
-EC.valid_signature?( txhash, pubkey, signature )
+public_key.verify?( txhash, signature )
+# -or-
+EC.verify?( txhash, signature, public_key )
 #=> true
 
 
 # or using hexadecimal numbers
 
-pubkey = EC::Point.new(
+public_key = EC::PublicKey.new(
   0xe37648435c60dcd181b3d41d50857ba5b5abebe279429aa76558f6653f1658f2,
   0x6d2ee9a82d4158f164ae653e9c6fa7f982ed8c94347fc05c2d068ff1d38b304c
 )
@@ -173,7 +176,9 @@ signature = EC::Signature.new(
   0x4fe202bb0835758f514cd4a0787986f8f6bf303df629dc98c5b1a438a426f49a
 )
 
-EC.valid_signature?( txhash, pubkey, signature )
+public_key.verify?( txhash, signature )
+# -or-
+EC.verify?( txhash, signature, public_key )
 #=> true
 ```
 
