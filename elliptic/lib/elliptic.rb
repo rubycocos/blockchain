@@ -15,8 +15,7 @@ module EC
 
   ## "cached" / available groups for now include:
   GROUP = {
-    ## todo/check: is there a more direct way to get a group object?
-    'secp256k1' =>  OpenSSL::PKey::EC.new( 'secp256k1' ).group
+    'secp256k1' =>  OpenSSL::PKey::EC::Group.new( 'secp256k1' )
   }
 
 
