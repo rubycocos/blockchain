@@ -266,7 +266,7 @@ public_key.to_pem
 
 To export a private or public key to
 the (binary) Distinguished Encoding Rules (DER)
-in ASN.1 format use `to_der`:
+in Abstract Syntax Notation One (ASN.1) format use `to_der`:
 
 ``` ruby
 private_key.to_der
@@ -286,7 +286,7 @@ public_key.to_der
 
 To export a private or public key to
 the Base64-encoded Distinguished Encoding Rules (DER)
-in ASN.1 format use `to_base64`:
+in Abstract Syntax Notation One (ASN.1) format use `to_base64`:
 
 ``` ruby
 private_key.to_base64
