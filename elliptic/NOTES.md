@@ -91,3 +91,14 @@ Wikipedia:
 -  Elliptic Curve Cryptography (ECC)  - <https://en.wikipedia.org/wiki/Elliptic-curve_cryptography>
 -  Elliptic Curve Digital Signature Algorithm (ECDSA) - <https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm>
 -  Elliptic curve point multiplication - <https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication>
+
+
+## More Articles
+
+A Layman's Guide to a Subset of ASN.1, BER, and DER
+by Burton S. Kaliski Jr., An RSA Laboratories Technical Note, Revised November, 1993
+- <http://luca.ntop.org/Teaching/Appunti/asn1.html>
+
+- ASN.1 = Abstract Syntax Notation One 
+- BER = Basic Encoding Rules   (for ASN.1)
+- DER = Distinguished Encoding Rules (for ASN.1) - note: (strict/deterministic) subset of BER
