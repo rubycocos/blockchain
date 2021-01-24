@@ -45,6 +45,11 @@ module EC
 
          ec_group = GROUP[ group || 'secp256k1' ]
          @pt = OpenSSL::PKey::EC::Point.new( ec_group, bin )
+       
+         ### or use hex e.g.
+         ## hex = '04fc9702847840aaf195de8442ebecedf5b095cdbb9bc716bda9110971b28a49e0ead8564ff0db22209e0374782c093bb899692d524e9d6a6956e7c5ecbcd68284'
+         ## bn = OpenSSL::BN.new(hex, 16)    # note: 16=Hexadecimal string encoding
+         ## OpenSSL::PKey::EC::Point.new( ec_group, bn )
       end
     end
 
