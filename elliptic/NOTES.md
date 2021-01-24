@@ -8,7 +8,6 @@
 
 
 
-
 *Tips & Tricks*
 
 
@@ -23,11 +22,17 @@ big number (bn)
 (-(2**107-1)).to_bn
 ```
 
-Source: https://github.com/ruby/openssl/blob/master/test/openssl/test_bn.rb
+Source: <https://github.com/ruby/openssl/blob/master/test/openssl/test_bn.rb>
 
+use to_bn to construct Point too? why? why not?
 
+``` ruby
+assert_equal 0x040603.to_bn, point.to_bn
+assert_equal 0x040603.to_bn, point.to_bn(:uncompressed)
+assert_equal 0x0306.to_bn,   point.to_bn(:compressed)
+```
 
-
+Source: <https://github.com/ruby/openssl/blob/master/test/openssl/test_pkey_ec.rb>
 
 
 
