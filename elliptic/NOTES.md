@@ -37,4 +37,6 @@ ruby
 
 - <https://github.com/starkbank/ecdsa-ruby>
 - <https://github.com/DavidEGrayson/ruby_ecdsa>
+- <https://github.com/cedarcode/openssl-signature_algorithm>
+
 
