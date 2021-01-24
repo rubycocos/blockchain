@@ -36,7 +36,7 @@ Source: <https://github.com/ruby/openssl/blob/master/test/openssl/test_pkey_ec.r
 
 
 
-## More Elipictic libraries
+## More Elliptic Libraries
 
 ruby
 
@@ -45,3 +45,10 @@ ruby
 - <https://github.com/cedarcode/openssl-signature_algorithm>
 
 
+## More Elliptic Articles
+
+A (relatively easy to understand) primer on elliptic curve cryptography
+Everything you wanted to know about the next generation of public key crypto
+by  Nick Sullivan, October 2013
+
+- <https://arstechnica.com/information-technology/2013/10/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/>
