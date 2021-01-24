@@ -7,37 +7,11 @@ require 'openssl'
 require 'elliptic/version'    # note: let version always go first
 require 'elliptic/private_key'
 require 'elliptic/public_key'
-
+require 'elliptic/signature'
 
 
 
 module EC
-
-  class Signature
-
-    def self.decode_der( der )
-      asn1 = OpenSSL::ASN1.decode(der )
-      r = asn1.value[0].value.to_i
-      s = asn1.value[1].value.to_i
-      new(r, s)
-    end
-
-    attr_reader :r, :s
-    def initialize(r, s)
-      @r, @s = r, s
-    end
-
-    def to_der
-      asn1 = OpenSSL::ASN1::Sequence.new [
-          OpenSSL::ASN1::Integer.new( @r ),
-          OpenSSL::ASN1::Integer.new( @s ),
-        ]
-      asn1.to_der
-    end
-  end ## class Signature
-
-
-
 
   ## "cached" / available groups for now include:
   GROUP = {

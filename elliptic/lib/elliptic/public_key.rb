@@ -12,17 +12,17 @@ class PublicKey
 
 
 
-  def self.from_pem( str ) new( str ); end
-  def self.from_der( str ) new( str ); end
+  def self.decode_pem( str ) new( str ); end
+  def self.decode_der( str ) new( str ); end
 
   ## todo/check: only use (allow) base64 for
   ##   der (binary)-encoded? why? why not?
-  def self.from_base64( str ) new( Base64.decode64(str)); end
+  def self.decode_base64( str ) new( Base64.decode64(str)); end
 
   class << self
-    alias_method :decode_pem,    :from_pem
-    alias_method :decode_der,    :from_der
-    alias_method :decode_base64, :from_base64
+    alias_method :from_pem,      :decode_pem
+    alias_method :from_der,      :decode_der
+    alias_method :from_base64,   :decode_base64
   end
 
 

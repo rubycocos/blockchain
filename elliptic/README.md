@@ -241,6 +241,8 @@ point.to_s( :compressed )
 
 ####  PEM, DER, BASE64(DER)
 
+**Export**
+
 To export a private or public key to
 the Privacy Enhanced Mail (PEM) format use `to_pem`:
 
@@ -298,8 +300,49 @@ public_key.to_base64
 #    13Z8Zif5Mh+qavIr/6HpI/KqQ0bnuOZiCD9gpEIWo7VGN8wJgcu6ZA=="
 ```
 
+**Import**
+
+To import a private or public key
+in the PEM or DER format use the all-in-one convenience constructor:
 
 
+``` ruby
+private_key = EC::PrivateKey.new( "-----BEGIN EC PRIVATE KEY-----
+    MHQCAQEEIDIWkCIC58Yo1E5noSiXbHdR/8zUqB+vvTK4nSk8tZ1RoAcGBSuBBAAK
+    oUQDQgAEoll8rYerfDH4q6nT1miTZZ315a8BFsKA13Z8Zif5Mh+qavIr/6HpI/Kq
+    Q0bnuOZiCD9gpEIWo7VGN8wJgcu6ZA==
+    -----END EC PRIVATE KEY-----" )
+
+public_key = EC::PublicKey.new( "-----BEGIN PUBLIC KEY-----
+    MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEoll8rYerfDH4q6nT1miTZZ315a8BFsKA
+    13Z8Zif5Mh+qavIr/6HpI/KqQ0bnuOZiCD9gpEIWo7VGN8wJgcu6ZA==
+    -----END PUBLIC KEY-----" )
+
+## or
+
+private_key = EC::PrivateKey.new( "\xA1D\x03B\x00\x04\xA2Y|\xAD\x87\xAB|1
+     \xF8\xAB\xA9\xD3\xD6h\x93e\x9D\xF5\xE5\xAF\x01\x16\xC2\x80
+     \xD7v|f'\xF92\x1F\xAAj\xF2+\xFF\xA1\xE9#\xF2\xAACF\xE7\xB8
+     \xE6b\b?`\xA4B\x16\xA3\xB5F7\xCC\t\x81\xCB\xBAd".b )
+
+public_key = EC::PublicKey.new( "0V0\x10\x06\a*\x86H\xCE=\x02\x01\x06\x05+\x81\x04\x00
+    \x03B\x00\x04\xA2Y|\xAD\x87\xAB|1\xF8\xAB\xA9
+    \xD3\xD6h\x93e\x9D\xF5\xE5\xAF\x01\x16\xC2\x80\xD7v|f'\xF92
+    \x1F\xAAj\xF2+\xFF\xA1\xE9#\xF2\xAACF\xE7\xB8\xE6b
+    \b?`\xA4B\x16\xA3\xB5F7\xCC\t\x81\xCB\xBAd".b )
+```
+
+or use the decode/from helper:
+
+``` ruby
+private_key = EC::PrivateKey.decode_pem( ... )     # or from_pem( ... )
+              EC::PrivateKey.decode_der( ... )     # or from_der( ... )
+              EC::PrivateKey.decode_base64( ... )  # or from_base64( ... )
+
+public_key  = EC::PublicKey.decode_pem( ... )      # or from_pem( ... )
+              EC::PublicKey.decode_der( ... )      # or from_der( ... )
+              EC::PublicKey.decode_base64( ... )   # or from_base64( ... )
+```
 
 
 
