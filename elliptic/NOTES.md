@@ -46,7 +46,7 @@ ruby
 python
 
 - <https://github.com/alexmgr/tinyec>
-- <https://pypi.org/project/ecdsa/>
+- <https://pypi.org/project/ecdsa/>, <https://github.com/tlsfuzzer/python-ecdsa>
 
 
 
