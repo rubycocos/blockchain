@@ -54,23 +54,20 @@ python
 
 A (relatively easy to understand) primer on elliptic curve cryptography
 Everything you wanted to know about the next generation of public key crypto
-by  Nick Sullivan, October 2013
-
-- <https://arstechnica.com/information-technology/2013/10/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/>
+by  Nick Sullivan, October 2013 - 
+  <https://arstechnica.com/information-technology/2013/10/a-relatively-easy-to-understand-primer-on-elliptic-curve-cryptography/>
 
 Elliptic Curve Cryptography: a gentle introduction
-by Andrea Corbellini, May 2015
-
-- <https://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/>
+by Andrea Corbellini, May 2015 - 
+  <https://andrea.corbellini.name/2015/05/17/elliptic-curve-cryptography-a-gentle-introduction/>
 
 What is the math behind elliptic curve cryptography?
-by Hans Knutson, April 2018
+by Hans Knutson, April 2018 - 
+  <https://hackernoon.com/what-is-the-math-behind-elliptic-curve-cryptography-f61b25253da3>
 
-- <https://hackernoon.com/what-is-the-math-behind-elliptic-curve-cryptography-f61b25253da3>
 
-
-Elliptic Curve @ Wolfram Math World
-- <https://mathworld.wolfram.com/EllipticCurve.html>
+Elliptic Curve @ Wolfram Math World - 
+  <https://mathworld.wolfram.com/EllipticCurve.html>
 
 
 Practical Cryptography for Developers by Svetlin Nakov:
@@ -90,10 +87,8 @@ Wikipedia:
 ## More Articles
 
 A Layman's Guide to a Subset of ASN.1, BER, and DER
-by Burton S. Kaliski Jr., An RSA Laboratories Technical Note, Revised November, 1993
-- <http://luca.ntop.org/Teaching/Appunti/asn1.html>
-
-<!-- break -->
+by Burton S. Kaliski Jr., An RSA Laboratories Technical Note, Revised November, 1993 - 
+  <http://luca.ntop.org/Teaching/Appunti/asn1.html>
 
 - ASN.1 = Abstract Syntax Notation One 
 - BER = Basic Encoding Rules   (for ASN.1)
