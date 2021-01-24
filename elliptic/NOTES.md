@@ -73,17 +73,11 @@ Elliptic Curve @ Wolfram Math World
 - <https://mathworld.wolfram.com/EllipticCurve.html>
 
 
-
-Practical Cryptography for Developers by Svetlin Nakov
-
-Elliptic Curve Cryptography (ECC)
-- <https://cryptobook.nakov.com/asymmetric-key-ciphers/elliptic-curve-cryptography-ecc>
-
-ECDSA: Elliptic Curve Signatures 
-- <https://cryptobook.nakov.com/digital-signatures/ecdsa-sign-verify-messages>
+Practical Cryptography for Developers by Svetlin Nakov:
+- Elliptic Curve Cryptography (ECC) - <https://cryptobook.nakov.com/asymmetric-key-ciphers/elliptic-curve-cryptography-ecc>
+- ECDSA: Elliptic Curve Signatures - <https://cryptobook.nakov.com/digital-signatures/ecdsa-sign-verify-messages>
 
 sources: <https://github.com/nakov/practical-cryptography-for-developers-book>
-
 
 
 Wikipedia:
@@ -98,6 +92,8 @@ Wikipedia:
 A Layman's Guide to a Subset of ASN.1, BER, and DER
 by Burton S. Kaliski Jr., An RSA Laboratories Technical Note, Revised November, 1993
 - <http://luca.ntop.org/Teaching/Appunti/asn1.html>
+
+<!-- break -->
 
 - ASN.1 = Abstract Syntax Notation One 
 - BER = Basic Encoding Rules   (for ASN.1)
