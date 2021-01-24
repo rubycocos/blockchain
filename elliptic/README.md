@@ -194,7 +194,9 @@ That's all the magic.
 
 
 
-### Public Key Formats
+### Private / Public Key Formats
+
+#### Intro
 
 To get the all-in-one-string
 public key from a point with the coordinates x and y
@@ -236,6 +238,69 @@ point.to_s   # or point.to_s( :uncompressed )
 point.to_s( :compressed )
 #=> "02e37648435c60dcd181b3d41d50857ba5b5abebe279429aa76558f6653f1658f2"
 ```
+
+####  PEM, DER, BASE64(DER)
+
+To export a private or public key to
+the Privacy Enhanced Mail (PEM) format use `to_pem`:
+
+
+``` ruby
+private_key = EC::PrivateKey.generate
+private_key.to_pem
+#=> "-----BEGIN EC PRIVATE KEY-----
+#    MHQCAQEEIDIWkCIC58Yo1E5noSiXbHdR/8zUqB+vvTK4nSk8tZ1RoAcGBSuBBAAK
+#    oUQDQgAEoll8rYerfDH4q6nT1miTZZ315a8BFsKA13Z8Zif5Mh+qavIr/6HpI/Kq
+#    Q0bnuOZiCD9gpEIWo7VGN8wJgcu6ZA==
+#    -----END EC PRIVATE KEY-----"
+
+public_key = private_key.public_key
+public_key.to_pem
+#=> "-----BEGIN PUBLIC KEY-----
+#    MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEoll8rYerfDH4q6nT1miTZZ315a8BFsKA
+#    13Z8Zif5Mh+qavIr/6HpI/KqQ0bnuOZiCD9gpEIWo7VGN8wJgcu6ZA==
+#    -----END PUBLIC KEY-----"
+```
+
+To export a private or public key to
+the (binary) Distinguished Encoding Rules (DER)
+in ASN.1 format use `to_der`:
+
+``` ruby
+private_key.to_der
+#=> "\xA1D\x03B\x00\x04\xA2Y|\xAD\x87\xAB|1
+#     \xF8\xAB\xA9\xD3\xD6h\x93e\x9D\xF5\xE5\xAF\x01\x16\xC2\x80
+#     \xD7v|f'\xF92\x1F\xAAj\xF2+\xFF\xA1\xE9#\xF2\xAACF\xE7\xB8
+#     \xE6b\b?`\xA4B\x16\xA3\xB5F7\xCC\t\x81\xCB\xBAd"
+
+public_key = private_key.public_key
+public_key.to_der
+#=> "0V0\x10\x06\a*\x86H\xCE=\x02\x01\x06\x05+\x81\x04\x00
+#    \x03B\x00\x04\xA2Y|\xAD\x87\xAB|1\xF8\xAB\xA9
+#    \xD3\xD6h\x93e\x9D\xF5\xE5\xAF\x01\x16\xC2\x80\xD7v|f'\xF92
+#    \x1F\xAAj\xF2+\xFF\xA1\xE9#\xF2\xAACF\xE7\xB8\xE6b
+#    \b?`\xA4B\x16\xA3\xB5F7\xCC\t\x81\xCB\xBAd"
+```
+
+To export a private or public key to
+the Base64-encoded Distinguished Encoding Rules (DER)
+in ASN.1 format use `to_base64`:
+
+``` ruby
+private_key.to_base64
+#=> "MHQCAQEEIDIWkCIC58Yo1E5noSiXbHdR/8zUqB+vvTK4nSk8tZ1RoAcGBSuBBAAK
+#    oUQDQgAEoll8rYerfDH4q6nT1miTZZ315a8BFsKA13Z8Zif5Mh+qavIr/6HpI/Kq
+#    Q0bnuOZiCD9gpEIWo7VGN8wJgcu6ZA=="
+
+public_key = private_key.public_key
+public_key.to_base64
+#=> "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEoll8rYerfDH4q6nT1miTZZ315a8BFsKA
+#    13Z8Zif5Mh+qavIr/6HpI/KqQ0bnuOZiCD9gpEIWo7VGN8wJgcu6ZA=="
+```
+
+
+
+
 
 
 That's it.
