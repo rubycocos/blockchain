@@ -6,30 +6,27 @@
 require 'crypto-lite'
 
 
-require 'securerandom'
-
-
-puts EC::GROUP['secp256k1'].order
-puts EC::GROUP['secp256k1'].order.to_s(16).downcase
+puts EC::SECP256K1.order
+puts EC::SECP256K1.order.to_s(16).downcase
 
 
 
 private_key = EC::PrivateKey.generate     # alice
 puts private_key.to_i
-puts private_key.to_i.to_s
+puts private_key.to_s
 puts private_key.to_i.to_s(16)
 
 
 private_key = EC::PrivateKey.generate     # bob
 puts private_key.to_i
-puts private_key.to_i.to_s
+puts private_key.to_s
 puts private_key.to_i.to_s(16)
 
 
 
 
 def generate_key
-  1 + SecureRandom.random_number( EC::GROUP['secp256k1'].order - 1 )
+  1 + SecureRandom.random_number( EC::SECP256K1.order - 1 )
 end
 
 puts generate_key
@@ -41,11 +38,11 @@ def roll_dice() SecureRandom.random_number(6); end
 
 pp priv_base6 = 99.times.reduce('') { |buf,_| buf << roll_dice.to_s }
 #=> "413130205513310000115530450343345150251504444013455422453552225503020102150031231134314351124254004"
-pp priv_base6.to_i(6)
+priv = priv_base6.to_i(6)
 #=> 77254760463198588454157792320308725646096652667800343330432100522222375944308
-pp priv_base6.to_i(6).to_s(16)
+pp priv.to_s(16)
 #=> "aacca516ccbf72dac2c4c447b9f64d12855685e99810ffcf7763a12da6c04074"
-pp priv_base6.to_i(6).to_s(2)
+pp priv.to_s(2)
 
 
 

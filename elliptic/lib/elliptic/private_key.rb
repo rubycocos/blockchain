@@ -47,9 +47,14 @@ class PrivateKey
 
 
   def to_i()  @pkey.private_key.to_i;           end
+
   ## todo/check/fix: make it always a 32 byte (64 hex chars) string
   ##                    even with leading zeros !!! - why? why not?
-  def to_s()  @pkey.private_key.to_i.to_s(16);  end
+  ##  todo/check - add hex alias - why? why not?
+  def to_s
+     ## todo/fix:  use number of bytes depending on curve (e.g. secp256k1 = 32-byte/256-bit)
+     @pkey.private_key.to_i.to_s(16).rjust(64, '0'); # convert to hex and make sure it's 32 bytes (64 characters)
+  end
 
 
   def to_pem()     @pkey.to_pem; end

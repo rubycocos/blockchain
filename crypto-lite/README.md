@@ -274,15 +274,17 @@ An ECDSA (Elliptic Curve Digital Signature Algorithm) private key is a random nu
 private_key = EC::PrivateKey.generate    # by default uses Secp256k1 curve (used in Bitcoin and Ethereum)
 
 private_key.to_i
-#=> 72190737707147846840353520312904745954595478835413056312168022784020322830309
+#=> 29170346885894798724849267297784761178669026868482995474159965944722616190552
+private_key.to_s
+#=> "407dd4ccde53d30f3a9cda74ceccb247f3997466964786b59e4d68e93e8f8658"
 ```
 
 
-(Auto-)Calculate the Public Key - Enter Elliptic Curve (EC) Cryptography
+Derive / (Auto-)Calculate the Public Key - Enter Elliptic Curve (EC) Cryptography
 
-The public key are two numbers (that is, a point with the coordinates x and y) computed by multiplying
-the generator point (`G`) of the curve with the private key.
-This is equivalent to adding the generator to itself `private_key` times.
+The public key (`K`) are two numbers (that is, a point with the coordinates x and y) computed by multiplying
+the generator point (`G`) of the curve with the private key (`k`) e.g. `K=k*G`.
+This is equivalent to adding the generator to itself `k` times.
 Magic?
 Let's try:
 
@@ -443,13 +445,13 @@ EC::SECP256K1.order.to_s(16)
 private_key = EC::PrivateKey.generate     # alice
 private_key.to_i
 #=> 50303382071965675924643368363408442017264130870580001935435312336103014915707
-private_key.to_i.to_s(16)
+private_key.to_s
 #=> "6f36b48dd130618049ca27e1909debdf3665cf0df0ade0986f0c50123107de7b"
 
 private_key = EC::PrivateKey.generate     # bob
 private_key.to_i
 #=> 96396065671557366547785856940504404648366202869823009146014078671352808008442
-private_key.to_i.to_s(16)
+private_key.to_s
 #=> "d51e3d5ce8fbc6e574cf78d1c46e8936c26f38b002b954d0eac8aef195d6eafa"
 ```
 
@@ -513,9 +515,9 @@ do you need to flip the coin?
 
 #### Step 2 - Let's derive / calculate the public key from the private key - Enter elliptic curve (EC) cryptography
 
-The public key are two numbers (that is, a point with the coordinates x and y) computed by multiplying
-the generator point (`G`) of the curve with the private key.
-This is equivalent to adding the generator to itself `private_key` times.
+The public key (`K`) are two numbers (that is, a point with the coordinates x and y) computed by multiplying
+the generator point (`G`) of the curve with the private key (`k`) e.g. `K=k*G`.
+This is equivalent to adding the generator to itself `k` times.
 Magic?
 Let's try:
 
@@ -691,11 +693,6 @@ Bonus:  Bitcon Tip - How to Buy Bitcoin (The CO₂-Friendly Way)
 >  -- Trolly McTrollface, Bitcon Greater Fool Court Jester
 
 Read more [Crypto Quotes »](https://github.com/openblockchains/crypto-quotes)
-
-
-
-
-
 
 
 

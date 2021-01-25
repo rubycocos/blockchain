@@ -28,7 +28,7 @@ Maximum value of 2^256-1 =
 ``` ruby
 2**256-1
 #=> 115792089237316195423570985008687907853269984665640564039457584007913129639935
-(2**256-1).to_s.length
+(2**256-1).digits.size           # or to_s.length
 #=> 78
 ```
 
@@ -41,12 +41,12 @@ in hexadecimal (base 16) and binary (base 2) format?
 ``` ruby
 (2**256-1).to_s(16)
 #=> "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-(2**256-1).to_s(16).length
+(2**256-1).digits(16).size      # or to_s(16).length
 #=> 64
 
 (2**256-1).to_s(2)
 #=> "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
-(2**256-1).to_s(2).length
+(2**256-1).digits(2).size       # or to_s(2).length
 #=> 256
 ```
 
@@ -77,15 +77,17 @@ require 'elliptic'
 private_key = EC::PrivateKey.generate    # by default uses Secp256k1 curve (used in Bitcoin and Ethereum)
 
 private_key.to_i
-#=> 72190737707147846840353520312904745954595478835413056312168022784020322830309
+#=> 29170346885894798724849267297784761178669026868482995474159965944722616190552
+private_key.to_s
+#=> "407dd4ccde53d30f3a9cda74ceccb247f3997466964786b59e4d68e93e8f8658"
 ```
 
 
-### (Auto-)Calculate the Public Key - Enter Elliptic Curve (EC) Cryptography
+### Derive / (Auto-)Calculate the Public Key - Enter Elliptic Curve (EC) Cryptography
 
-The public key are two numbers (that is, a point with the coordinates x and y) computed by multiplying
-the generator point (`G`) of the curve with the private key.
-This is equivalent to adding the generator to itself `private_key` times.
+The public key (`K`) are two numbers (that is, a point with the coordinates x and y) computed by multiplying
+the generator point (`G`) of the curve with the private key (`k`) e.g. `K=k*G`.
+This is equivalent to adding the generator to itself `k` times.
 Magic?
 Let's try:
 
