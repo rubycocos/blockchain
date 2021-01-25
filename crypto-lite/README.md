@@ -675,6 +675,7 @@ wif = base58check( extended )
 References
 
 - [How to create a WIF private key @ Learn me a bitcoin](https://learnmeabitcoin.com/technical/wif)
+- [Private key to WIF @ Wallet import format](https://en.bitcoin.it/wiki/Wallet_import_format)
 
 
 Bonus:  Bitcon Tip - How to Buy Bitcoin (The CO₂-Friendly Way)
