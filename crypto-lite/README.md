@@ -389,7 +389,13 @@ That's all the magic.
 
 
 
+
 ## Examples
+
+- [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key)
+- [Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](#generate-the-bitcoin-base58-address-from-the-elliptic-curve-public-key)
+- [Encode the Bitcoin Private Key in the Wallet Import Format (WIF)](#encode-the-bitcoin-private-key-in-the-wallet-import-format-wif)
+
 
 
 ### Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key
@@ -454,21 +460,25 @@ When recording the values follow these rules: 1=1, 2=2, 3=3, 4=4, 5=5, 6=0.
 By doing this you are recording the big random number, your private key,
 in base 6 format.
 
+``` ruby
+def roll_dice
+  SecureRandom.random_number( 6 ) ##  returning 0,1,2,3,4, or 5
+end
+
+priv_base6 = 99.times.reduce('') { |buf,_| buf << roll_dice.to_s }
+#=> "413130205513310000115530450343345150251504444013455422453552225503020102150031231134314351124254004"
+```
+
 Exercise:
 Turn the ninety nine character base 6 private key into a base 10 or base 16 number.
 
 ``` ruby
-def roll_dice() SecureRandom.random_number(6); end
-
-priv_base6 = 99.times.reduce('') { |buf,_| buf << roll_dice.to_s }
-#=> "413130205513310000115530450343345150251504444013455422453552225503020102150031231134314351124254004"
-priv_base6.to_i(6)
+priv = priv_base6.to_i(6)  ## convert to decimal (base 10) from roll-the-dice (base 6) string
 #=> 77254760463198588454157792320308725646096652667800343330432100522222375944308
-priv_base6.to_i(6).to_s(16)
+priv.to_s(16)
 #=> "aacca516ccbf72dac2c4c447b9f64d12855685e99810ffcf7763a12da6c04074"
-priv_base6.to_i(6).to_s(2)
-#=> "1010101011001100101001010001011011001100101111110111001011011010110000101100010011000100010001111011100111110110010011010001001010000101010101101000010111101001100110000001000011111111110011110111011101100011101000010010110110100110110000000100000001110100"
 ```
+
 
 Aside:  What's Base 2? Let's Flip A Coin - Heads or Tails?
 
