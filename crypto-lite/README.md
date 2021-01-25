@@ -390,11 +390,34 @@ That's all the magic.
 
 
 
-## Examples
+## Real-World Examples / Cookbook
+
+### Bitcoin
 
 - [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key)
 - [Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](#generate-the-bitcoin-base58-address-from-the-elliptic-curve-public-key)
 - [Encode the Bitcoin Private Key in the Wallet Import Format (WIF)](#encode-the-bitcoin-private-key-in-the-wallet-import-format-wif)
+
+**Bitcon Public Service Announcement:**
+
+> Bitcoin number go up because more people want bitcoin. Bitcoin becomes more and more valuable.
+>
+> - 1,000 HODLers
+> - 10,000 HODLers
+> - 100,000 HODLers
+> - 1,000,000 HODLers
+> - 10,000,000 HODLers
+> - 100,000,000 HODLers
+> - 1,000,000,000 HODLers
+> - 10,000,000,000 HODLers
+> - 100,000,000,000 HODLers and on and on
+>
+> People will come to understand bitcon.
+>
+> -- Dan McArdle, Bitcoin "There is No Alternative", Bitcoin is the New (Gold) Standard
+
+**[BEWARE: Yes, Bitcoin Is a Ponzi - Learn How the Investment Fraud Works »](https://github.com/openblockchains/bitcoin-ponzi)**
+
 
 
 
