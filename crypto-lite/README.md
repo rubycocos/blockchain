@@ -421,13 +421,13 @@ private_key = EC::PrivateKey.generate     # alice
 private_key.to_i
 #=> 50303382071965675924643368363408442017264130870580001935435312336103014915707
 private_key.to_i.to_s(16)
-#=> 6f36b48dd130618049ca27e1909debdf3665cf0df0ade0986f0c50123107de7b
+#=> "6f36b48dd130618049ca27e1909debdf3665cf0df0ade0986f0c50123107de7b"
 
 private_key = EC::PrivateKey.generate     # bob
 private_key.to_i
 #=> 96396065671557366547785856940504404648366202869823009146014078671352808008442
 private_key.to_i.to_s(16)
-#=> d51e3d5ce8fbc6e574cf78d1c46e8936c26f38b002b954d0eac8aef195d6eafa
+#=> "d51e3d5ce8fbc6e574cf78d1c46e8936c26f38b002b954d0eac8aef195d6eafa"
 ```
 
 Or use your own (secure) random generator.
