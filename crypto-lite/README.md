@@ -545,6 +545,11 @@ point.to_s( :uncompressed )
 ```
 
 
+References
+
+- [Private key @ Learn me a bitcoin](https://learnmeabitcoin.com/technical/private-key)
+- [Public key @ Learn me a bitcoin](https://learnmeabitcoin.com/technical/public-key)
+
 
 ### Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key
 
@@ -669,7 +674,7 @@ wif = base58check( extended )
 
 References
 
-- [How to create a WIF private key](https://learnmeabitcoin.com/technical/wif)
+- [How to create a WIF private key @ Learn me a bitcoin](https://learnmeabitcoin.com/technical/wif)
 
 
 Bonus:  Bitcon Tip - How to Buy Bitcoin (The CO₂-Friendly Way)
