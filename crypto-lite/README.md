@@ -391,6 +391,128 @@ That's all the magic.
 
 ## Examples
 
+
+### Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key
+
+A bitcoin private key is a 32-byte (256-bit) unsigned / positive integer number.
+
+Or more precise the private key is a random number between 1
+and the order of the elliptic curve secp256k1.
+
+``` ruby
+EC::SECP256K1.order
+#=> 115792089237316195423570985008687907852837564279074904382605163141518161494337
+
+# or in hexadecimal (base16)
+EC::SECP256K1.order.to_s(16)
+#=> "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"
+```
+
+#### Step 1 - Let's generate a private key
+
+``` ruby
+private_key = EC::PrivateKey.generate     # alice
+private_key.to_i
+#=> 50303382071965675924643368363408442017264130870580001935435312336103014915707
+private_key.to_i.to_s(16)
+#=> 6f36b48dd130618049ca27e1909debdf3665cf0df0ade0986f0c50123107de7b
+
+private_key = EC::PrivateKey.generate     # bob
+private_key.to_i
+#=> 96396065671557366547785856940504404648366202869823009146014078671352808008442
+private_key.to_i.to_s(16)
+#=> d51e3d5ce8fbc6e574cf78d1c46e8936c26f38b002b954d0eac8aef195d6eafa
+```
+
+Or use your own (secure) random generator.
+Trivia Note: The smallest possible (BUT HIGHLY UNSECURE)
+private key is 1 (not 0).
+
+``` ruby
+def generate_key
+  1 + SecureRandom.random_number( EC::SECP256K1.order - 1 )
+end
+
+generate_key         # alice
+#=> 66010624277151619503613090016410344678572543187504521309126248385615121289833
+
+generate_key         # bob
+#=> 10004433477200726182517873544056418402326985168039465080040800405880945722868
+```
+
+
+Aside:  What's Base 6? Let's Roll the Dice
+
+An important part of creating a private key is ensuring the random number
+is truly random.
+Physical randomness is better than computer generated pseudo-randomness.
+The easiest way to generate physical randomness is with a dice.
+To create a private key you only need one six-sided die
+which you roll ninety nine times.
+Stopping each time to record the value of the die.
+When recording the values follow these rules: 1=1, 2=2, 3=3, 4=4, 5=5, 6=0.
+By doing this you are recording the big random number, your private key,
+in base 6 format.
+
+Exercise:
+Turn the ninety nine character base 6 private key into a base 10 or base 16 number.
+
+``` ruby
+def roll_dice() SecureRandom.random_number(6); end
+
+priv_base6 = 99.times.reduce('') { |buf,_| buf << roll_dice.to_s }
+#=> "413130205513310000115530450343345150251504444013455422453552225503020102150031231134314351124254004"
+priv_base6.to_i(6)
+#=> 77254760463198588454157792320308725646096652667800343330432100522222375944308
+priv_base6.to_i(6).to_s(16)
+#=> "aacca516ccbf72dac2c4c447b9f64d12855685e99810ffcf7763a12da6c04074"
+priv_base6.to_i(6).to_s(2)
+#=> "1010101011001100101001010001011011001100101111110111001011011010110000101100010011000100010001111011100111110110010011010001001010000101010101101000010111101001100110000001000011111111110011110111011101100011101000010010110110100110110000000100000001110100"
+```
+
+Aside:  What's Base 2? Let's Flip A Coin - Heads or Tails?
+
+Triva Quiz: For an (unsigned) 256-bit number - how many times
+do you need to flip the coin?
+
+
+
+
+#### Step 2 - Let's derive / calculate the public key from the private key - Enter elliptic curve (EC) cryptography
+
+The public key are two numbers (that is, a point with the coordinates x and y) computed by multiplying
+the generator point (`G`) of the curve with the private key.
+This is equivalent to adding the generator to itself `private_key` times.
+Magic?
+Let's try:
+
+
+``` ruby
+# note: by default uses Secp256k1 curve (used in Bitcoin)
+private_key = EC::PrivateKey.new( 50303382071965675924643368363408442017264130870580001935435312336103014915707 )
+
+public_key =  private_key.public_key   ## the "magic" one-way K=k*G curve multiplication (K=public key,k=private key, G=generator point)
+point = public_key.point
+
+pp point.x
+#=> 17761672841523182714332746445483761684317159074072585653954580096478387916431
+pp point.y
+#=> 81286693084077906561204577435230199871025343781583806206090259868058973358862
+```
+
+and convert the point to the compressed or uncompressed
+Standards for Efficient Cryptography (SEC)
+format used in Bitcoin:
+
+``` ruby
+pp point.to_s( :compressed )
+#=> "022744c02580b4905349bc481a60c308c2d98d823d44888835047f6bc5c38c4e8f"
+pp point.to_s( :uncompressed )
+#=> "042744c02580b4905349bc481a60c308c2d98d823d44888835047f6bc5c38c4e8fb3b6a34b90a571f6c2a1113dd5ff4576f61bbf3e970a6e148fa02bf9eb7bcb0e"
+```
+
+
+
 ### Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key
 
 Let's follow the steps from [How to create Bitcoin Address](https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses#How_to_create_Bitcoin_Address):
@@ -474,6 +596,49 @@ References
 - [How to create Bitcoin Address](https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses#How_to_create_Bitcoin_Address)
 - [Ruby Quiz #15 - Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](https://github.com/planetruby/quiz/tree/master/015)
 
+
+
+### Encode the Bitcoin Private Key in the Wallet Import Format (WIF)
+
+
+A Wallet Import Format (WIF) private key is a standard private key, but with a few added extras:
+
+- Version Byte prefix - The network the private key is to be used on.
+  - `0x80` = Mainnet
+  - `0xEF` = Testnet
+- Compression Byte suffix (optional) - Flag if the private key is used to create a compressed public key.
+  - `0x01`
+- Checksum - Useful for detecting errors/typos when you type out your private key; calculated using the first 4 bytes of the double sha256 hash `SHA256(SHA256(X))[:4]`.
+
+This is all then converted to Base58, which shortens the string and makes it easier to transcribe.
+
+``` ruby
+privatekey  = "ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2"
+pp extended = "80" + privatekey + "01"
+#=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db201"
+pp checksum = hash256( extended )[0..7]
+#=> "66557e53"
+pp extendedchecksum = extended + checksum
+#=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db20166557e53"
+pp wif = base58( extendedchecksum )
+#=> "L5EZftvrYaSudiozVRzTqLcHLNDoVn7H5HSfM9BAN6tMJX8oTWz6"
+```
+
+Or let's try again with the base58check (`BASE58(X || SHA256(SHA256(X))[:4])`) shortcut helper:
+
+``` ruby
+privatekey = "ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2"
+extended   = "80" + privatekey + "01"
+#=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db201"
+pp wif = base58check( extended )
+#=> "L5EZftvrYaSudiozVRzTqLcHLNDoVn7H5HSfM9BAN6tMJX8oTWz6"
+```
+
+References
+
+- [How to create a WIF private key](https://learnmeabitcoin.com/technical/wif)
+
+
 Bonus:  Bitcon Tip - How to Buy Bitcoin (The CO₂-Friendly Way)
 
 > 1. Take one $50 bill, five $10 bills, or ten $5 bills (I wouldn't recommend change - stay with paper money).
@@ -487,6 +652,11 @@ Bonus:  Bitcon Tip - How to Buy Bitcoin (The CO₂-Friendly Way)
 >  -- Trolly McTrollface, Bitcon Greater Fool Court Jester
 
 Read more [Crypto Quotes »](https://github.com/openblockchains/crypto-quotes)
+
+
+
+
+
 
 
 
