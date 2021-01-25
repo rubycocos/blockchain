@@ -504,9 +504,9 @@ private_key = EC::PrivateKey.new( 5030338207196567592464336836340844201726413087
 public_key =  private_key.public_key   ## the "magic" one-way K=k*G curve multiplication (K=public key,k=private key, G=generator point)
 point = public_key.point
 
-pp point.x
+point.x
 #=> 17761672841523182714332746445483761684317159074072585653954580096478387916431
-pp point.y
+point.y
 #=> 81286693084077906561204577435230199871025343781583806206090259868058973358862
 ```
 
@@ -515,9 +515,9 @@ Standards for Efficient Cryptography (SEC)
 format used in Bitcoin:
 
 ``` ruby
-pp point.to_s( :compressed )
+point.to_s( :compressed )
 #=> "022744c02580b4905349bc481a60c308c2d98d823d44888835047f6bc5c38c4e8f"
-pp point.to_s( :uncompressed )
+point.to_s( :uncompressed )
 #=> "042744c02580b4905349bc481a60c308c2d98d823d44888835047f6bc5c38c4e8fb3b6a34b90a571f6c2a1113dd5ff4576f61bbf3e970a6e148fa02bf9eb7bcb0e"
 ```
 
@@ -624,13 +624,13 @@ This is all then converted to Base58, which shortens the string and makes it eas
 
 ``` ruby
 privatekey  = "ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2"
-pp extended = "80" + privatekey + "01"
+extended = "80" + privatekey + "01"
 #=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db201"
-pp checksum = hash256( extended )[0..7]
+checksum = hash256( extended )[0..7]
 #=> "66557e53"
-pp extendedchecksum = extended + checksum
+extendedchecksum = extended + checksum
 #=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db20166557e53"
-pp wif = base58( extendedchecksum )
+wif = base58( extendedchecksum )
 #=> "L5EZftvrYaSudiozVRzTqLcHLNDoVn7H5HSfM9BAN6tMJX8oTWz6"
 ```
 
@@ -640,7 +640,7 @@ Or let's try again with the base58check (`BASE58(X || SHA256(SHA256(X))[:4])`) s
 privatekey = "ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2"
 extended   = "80" + privatekey + "01"
 #=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db201"
-pp wif = base58check( extended )
+wif = base58check( extended )
 #=> "L5EZftvrYaSudiozVRzTqLcHLNDoVn7H5HSfM9BAN6tMJX8oTWz6"
 ```
 
