@@ -1,8 +1,23 @@
 # Notes
 
+## Articles
+
+**Bitcoin**
+
+- Tutorial - Address Generation - <https://www.royalfork.org/2014/07/31/address-gen/>  
+- Graphical Address Generator - <https://www.royalfork.org/2014/08/11/graphical-address-generator/>
+
+- Bitcoin Gem
+  - <https://github.com/lian/bitcoin-ruby/blob/master/lib/bitcoin/key.rb>
+
+
+**Ethereum**
+
+- Graphical Ethereum Address - <https://www.royalfork.org/2017/12/10/eth-graphical-address/>
 
 
 
+## Ideas 
 
 - [ ] add RSA to readme - why? why not?
 
