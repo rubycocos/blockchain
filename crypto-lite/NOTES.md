@@ -17,9 +17,59 @@
 
 
 
-## Ideas 
+## More Bitcoin Notes
 
-- [ ] add RSA to readme - why? why not?
+How big (or how safe) is a (random) 256-bit (32 byte) integer number?
+
+- How many sand grains on the beach?
+- How many sand grains on earth?
+- How many atoms in the universe?
+
+Public key is the "raw" to the metal format.
+Why not use it?
+
+- Can we make it shorter?
+- Can we make it more secure?
+- Can we protect against typos?
+- Can we add a checksum?
+
+> There are currently three Bitcoin address formats in use:
+>
+> - P2PKH (Pay to public key hash) which begin with the number 1, eg: `1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2`.
+> - P2SH (pay to script hash) type starting with the number 3, eg: `3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy`.
+> - Bech32 type starting with bc1, eg: `bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq`.
+>
+> (Source: [Bitcoin address @ Bitcoin Wiki](https://en.bitcoin.it/wiki/Address))
+
+
+What's Base 56 Encoding? What's Base 32 Encoding?
+
+Alphabets - Base 16 (a.k.a. Hexadecimal), Base 32, Base 56:
+
+- `123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`
+- `0123456789ABCDEF`
+- `023456789acdefghjklmnpqrstuvwxyz`
+
+Triva Quiz: What characters (digits/letters) are
+missing in the base 32/base 56 alphabets?
+
+- In Base 56   -  `0` (Zero), `O` (Upper-O), `I` (Upper-I), `l` (Lower-L)
+- In Base 32 (Bitcoin Bech32 Version) - `1`, `B`, `I`, `O`
+
+Why use base32 (and not base56)?
+
+- The lack of mixed case makes it more efficient to read out loud or to put into QR codes.
+  Base32 does come with a 15% length increase (compared to base56).
+- Base58 needs a lot of space in QR codes, as it cannot use the alphanumeric mode.
+  Alphanumeric mode used by base32 (with uppercase letters)
+  is 45% more compact than the normal byte mode.
+
+
+
+
+
+## Ideas 
+- [] add RSA to readme - why? why not?
 
 **RSA - Rivest, Shamir and Adleman**
 
