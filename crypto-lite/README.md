@@ -394,6 +394,22 @@ That's all the magic.
 
 ## Real-World Examples / Cookbook
 
+**Bitcoin Chains**
+
+- [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key)
+- [Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](#generate-the-bitcoin-base58-address-from-the-elliptic-curve-public-key)
+- [Encode the Bitcoin Private Key in the Wallet Import Format (WIF)](#encode-the-bitcoin-private-key-in-the-wallet-import-format-wif)
+
+**Ethereum Chains**
+
+- [Derive the Ethereum (Elliptic Curve) Public Key from the Private Key](#derive-the-ethereum-elliptic-curve-public-key-from-the-private-key)
+- [Generate the Ethereum Address from the (Elliptic Curve) Public Key](#generate-the-ethereum-address-from-the-elliptic-curve-public-key)
+
+
+
+
+## Bitcoin (BTC), Bitcoin Cash (BCH), Bitcoin Cash Satoshi Vision (BSV), Bitcoin Cash ABC (BCHA)
+
 **Bitcon Public Service Announcement:**
 
 > Bitcoin number go up because more people want bitcoin. Bitcoin becomes more and more valuable.
@@ -414,21 +430,6 @@ That's all the magic.
 
 **[BEWARE: Yes, Bitcoin Is a Ponzi - Learn How the Investment Fraud Works »](https://github.com/openblockchains/bitcoin-ponzi)**
 
-
-**Bitcoin Chains**
-
-- [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key)
-- [Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](#generate-the-bitcoin-base58-address-from-the-elliptic-curve-public-key)
-- [Encode the Bitcoin Private Key in the Wallet Import Format (WIF)](#encode-the-bitcoin-private-key-in-the-wallet-import-format-wif)
-
-**Ethereum Chains**
-
-- [Derive the Ethereum (Elliptic Curve) Public Key from the Private Key](#derive-the-ethereum-elliptic-curve-public-key-from-the-private-key)
-- [Generate the Ethereum Address from the (Elliptic Curve) Public Key](#generate-the-ethereum-address-from-the-elliptic-curve-public-key)
-
-
-
-## Bitcoin (BTC), Bitcoin Cash (BCH), Bitcoin Cash Satoshi Vision (BSV), Bitcoin Cash ABC (BCHA)
 
 ### Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key
 
