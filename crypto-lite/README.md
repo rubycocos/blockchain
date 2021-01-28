@@ -415,23 +415,20 @@ That's all the magic.
 **[BEWARE: Yes, Bitcoin Is a Ponzi - Learn How the Investment Fraud Works »](https://github.com/openblockchains/bitcoin-ponzi)**
 
 
-
-### Bitcoin (BTC), Bitcoin Cash (BCH), Bitcoin Cash Satoshi Vision (BSV), Bitcoin Cash ABC (BCHA)
+**Bitcoin Chains**
 
 - [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key)
 - [Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](#generate-the-bitcoin-base58-address-from-the-elliptic-curve-public-key)
 - [Encode the Bitcoin Private Key in the Wallet Import Format (WIF)](#encode-the-bitcoin-private-key-in-the-wallet-import-format-wif)
 
-### Ethereum
+**Ethereum Chains**
 
 - [Derive the Ethereum (Elliptic Curve) Public Key from the Private Key](#derive-the-ethereum-elliptic-curve-public-key-from-the-private-key)
 - [Generate the Ethereum Address from the (Elliptic Curve) Public Key](#generate-the-ethereum-address-from-the-elliptic-curve-public-key)
 
 
- o o o
 
-<!-- start examples --->
-
+## Bitcoin (BTC), Bitcoin Cash (BCH), Bitcoin Cash Satoshi Vision (BSV), Bitcoin Cash ABC (BCHA)
 
 ### Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key
 
@@ -706,6 +703,7 @@ Read more [Crypto Quotes »](https://github.com/openblockchains/crypto-quotes)
 
 
 
+## Ethereum
 
 ### Derive the Ethereum (Elliptic Curve) Public Key from the Private Key
 
