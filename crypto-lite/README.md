@@ -724,7 +724,7 @@ EC::SECP256K1.order.to_s(16)
 #=> "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"
 ```
 
-Note: A "raw" ethereum private key is the same as in bitcoin
+Note: A "raw" private key in ethereum is the same as in bitcoin
 using the same elliptic curve secp256k1.
 See [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key) above.
 
