@@ -63,4 +63,9 @@ pp hash160( hex: '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a
 pp hash256( hex: '6fe6b145a3908a4d6616b13c1109717add8672c900' )
 
 
+pp sha256( "Satoshi Nakamoto" )
+pp sha256( "Satoshi Nakamot0" )
+
+
+
 puts "bye"

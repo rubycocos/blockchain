@@ -24,6 +24,9 @@ class TestHashSha < MiniTest::Test
     ['Blockchain 4',    '69580cfb9a134395106ac27de53595cc41fb9940dcc298082c87144932a983a9'],
     ['Blockchain 12',   'f94455d34e7b32dc7dac780fb94a5e958f0d7e2da4cc6500505d5daed719c227'],
     ['Blockchain 13',   '0cedb5e229c9582a35ec291ccb172b3f7c76a20c7f645e08d24ece8d5692e153'],
+
+    ['Satoshi Nakamoto', 'a0dc65ffca799873cbea0ac274015b9526505daaaed385155425f7337704883e'],
+    ['Satoshi Nakamot0', '73d607aab917435d5e79857769996c95027d4e42172698e0776e1295e285730e'],
   ]
 
 
