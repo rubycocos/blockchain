@@ -821,7 +821,7 @@ hash = keccak256( pub )
 #=> "2a5bc342ed616b5ba5732269001d3f1ef827552ae1114027bd3ecf1f086ba0f9"
 ```
 
-Step 2: Keep only the last 20 bytes (least significant bytes), this is the Ethereum address
+Step 2: Keep only the last 20 bytes (least significant bytes), this is the ethereum address
 
 ``` ruby
 hash[24,40]    ## last 20 bytes of 32 (skip first 12 bytes (12x2=24 hex chars))
@@ -829,6 +829,9 @@ hash[-40..-1]  ## -or- last 20 bytes (40 hex chars)
 hash[-40,40]   ## -or- last 20 bytes (40 hex chars)
 #=> "001d3f1ef827552ae1114027bd3ecf1f086ba0f9"
 ```
+
+Note: Most often you will see ethereum addresses with the prefix `0x` that indicates 
+they are hexadecimal-encoded, like this: `0x001d3f1ef827552ae1114027bd3ecf1f086ba0f9`.
 
 References
 
