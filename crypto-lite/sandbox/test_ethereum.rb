@@ -27,8 +27,6 @@ puts
 
 
 
-pp key ="f8f8a2f43c8376ccb0871305060d7b27b0554d2cc72bccf41b2705608452f315"
-pp key.to_i(16)
 pp key = 0xf8f8a2f43c8376ccb0871305060d7b27b0554d2cc72bccf41b2705608452f315
 
 group = EC::Secp256k1
@@ -73,8 +71,10 @@ puts "---"
 
 
 
+pp key ="f8f8a2f43c8376ccb0871305060d7b27b0554d2cc72bccf41b2705608452f315"
+pp key.to_i(16)
 
-private_key = EC::PrivateKey.new( key )
+private_key = EC::PrivateKey.new( key.to_i(16) )
 pp private_key.to_i
 pp private_key.to_s
 

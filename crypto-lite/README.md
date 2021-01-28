@@ -394,12 +394,6 @@ That's all the magic.
 
 ## Real-World Examples / Cookbook
 
-### Bitcoin (BTC), Bitcoin Cash (BCH), Bitcoin Cash Satoshi Vision (BSV), Bitcoin Cash ABC (BCHA)
-
-- [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key)
-- [Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](#generate-the-bitcoin-base58-address-from-the-elliptic-curve-public-key)
-- [Encode the Bitcoin Private Key in the Wallet Import Format (WIF)](#encode-the-bitcoin-private-key-in-the-wallet-import-format-wif)
-
 **Bitcon Public Service Announcement:**
 
 > Bitcoin number go up because more people want bitcoin. Bitcoin becomes more and more valuable.
@@ -421,21 +415,27 @@ That's all the magic.
 **[BEWARE: Yes, Bitcoin Is a Ponzi - Learn How the Investment Fraud Works »](https://github.com/openblockchains/bitcoin-ponzi)**
 
 
+
+### Bitcoin (BTC), Bitcoin Cash (BCH), Bitcoin Cash Satoshi Vision (BSV), Bitcoin Cash ABC (BCHA)
+
+- [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key)
+- [Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](#generate-the-bitcoin-base58-address-from-the-elliptic-curve-public-key)
+- [Encode the Bitcoin Private Key in the Wallet Import Format (WIF)](#encode-the-bitcoin-private-key-in-the-wallet-import-format-wif)
+
 ### Ethereum
 
-- [Derive the Ethereum (Elliptic Curve) Public Key from the Private Key](#)
-- [Generate the Ethereum Address from the (Elliptic Curve) Public Key](#)
+- [Derive the Ethereum (Elliptic Curve) Public Key from the Private Key](#derive-the-ethereum-elliptic-curve-public-key-from-the-private-key)
+- [Generate the Ethereum Address from the (Elliptic Curve) Public Key](#generate-the-ethereum-address-from-the-elliptic-curve-public-key)
 
-
-
-
-<!-- start examples --->
 
  o o o
 
+<!-- start examples --->
+
+
 ### Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key
 
-A bitcoin private key is a 32-byte (256-bit) unsigned / positive integer number.
+A private key in bitcoin is a 32-byte (256-bit) unsigned / positive integer number.
 
 Or more precise the private key is a random number between 1
 and the order of the elliptic curve secp256k1.
@@ -709,7 +709,7 @@ Read more [Crypto Quotes »](https://github.com/openblockchains/crypto-quotes)
 
 ### Derive the Ethereum (Elliptic Curve) Public Key from the Private Key
 
-A ethereum private key is a 32-byte (256-bit) unsigned / positive integer number.
+A private key in ethereum is a 32-byte (256-bit) unsigned / positive integer number.
 
 Or more precise the private key is a random number between 1
 and the order of the elliptic curve secp256k1.
@@ -751,9 +751,6 @@ Let's follow along the example
 in the [Mastering Ethereum book](https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#generating-a-private-key-from-a-random-number) and let's use the random number:
 `0xf8f8a2f43c8376ccb0871305060d7b27b0554d2cc72bccf41b2705608452f315`.
 
-Trivia Note: The smallest possible (BUT HIGHLY UNSECURE)
-private key is 1 (not 0).
-
 ``` ruby
 private_key = EC::PrivateKey.new( 0xf8f8a2f43c8376ccb0871305060d7b27b0554d2cc72bccf41b2705608452f315 )
 private_key.to_i
@@ -794,7 +791,7 @@ and convert the point to the raw uncompressed
 format used in Ethereum:
 
 ``` ruby
-## add the together as hex strings
+## add together the two points (x,y) in a hex string
 "%64x%64x" % [point.x, point.y]
 #=> "6e145ccef1033dea239875dd00dfb4fee6e3348b84985c92f103444683bae07b83b5c38e5e2b0c8529d7fa3f64d46daa1ece2d9ac14cab9477d042c84c32ccd0"
 
