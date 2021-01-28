@@ -824,7 +824,7 @@ hash = keccak256( pub )
 Step 2: Keep only the last 20 bytes (least significant bytes), this is the Ethereum address
 
 ``` ruby
-hash[24,40]    ## last 20 bytes of 32 (skip first 12 bytes (12x2=24 hexchars))
+hash[24,40]    ## last 20 bytes of 32 (skip first 12 bytes (12x2=24 hex chars))
 hash[-40..-1]  ## -or- last 20 bytes (40 hex chars)
 hash[-40,40]   ## -or- last 20 bytes (40 hex chars)
 #=> "001d3f1ef827552ae1114027bd3ecf1f086ba0f9"
