@@ -394,7 +394,7 @@ That's all the magic.
 
 ## Real-World Examples / Cookbook
 
-### Bitcoin
+### Bitcoin (BTC), Bitcoin Cash (BCH), Bitcoin Cash Satoshi Vision (BSV), Bitcoin Cash ABC (BCHA)
 
 - [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key)
 - [Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](#generate-the-bitcoin-base58-address-from-the-elliptic-curve-public-key)
@@ -421,7 +421,17 @@ That's all the magic.
 **[BEWARE: Yes, Bitcoin Is a Ponzi - Learn How the Investment Fraud Works »](https://github.com/openblockchains/bitcoin-ponzi)**
 
 
+### Ethereum
 
+- [Derive the Ethereum (Elliptic Curve) Public Key from the Private Key](#)
+- [Generate the Ethereum Address from the (Elliptic Curve) Public Key](#)
+
+
+
+
+<!-- start examples --->
+
+ o o o
 
 ### Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key
 
@@ -693,6 +703,139 @@ Bonus:  Bitcon Tip - How to Buy Bitcoin (The CO₂-Friendly Way)
 >  -- Trolly McTrollface, Bitcon Greater Fool Court Jester
 
 Read more [Crypto Quotes »](https://github.com/openblockchains/crypto-quotes)
+
+
+
+
+### Derive the Ethereum (Elliptic Curve) Public Key from the Private Key
+
+A ethereum private key is a 32-byte (256-bit) unsigned / positive integer number.
+
+Or more precise the private key is a random number between 1
+and the order of the elliptic curve secp256k1.
+
+
+``` ruby
+EC::SECP256K1.order
+#=> 115792089237316195423570985008687907852837564279074904382605163141518161494337
+
+# or in hexadecimal (base16)
+EC::SECP256K1.order.to_s(16)
+#=> "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"
+```
+
+Note: A "raw" ethereum private key is the same as in bitcoin
+using the same elliptic curve secp256k1.
+See [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key) above.
+
+
+
+#### Step 1 - Let's generate a private key
+
+``` ruby
+private_key = EC::PrivateKey.generate     # alice
+private_key.to_i
+#=> 50303382071965675924643368363408442017264130870580001935435312336103014915707
+private_key.to_s
+#=> "6f36b48dd130618049ca27e1909debdf3665cf0df0ade0986f0c50123107de7b"
+
+private_key = EC::PrivateKey.generate     # bob
+private_key.to_i
+#=> 96396065671557366547785856940504404648366202869823009146014078671352808008442
+private_key.to_s
+#=> "d51e3d5ce8fbc6e574cf78d1c46e8936c26f38b002b954d0eac8aef195d6eafa"
+```
+
+Or use your own (secure) random number.
+Let's follow along the example
+in the [Mastering Ethereum book](https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#generating-a-private-key-from-a-random-number) and let's use the random number:
+`0xf8f8a2f43c8376ccb0871305060d7b27b0554d2cc72bccf41b2705608452f315`.
+
+Trivia Note: The smallest possible (BUT HIGHLY UNSECURE)
+private key is 1 (not 0).
+
+``` ruby
+private_key = EC::PrivateKey.new( 0xf8f8a2f43c8376ccb0871305060d7b27b0554d2cc72bccf41b2705608452f315 )
+private_key.to_i
+#=> 112612889188223089164322846106333497020645518262799935528047458345719983960853
+private_key.to_s
+#=> "f8f8a2f43c8376ccb0871305060d7b27b0554d2cc72bccf41b2705608452f315"
+```
+
+#### Step 2 - Let's derive / calculate the public key from the private key - Enter elliptic curve (EC) cryptography
+
+The public key (`K`) are two numbers (that is, a point with the coordinates x and y) computed by multiplying
+the generator point (`G`) of the curve with the private key (`k`) e.g. `K=k*G`.
+This is equivalent to adding the generator to itself `k` times.
+Magic?
+Let's try:
+
+
+``` ruby
+# note: by default uses Secp256k1 curve (used in Ethereum)
+private_key = EC::PrivateKey.new( 0xf8f8a2f43c8376ccb0871305060d7b27b0554d2cc72bccf41b2705608452f315 )
+
+public_key =  private_key.public_key   ## the "magic" one-way K=k*G curve multiplication (K=public key,k=private key, G=generator point)
+point = public_key.point
+
+point.x
+#=> 17761672841523182714332746445483761684317159074072585653954580096478387916431
+point.y
+#=> 81286693084077906561204577435230199871025343781583806206090259868058973358862
+
+# or in hexa(decimal) - base 16
+point.x.to_s(16)
+#=> "6e145ccef1033dea239875dd00dfb4fee6e3348b84985c92f103444683bae07b"
+point.y.to_s(16)
+#=> "83b5c38e5e2b0c8529d7fa3f64d46daa1ece2d9ac14cab9477d042c84c32ccd0"
+```
+
+and convert the point to the raw uncompressed
+format used in Ethereum:
+
+``` ruby
+## add the together as hex strings
+"%64x%64x" % [point.x, point.y]
+#=> "6e145ccef1033dea239875dd00dfb4fee6e3348b84985c92f103444683bae07b83b5c38e5e2b0c8529d7fa3f64d46daa1ece2d9ac14cab9477d042c84c32ccd0"
+
+# or
+("%64x" % point.x) + ("%64x" % point.y)
+#=> "6e145ccef1033dea239875dd00dfb4fee6e3348b84985c92f103444683bae07b83b5c38e5e2b0c8529d7fa3f64d46daa1ece2d9ac14cab9477d042c84c32ccd0"
+```
+
+References
+
+- [Keys and Addresses in Mastering Ethereum](https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#keys-and-addresses)
+
+
+
+### Generate the Ethereum Address from the (Elliptic Curve) Public Key
+
+Let's again follow along the example
+in the [Mastering Ethereum book](https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#ethereum-addresses) and let's (re)use the public key (from above):
+
+
+Step 1: Use the keccak256 hashing function
+to calculate the hash of the public key
+
+``` ruby
+pub = "6e145ccef1033dea239875dd00dfb4fee6e3348b84985c92f103444683bae07b83b5c38e5e2b0c8529d7fa3f64d46daa1ece2d9ac14cab9477d042c84c32ccd0"
+hash = keccak256( pub )
+#=> "2a5bc342ed616b5ba5732269001d3f1ef827552ae1114027bd3ecf1f086ba0f9"
+```
+
+Step 2: Keep only the last 20 bytes (least significant bytes), this is the Ethereum address
+
+``` ruby
+hash[24,40]    ## last 20 bytes of 32 (skip first 12 bytes (12x2=24 hexchars))
+hash[-40..-1]  ## -or- last 20 bytes (40 hex chars)
+hash[-40,40]   ## -or- last 20 bytes (40 hex chars)
+#=> "001d3f1ef827552ae1114027bd3ecf1f086ba0f9"
+```
+
+References
+
+- [Keys and Addresses in Mastering Ethereum](https://github.com/ethereumbook/ethereumbook/blob/develop/04keys-addresses.asciidoc#keys-and-addresses)
 
 
 

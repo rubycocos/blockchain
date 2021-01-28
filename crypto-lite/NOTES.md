@@ -1,10 +1,16 @@
 # Notes
 
+## ToDos
+
+- [ ] check that hash function always fill-up with leading zeros (0000)
+       if number is smaller than 32-bytes? hex string always with 64 hex(adecimal) chars
+
+
 ## Articles
 
 **Bitcoin**
 
-- Tutorial - Address Generation - <https://www.royalfork.org/2014/07/31/address-gen/>  
+- Tutorial - Address Generation - <https://www.royalfork.org/2014/07/31/address-gen/>
 - Graphical Address Generator - <https://www.royalfork.org/2014/08/11/graphical-address-generator/>
 
 - Bitcoin Gem
@@ -68,7 +74,7 @@ Why use base32 (and not base56)?
 
 
 
-## Ideas 
+## Ideas
 - [] add RSA to readme - why? why not?
 
 **RSA - Rivest, Shamir and Adleman**
