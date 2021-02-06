@@ -1,0 +1,24 @@
+<div class="peers">
+  <h2>Peers</h2>
+  <% if @node.peers.any? %>
+    <ul>
+      <% @node.peers.each_with_index do |(host, port), i| %>
+        <li>
+          http://<%= host %>:<%= port %>
+          <form action="/peers/<%= i %>/delete" method="post">
+            <input type="submit" class="small" value="Remove" />
+          </form>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <i>No peers</i>
+  <% end %>
+  <form action="/peers" method="post" class="peers-form">
+    <label for="host">http://</label>
+    <input type="text" name="host" id="host" placeholder="host" />
+    <label for="port">Port</label>
+    <input type="text" name="port" id="port" />
+    <input type="submit" class="button" value="Add Peer" />
+  </form>
+</div>

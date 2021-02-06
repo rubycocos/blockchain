@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shilling Central Bank Node - Rock-Solid Alpine Dollar From Austria</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <h1>Shilling Central Bank Node</h1>
+
+    <div class="columns">
+      <div class="left">
+        <%= erb :'_wallet' %>
+        <%= erb :'_pending_transactions' %>
+        <%= erb :'_peers' %>
+        <%= erb :'_ledger' %>
+      </div>
+
+      <div class="right">
+        <%= erb :'_blockchain' %>
+      </div>
+    </div>
+
+    <script>
+      var es = new EventSource('/events');
+      es.onmessage = function(e) { window.location.reload(false); };
+    </script>
+
+  </body>
+</html>
