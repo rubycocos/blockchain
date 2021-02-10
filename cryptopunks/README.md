@@ -2,8 +2,8 @@
 
 cryptopunks - mint your own 24×24 pixel punk images off chain from the True Official Genuine CryptoPunks™ sha256-verified original 10 000 unique character collection; incl. 2x/4x/8x zoom for bigger sizes
 
-* home  :: [github.com/rubycoco/cryptopunks](https://github.com/rubycoco/cryptopunks)
-* bugs  :: [github.com/rubycoco/cryptopunks/issues](https://github.com/rubycoco/cryptopunks/issues)
+* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
+* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
 * gem   :: [rubygems.org/gems/cryptopunks](https://rubygems.org/gems/cryptopunks)
 * rdoc  :: [rubydoc.info/gems/cryptopunks](http://rubydoc.info/gems/cryptopunks)
 
@@ -57,7 +57,7 @@ $ punk -h
 resulting in:
 
 ```
-Usage: cryptopunks [options] IDs
+Usage: cryptopunk [options] IDs
   Mint punk characters from composite (./punks.png) - for IDs use 0 to 9999
 
   Options:
@@ -104,9 +104,10 @@ And voila!
 ![](i/punk-8219.png)
 
 
-Bonus:  Try the -z/--zoom factor x2, x4, x8, etc.
 
-Now let's give it a try.  Let's mint punk #0, #2890, and #8219 in 2x format:
+**Bonus:  Try the `-z/--zoom` factor x2, x4, x8, etc.**
+
+Let's give it a try.  Let's mint punk #0, #2890, and #8219 in 2x format:
 
 ```
 $ punk --zoom 2 0 2890 8219

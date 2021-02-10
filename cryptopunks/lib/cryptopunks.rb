@@ -106,7 +106,7 @@ class Tool
            }
 
     parser = OptionParser.new do |cmd|
-      cmd.banner = "Usage: cryptopunks [options] IDs"
+      cmd.banner = "Usage: punk (or cryptopunk) [options] IDs"
 
       cmd.separator "  Mint punk characters from composite (#{opts[:file]}) - for IDs use 0 to 9999"
       cmd.separator ""
