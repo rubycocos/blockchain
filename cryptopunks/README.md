@@ -1,14 +1,3 @@
-# Crypto Punks
-
-cryptopunks - mint your own 24×24 pixel punk images off chain from the True Official Genuine CryptoPunks™ sha256-verified original 10 000 unique character collection; incl. 2x/4x/8x zoom for bigger sizes
-
-* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
-* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
-* gem   :: [rubygems.org/gems/cryptopunks](https://rubygems.org/gems/cryptopunks)
-* rdoc  :: [rubydoc.info/gems/cryptopunks](http://rubydoc.info/gems/cryptopunks)
-
-
-
 > Someday, owning a CryptoPunk might signify just how early of an
 > adopter you were into the world of blockchain and its thriving digital
 > art scene. Or, they could just be a bunch of [24×24 pixel] images.
@@ -41,9 +30,18 @@ cryptopunks - mint your own 24×24 pixel punk images off chain from the True Off
 
 
 
+# Crypto Punks
+
+cryptopunks - mint your own 24×24 pixel punk images off chain from the True Official Genuine CryptoPunks™ sha256-verified original 10 000 unique character collection; incl. 2x/4x/8x zoom for bigger sizes
+
+* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
+* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
+* gem   :: [rubygems.org/gems/cryptopunks](https://rubygems.org/gems/cryptopunks)
+* rdoc  :: [rubydoc.info/gems/cryptopunks](http://rubydoc.info/gems/cryptopunks)
+
+
 New to Crypto Punks?
 See the [**Awesome CryptoPunks Bubble (Anno 2021) - Modern 24×24 Pixel Crypto Art on the Blockchain** »](https://github.com/openblockchains/awesome-cryptopunks-bubble)
-
 
 
 ## Command Line
