@@ -1,0 +1,6 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/cryptopunks.rb
+lib/cryptopunks/version.rb
