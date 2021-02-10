@@ -6,7 +6,7 @@
 >
 >
 > There will be a desire and need to buy expensive [status symbols]
-> in the digital realm [to "flex" how rich I am].
+> in the digital realm [to "flex" how rich and stupid I am].
 > What could be more desirable than a small [24×24]
 > pixelated [knitted cap-wearing ape] face?
 > CryptoPunk artwork [![](i/punk-8219.png) [#8219](https://www.larvalabs.com/cryptopunks/details/8219)] just sold for $176,000.
