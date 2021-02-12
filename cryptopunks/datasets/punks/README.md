@@ -4,11 +4,11 @@
 (Crypto) punks dataset in comma-separated values (CSV) format
 in blocks of a thousand punks each
 (e.g.
-[`0-999.csv`](0-999.csv) incl. 0-999,
-[`1000-1999.csv`](1000-1999.csv) incl. 1000-1999,
-[`2000-2999.csv`](2000-2999.csv) incl. 2000-2999, and so on).
+[`0-999.csv`](0-999.csv),
+[`1000-1999.csv`](1000-1999.csv),
+[`2000-2999.csv`](2000-2999.csv), and so on).
 The data records for punks
-incl. id, type, (accessories) count, and accessories.
+incl. id, type, count (of accessories), and accessories.
 Example - [`0-999.csv`](0-999.csv):
 
 ```
