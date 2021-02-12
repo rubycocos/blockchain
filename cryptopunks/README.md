@@ -194,5 +194,4 @@ Use it as you please with no restrictions whatsoever.
 
 ## Questions? Comments?
 
-Send them along to the [wwwmake forum](http://groups.google.com/group/wwwmake).
-Thanks!
+Post them on the [cryptopunk reddit](https://www.reddit.com/r/cryptopunk). Thanks.
