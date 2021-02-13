@@ -53,10 +53,15 @@ end
 ########################################################
 ## 2) calculate popularity & raririty of accessories
 
-counter = Hash.new(0)
+counter = {}
 punks.each do |punk|
   punk.accessories.each do |acc|
-    counter[ acc.name ] += 1
+    rec = counter[ acc.name ] ||= { count: 0,
+                                    by_type: Hash.new(0)
+                                  }
+
+    rec[ :count ] += 1
+    rec[ :by_type ][ punk.type.name ] += 1
   end
 end
 
@@ -70,8 +75,10 @@ pp counter
 #    "Mohawk"          =>441,
 #    ...}
 
+
+
 ## sort by count
-counter = counter.sort { |l,r| l[1]<=>r[1] }
+counter = counter.sort { |l,r| l[1][:count]<=>r[1][:count] }
 pp counter
 #=> [["Beanie", 44],
 #    ["Choker", 48],
@@ -84,11 +91,28 @@ pp counter
 ## pretty print
 counter.each do |rec|
   name    = rec[0]
-  count   = rec[1]
+  count   = rec[1][:count]
   percent =  Float(count*100)/Float(punks.size)
 
-  puts '| %-20s | %4d  (%5.2f %%) |' % [name, count, percent]
+  print '| %-20s | %4d  (%5.2f %%) |' % [name, count, percent]
+
+  ## add by type - highest first (lowest last)
+  types = rec[1][:by_type]
+  types = types.sort { |l,r| r[1]<=>l[1] }
+  ## pp types
+
+  buf = ""
+  types.each_with_index do |type, i|
+    buf << " · " if i > 0
+    buf << "#{type[0]} (#{type[1]})"
+  end
+
+  print " #{buf} |"
+  print "\n"
 end
+
+
+__END__
 
 
 ##########################################################
