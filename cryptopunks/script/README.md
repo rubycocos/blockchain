@@ -5,7 +5,7 @@
 Run the script:
 
 ```
-$ ruby script/accessories.rb
+$ ruby -I lib script/accessories.rb
 ```
 
 

@@ -1,31 +1,33 @@
-require 'csvreader'
+###########
+# to run use:
+#  $  ruby -I lib script/accessories.rb
 
-datasets = Dir.glob( './datasets/punks/*.csv')
-#=> ["./datasets/punks/0-999.csv",
-#    "./datasets/punks/1000-1999.csv",
-#    "./datasets/punks/2000-2999.csv",
-#    "./datasets/punks/3000-3999.csv",
-#    "./datasets/punks/4000-4999.csv",
-#    "./datasets/punks/5000-5999.csv",
-#    "./datasets/punks/6000-6999.csv",
-#    "./datasets/punks/7000-7999.csv",
-#    "./datasets/punks/8000-8999.csv",
-#    "./datasets/punks/9000-9999.csv"]
 
-punks = []
-datasets.each do |dataset|
-  punks += CsvHash.read( dataset )
-end
+require 'cryptopunks'
 
+
+punks = Punks::Dataset.read( './datasets/punks/*.csv' )
 puts "  #{punks.size} punk(s)"
 #=> 10000 punk(s)
+
+pp punks[0]
+pp punks[1]
+pp punks[2]
+
+punk = punks[0]
+pp punk.id
+pp punk.type.name
+pp punk.accessories
+pp punk.accessories[0].name
+pp punk.accessories[0].type.name
+
 
 
 ###########################################################
 ## 1) calculate popularity & raririty of types
 counter = Hash.new(0)
 punks.each do |punk|
-  counter[ punk['type'] ] += 1
+  counter[ punk.type.name ] += 1
 end
 
 pp counter.size
@@ -47,14 +49,14 @@ counter.each do |rec|
   puts '| %-12s | %4d  (%5.2f %%) |' % [name, count, percent]
 end
 
+
 ########################################################
 ## 2) calculate popularity & raririty of accessories
 
 counter = Hash.new(0)
 punks.each do |punk|
-  accessories = punk['accessories'].split( %r{[ ]*/[ ]*} )
-  accessories.each do |acc|
-    counter[ acc ] += 1
+  punk.accessories.each do |acc|
+    counter[ acc.name ] += 1
   end
 end
 
@@ -89,12 +91,83 @@ counter.each do |rec|
 end
 
 
+##########################################################
+## 3) calculate popularity & raririty of accessories by accessory type (12)
+
+counters = {}
+punks.each do |punk|
+  punk.accessories.each do |acc|
+    counter = counters[ acc.type.name ] ||= Hash.new( 0 )
+    counter[ acc.name ] += 1
+  end
+end
+
+pp counters.size
+#=> 12
+pp counters
+#=> "Ears"=>{"Earring"=>2459},
+#   "Hair"=>
+#     {"Blonde Bob"=>147,
+#      "Mohawk"=>441,
+#      "Wild Hair"=>447,
+#  "Half Shaved"=>147,
+    ...
+#
+
+
+## pretty print
+counters.each do |type, counter|
+
+  ## sort by count
+  counter = counter.sort { |l,r| l[1]<=>r[1] }
+
+  puts
+  puts "#{type} (#{counter.size}):"
+
+  counter.each do |rec|
+    name    = rec[0]
+    count   = rec[1]
+    percent =  Float(count*100)/Float(punks.size)
+
+    puts '| %-20s | %4d  (%5.2f %%) |' % [name, count, percent]
+  end
+end
+
+
+
+__END__
+## sort by count
+counter = counter.sort { |l,r| l[1]<=>r[1] }
+pp counter
+#=> [["Beanie", 44],
+#    ["Choker", 48],
+#    ["Pilot Helmet", 54],
+#    ["Tiara", 55],
+#    ["Orange Side", 68],
+#    ...}
+
+
+## pretty print
+counter.each do |rec|
+  name    = rec[0]
+  count   = rec[1]
+  percent =  Float(count*100)/Float(punks.size)
+
+  puts '| %-20s | %4d  (%5.2f %%) |' % [name, count, percent]
+end
+
+
+__END__
+
+
+
+
 ###############################
-## 3) calculate popularity & raririty of accessory count
+## 4) calculate popularity & raririty of accessory count
 
 counter = Hash.new(0)
 punks.each do |punk|
-  counter[ punk['count']] += 1
+  counter[ punk.accessories.size ] += 1
 end
 
 
@@ -123,3 +196,4 @@ counter.each do |rec|
 
   puts '| %-12s | %4d  (%5.2f %%) |' % [name, count, percent]
 end
+

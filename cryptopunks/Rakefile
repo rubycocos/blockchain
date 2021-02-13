@@ -20,6 +20,7 @@ Hoe.spec 'cryptopunks' do
   self.extra_deps = [
     ['crypto-lite'],
     ['chunky_png'],
+    ['csvreader'],
   ]
 
   self.licenses = ['Public Domain']
