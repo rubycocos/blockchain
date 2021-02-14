@@ -5,4 +5,8 @@ Rakefile
 bin/cryptopunk
 bin/punk
 lib/cryptopunks.rb
+lib/cryptopunks/attributes.rb
+lib/cryptopunks/dataset.rb
+lib/cryptopunks/image.rb
+lib/cryptopunks/structs.rb
 lib/cryptopunks/version.rb

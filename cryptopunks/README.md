@@ -29,7 +29,6 @@
 > -- [January 2021](https://twitter.com/larvalabs/status/1353915659453870080)
 
 
-
 # Crypto Punks
 
 cryptopunks - mint your own 24×24 pixel punk images off chain from the True Official Genuine CryptoPunks™ sha256-verified original 10 000 unique character collection; incl. 2x/4x/8x zoom for bigger sizes
