@@ -19,21 +19,19 @@ See the [**Awesome CryptoPunks Bubble (Anno 2021) - Modern 24×24 Pixel Crypto A
 
 Crypto collectibles are all about rarity - the more rare the type or accessories of a punk the more valuable the 24x24 pixel art in theory.
 
-
-For more insight into the population
-let's use the `cryptopunks.csv` dataset
+Let's use the [`cryptopunks.csv` dataset](../datasets/punks)
 in comma-separated values (CSV) format
 that houses in blocks of a thousand punks each
 (e.g.
-[`0-999.csv`](../datasets/punks/0-999.csv),
-[`1000-1999.csv`](../datasets/punks/1000-1999.csv),
-[`2000-2999.csv`](../datasets/punks/2000-2999.csv), and so on).
-all the 10 000 punks
+`0-999.csv`,
+`1000-1999.csv`,
+`2000-2999.csv`, and so on)
+all the 10 000 punks for more insight into the population.
 
 
 The data records for punks
 incl. id, type, count (of accessories), and accessories.
-Example - [`0-999.csv`](../datasets/punks/0-999.csv):
+Example:
 
 ```
 id, type, count, accessories
@@ -53,13 +51,12 @@ Let's read in the dataset:
 ``` ruby
 require 'cryptopunks'
 
-
 punks = Punks::Dataset.read( './datasets/punks/*.csv' )
-puts "  #{punks.size} punk(s)"
-#=> 10000 punk(s)
+punks.size
+#=> 10000
 ```
 
-Let the cryptopunks helper do the heavy lifting.
+Let the cryptopunks helper do the heavy lifting :-).
 As a bonus all punks get wrapped into easy-to-access structs.
 Example:
 
@@ -72,16 +69,20 @@ punk.type.name
 punk.accessories.size
 #=> 3
 punk.accessories[0].name
-#=> Green Eye Shadow
-# ...
+#=> "Green Eye Shadow"
+punk.accessories[1].name
+#=> "Earring"
+punk.accessories[2].name
+#=> "Blonde Bob"
 ```
+
 
 ## Popularity & Rarity by Punk Types (5)
 
-Let's calculate popularity & rarity by punk types.
+Let's calculate popularity & rarity by punk types:
 
 ``` ruby
-counter = Hash.new(0)
+counter = Hash.new(0)      # a hash (table) - let's (auto-)default to 0 for values
 punks.each do |punk|
   counter[ punk.type.name ] += 1
 end
@@ -93,7 +94,8 @@ counter
 ```
 
 Resulting in five punk types.
-Let's sort by count with rarest first and pretty print the result:
+Let's sort by count with rarest first and pretty print the result
+and as a bonus let's calculate the percentage (%) in the total population:
 
 ``` ruby
 counter = counter.sort { |l,r| l[1]<=>r[1] }
@@ -118,10 +120,16 @@ Female       | 3840  (38.40 %)
 Male         | 6039  (60.39 %)
 ```
 
+That is, out of 10 000 punks only 9 are aliens (the rarest)
+and 6 039 are male (the most popular), that is, 60.39 % of the total population.
+
+
+
+
 ## Popularity & Rarity by Accessories (87)
 
 Next let's calculate popularity & rarity by accessories and
-let's break out the count by punk type.
+let's break out the count by punk type:
 
 ``` ruby
 counter = {}
@@ -270,7 +278,7 @@ Earring              | 2459  (24.59 %) | Male (1498) · Female (933) · Zombie (
 
 ### Popularity & Rarity by Accessory Count (0 to 7)
 
-To wrap up let's calculate popularity & rarity by the number of accessories.
+To wrap up let's calculate popularity & rarity by the number of accessories:
 
 ``` ruby
 counter = Hash.new(0)
