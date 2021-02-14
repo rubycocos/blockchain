@@ -144,9 +144,9 @@ punks.each do |punk|
   end
 end
 
-pp counter.size
+counter.size
 #=> 87
-pp counter
+counter
 #=> {"Green Eye Shadow"=>{:count=>271,
 #                         :by_type=>{"Female"=>271}},
 #    "Earring"=>{:count=>2459,
