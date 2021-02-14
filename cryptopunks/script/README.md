@@ -160,7 +160,7 @@ pp counter
 #   ... }
 ```
 
-Resulting in 87 accesories.
+Resulting in 87 accessories.
 Let's again sort by count with rarest first and pretty print the result:
 
 
@@ -293,7 +293,7 @@ counter
 ```
 
 Resulting in 8 classes.
-Let's again sort by natural count, that is, from 0 to 7 and pretty print the result:
+Let's sort by natural count, that is, from 0 to 7 and pretty print the result:
 
 ``` ruby
 counter = counter.sort { |l,r| l[0]<=>r[0] }
