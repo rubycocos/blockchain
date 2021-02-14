@@ -88,11 +88,11 @@ ACCESSORY_TYPES = [
                   { name: 'Shadow Beard', limit: 526 },
                   { name: 'Luxurious Beard', limit: 286 },
                   { name: 'Big Beard', limit: 146 },
-             'Chinstrap',
-             'Mustache',
-             'Muttonchops',
-             'Handlebars',
-             'Goat']
+                  { name: 'Chinstrap', limit: 282 },
+                  { name: 'Mustache', limit: 288 },
+                  { name: 'Muttonchops', limit: 303 },
+                  { name: 'Handlebars', limit: 263 },
+                  { name: 'Goat', limit: 295 }]
   },
   {
     name: 'Ears',
@@ -106,16 +106,16 @@ ACCESSORY_TYPES = [
                   { name: 'Welding Goggles', limit: 86 },
                   { name: 'VR', limit: 332 },
                   { name: '3D Glasses', limit: 286 },
-             'Clown Eyes Blue',
-             'Clown Eyes Green',
-             'Small Shades',
-             'Regular Shades',
-             'Big Shades',
-             'Classic Shades',
-             'Nerd Glasses',
-             'Horned Rim Glasses',
-             'Eye Mask',
-             'Eye Patch']
+                  { name: 'Clown Eyes Blue', limit: 384 },
+                  { name: 'Clown Eyes Green', limit: 382 },
+                  { name: 'Small Shades', limit: 378 },
+                  { name: 'Regular Shades', limit: 527 },
+                  { name: 'Big Shades', limit: 535 },
+                  { name: 'Classic Shades', limit: 502 },
+                  { name: 'Nerd Glasses', limit: 572 },
+                  { name: 'Horned Rim Glasses', limit: 535 },
+                  { name: 'Eye Mask', limit: 293 },
+                  { name: 'Eye Patch', limit: 461 }]
   },
   {
     name: 'Lips',

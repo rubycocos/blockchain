@@ -56,11 +56,13 @@ class Metadata
 
 
      def self.build
-       ATTRIBUTES.reduce( {} ) do |h, rec|
+       ACCESSORY_TYPES.reduce( {} ) do |h, rec|
          type = AccessoryType.new( rec[:name] )
          ## add all accessories
-         rec[:values].each do |value|
-           type.accessories << Accessory.new( value, type )
+         rec[:accessories].each do |rec_acc|
+           type.accessories << Accessory.new( rec_acc[:name],
+                                              type,
+                                              rec_acc[:limit].to_i )
          end
          h[ rec[:name].downcase ] = type
          h
@@ -85,7 +87,7 @@ class Metadata
    attr_reader :name,
                :type,
                :limit
-   def initialize( name, type, limit=nil )
+   def initialize( name, type, limit )
      @name  = name
      @type  = type
      @limit = limit

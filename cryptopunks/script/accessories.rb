@@ -68,12 +68,7 @@ end
 pp counter.size
 #=> 87
 pp counter
-#=> {"Green Eye Shadow"=>271,
-#    "Earring"         =>2459,
-#    "Blonde Bob"      =>147,
-#    "Smile"           =>238,
-#    "Mohawk"          =>441,
-#    ...}
+#=>
 
 
 
@@ -94,25 +89,26 @@ counter.each do |rec|
   count   = rec[1][:count]
   percent =  Float(count*100)/Float(punks.size)
 
-  print '| %-20s | %4d  (%5.2f %%) |' % [name, count, percent]
+  print '%-20s | %4d  (%5.2f %%) | ' % [name, count, percent]
 
   ## add by type - highest first (lowest last)
   types = rec[1][:by_type]
   types = types.sort { |l,r| r[1]<=>l[1] }
-  ## pp types
 
-  buf = ""
-  types.each_with_index do |type, i|
-    buf << " · " if i > 0
-    buf << "#{type[0]} (#{type[1]})"
-  end
-
-  print " #{buf} |"
+  print types.map {|type| "#{type[0]} (#{type[1]})" }.join( ' · ')
   print "\n"
+
+
+  ### double check hard-coded limits
+  acc = Punks::Metadata::Accessory.find( name )
+  if acc.limit != count
+    puts "!! ERROR - punk data assertion failed - accessory >#{name}< count expected #{acc.limit}; got #{count}:"
+    pp rec
+    exit 1
+  end
 end
 
 
-__END__
 
 
 ##########################################################
@@ -159,7 +155,6 @@ end
 
 
 
-__END__
 ## sort by count
 counter = counter.sort { |l,r| l[1]<=>r[1] }
 pp counter
@@ -181,7 +176,6 @@ counter.each do |rec|
 end
 
 
-__END__
 
 
 
@@ -199,6 +193,8 @@ pp counter.size
 #=> 8
 pp counter
 #=> {"3"=>4501, "2"=>3560, "1"=>333, "4"=>1420, "5"=>166, "0"=>8, "6"=>11, "7"=>1}
+
+
 
 ## sort by count 0,1,2,etc.
 counter = counter.sort { |l,r| l[0]<=>r[0] }
@@ -218,6 +214,6 @@ counter.each do |rec|
   count   = rec[1]
   percent =  Float(count*100)/Float(punks.size)
 
-  puts '| %-12s | %4d  (%5.2f %%) |' % [name, count, percent]
+  puts '%-12s | %4d  (%5.2f %%)' % [name, count, percent]
 end
 
