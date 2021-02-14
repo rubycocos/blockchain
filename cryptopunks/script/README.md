@@ -5,7 +5,7 @@ See the [**Awesome CryptoPunks Bubble (Anno 2021) - Modern 24×24 Pixel Crypto A
 
 
 
-## Statistics, Statistics, Statistics - Calculate / Update Rarity & Popularity Stats
+## Statistics, Statistics, Statistics - Calculate Rarity & Popularity By Type, By Accessories, & More - Inside the 10 000 Punk Population
 
 > Ultra-rare alien [24×24 pixel] CryptoPunk
 > sells for 605 ETH, or $750,000.
