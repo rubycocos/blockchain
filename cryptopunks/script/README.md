@@ -19,7 +19,7 @@ See the [**Awesome CryptoPunks Bubble (Anno 2021) - Modern 24×24 Pixel Crypto A
 
 Crypto collectibles are all about rarity - the more rare the type or accessories of a punk the more valuable the 24x24 pixel art in theory.
 
-Let's use the [`cryptopunks.csv` dataset](../datasets/punks)
+Let's use the [`cryptopunks.csv` dataset](https://github.com/openblockchains/punks)
 in comma-separated values (CSV) format
 that houses in blocks of a thousand punks each
 (e.g.
@@ -51,7 +51,7 @@ Let's read in the dataset:
 ``` ruby
 require 'cryptopunks'
 
-punks = Punks::Dataset.read( './datasets/punks/*.csv' )
+punks = Punks::Dataset.read( './punks/*.csv' )
 punks.size
 #=> 10000
 ```
