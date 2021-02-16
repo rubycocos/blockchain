@@ -845,10 +845,10 @@ step2 = "1e" + step1
 #    c) Take the first 4 bytes of the second SHA-256 hash. This is the address checksum
 #    d) Add the 4 checksum bytes at the end of
 #       extended RIPEMD-160 hash from step 2.
-#       This is the 25-byte binary Bitcoin Address.
+#       This is the 25-byte binary Dodge Address.
 #    e) Convert the result from a byte string into a base58 string
 #       using Base58 encoding.
-#       This is the most commonly used Bitcoin Address format.
+#       This is the most commonly used Dodge Address format.
 addr  = base58check( step2 )
 #=> "DKuR12onkdp5GxC5c8DgXhGe4Z2AqCK3Xh"
 ```
