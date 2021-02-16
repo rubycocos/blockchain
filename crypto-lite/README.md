@@ -578,7 +578,7 @@ References
 Let's follow the steps from [How to create Bitcoin Address](https://en.bitcoin.it/wiki/Technical_background_of_version_1_Bitcoin_addresses#How_to_create_Bitcoin_Address):
 
 ``` ruby
-# Lets start with the public key ("raw" hex string encoded)
+# Lets start with the public key ("raw" hex string encoded in compressed format)
 pk = "0250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b2352"
 
 # 1. Perform SHA-256 hashing on the public key
@@ -623,7 +623,7 @@ Or let's try again with the shortcut helpers:
 - `BASE58CHECK -  BASE58(X || SHA256(SHA256(X))[:4])`
 
 ``` ruby
-# Lets start with the public key ("raw" hex string encoded)
+# Lets start with the public key ("raw" hex string encoded in compressed format)
 pk = "0250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b2352"
 
 # 1. Perform HASH-160 hashing on the public key
@@ -722,8 +722,7 @@ Read more [Crypto Quotes »](https://github.com/openblockchains/crypto-quotes)
 
 > Even fun money is money, and a toy cryptocurrency can be turned into real money;
 > the supply of gullibility is deep, if not infinite.
-> So the shibes started dreaming of getting rich for free -
-> and the hucksters moved in.
+> So the shibes started dreaming of getting rich for free...
 >
 >  -- David Gerard,  [Confused About Dogecoin? Here's How It (Doesn't) Work](https://foreignpolicy.com/2021/02/11/dogecoin-how-does-it-work-elon-musk-cryptocurrency/)
 >
@@ -827,7 +826,7 @@ Let's use the shortcut hash function helpers:
 - `BASE58CHECK -  BASE58(X || SHA256(SHA256(X))[:4])`
 
 ``` ruby
-# Lets start with the public key ("raw" hex string encoded)
+# Lets start with the public key ("raw" hex string encoded in compressed format)
 pk = "022744c02580b4905349bc481a60c308c2d98d823d44888835047f6bc5c38c4e8f"
 
 # 1. Perform HASH-160 hashing on the public key
@@ -889,8 +888,7 @@ EC::SECP256K1.order.to_s(16)
 #=> "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"
 ```
 
-Note: A "raw" private key in ethereum is the same as in bitcoin
-using the same elliptic curve secp256k1.
+Note: A "raw" private key in ethereum is the same as in bitcoin, litecoin, dodge & co using the same elliptic curve secp256k1.
 See [Derive the Bitcoin (Elliptic Curve) Public Key from the Private Key](#derive-the-bitcoin-elliptic-curve-public-key-from-the-private-key) above.
 
 
