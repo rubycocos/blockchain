@@ -400,6 +400,18 @@ That's all the magic.
 - [Generate the Bitcoin (Base58) Address from the (Elliptic Curve) Public Key](#generate-the-bitcoin-base58-address-from-the-elliptic-curve-public-key)
 - [Encode the Bitcoin Private Key in the Wallet Import Format (WIF)](#encode-the-bitcoin-private-key-in-the-wallet-import-format-wif)
 
+**Dodge "Shiba Inu" Chains**
+
+- [Derive the Dodge (Elliptic Curve) Public Key from the Private Key](#derive-the-dodge-elliptic-curve-public-key-from-the-private-key)
+- [Generate the Dodge Address from the (Elliptic Curve) Public Key](#generate-the-dodge-address-from-the-elliptic-curve-public-key)
+
+
+**Litcoin Chains**
+- [Derive the Litecoin (Elliptic Curve) Public Key from the Private Key](#derive-the-litecoin-elliptic-curve-public-key-from-the-private-key)
+- [Generate the Litecoin Address from the (Elliptic Curve) Public Key](#generate-the-litecoin-address-from-the-elliptic-curve-public-key)
+
+
+
 **Ethereum Chains**
 
 - [Derive the Ethereum (Elliptic Curve) Public Key from the Private Key](#derive-the-ethereum-elliptic-curve-public-key-from-the-private-key)
@@ -577,7 +589,7 @@ step1 = sha256( pk )
 step2 = ripemd160( step1 )
 #=> "f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
 
-# 3. Add version byte in front of RIPEMD-160 hash (0x00 for Main Network)
+# 3. Add version byte in front of RIPEMD-160 hash (0x00 for Bitcoin Main Network)
 step3 = "00" + step2
 #=> "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
 
@@ -620,7 +632,7 @@ pk = "0250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b2352"
 step1 = hash160( pk )
 #=> "f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
 
-# 2. Add version byte in front of RIPEMD-160 hash (0x00 for Main Network)
+# 2. Add version byte in front of RIPEMD-160 hash (0x00 for Bitoin Main Network)
 step2 = "00" + step1
 #=> "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
 
@@ -701,6 +713,160 @@ Bonus:  Bitcon Tip - How to Buy Bitcoin (The CO₂-Friendly Way)
 >  -- Trolly McTrollface, Bitcon Greater Fool Court Jester
 
 Read more [Crypto Quotes »](https://github.com/openblockchains/crypto-quotes)
+
+
+
+
+
+## Dodge
+
+> Even fun money is money, and a toy cryptocurrency can be turned into real money;
+> the supply of gullibility is deep, if not infinite.
+> So the shibes started dreaming of getting rich for free -
+> and the hucksters moved in.
+>
+>  -- David Gerard,  [Confused About Dogecoin? Here's How It (Doesn't) Work](https://foreignpolicy.com/2021/02/11/dogecoin-how-does-it-work-elon-musk-cryptocurrency/)
+>
+>
+> Dogecoin is the people's crypto.
+> The future curreny of earth and mars. Much wow!
+>
+> -- Elon Musk, [February 2021](https://twitter.com/elonmusk/status/1357241340313141249)
+
+<!--
+ sources:
+ https://twitter.com/elonmusk/status/1357241340313141249
+ https://twitter.com/elonmusk/status/1357914696645414913
+ https://twitter.com/elonmusk/status/1357902434580918274
+-->
+
+
+
+### Derive the Dodge (Elliptic Curve) Public Key from the Private Key
+
+Short version:  Same as in Ethereum, Bitcoin, Litecoin
+
+Long version:
+A private key in dodge is a 32-byte (256-bit) unsigned / positive integer number.
+
+Or more precise the private key is a random number between 1
+and the order of the elliptic curve secp256k1.
+
+
+``` ruby
+EC::SECP256K1.order
+#=> 115792089237316195423570985008687907852837564279074904382605163141518161494337
+
+# or in hexadecimal (base16)
+EC::SECP256K1.order.to_s(16)
+#=> "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141"
+```
+
+
+#### Step 1 - Let's generate a private key
+
+``` ruby
+private_key = EC::PrivateKey.generate     # alice
+private_key.to_i
+#=> 50303382071965675924643368363408442017264130870580001935435312336103014915707
+private_key.to_s
+#=> "6f36b48dd130618049ca27e1909debdf3665cf0df0ade0986f0c50123107de7b"
+
+private_key = EC::PrivateKey.generate     # bob
+private_key.to_i
+#=> 96396065671557366547785856940504404648366202869823009146014078671352808008442
+private_key.to_s
+#=> "d51e3d5ce8fbc6e574cf78d1c46e8936c26f38b002b954d0eac8aef195d6eafa"
+```
+
+
+#### Step 2 - Let's derive / calculate the public key from the private key - Enter elliptic curve (EC) cryptography
+
+The public key (`K`) are two numbers (that is, a point with the coordinates x and y) computed by multiplying
+the generator point (`G`) of the curve with the private key (`k`) e.g. `K=k*G`.
+This is equivalent to adding the generator to itself `k` times.
+Magic?
+Let's try:
+
+
+``` ruby
+# note: by default uses Secp256k1 curve (used in Dodge)
+private_key = EC::PrivateKey.new( 50303382071965675924643368363408442017264130870580001935435312336103014915707 )
+
+public_key =  private_key.public_key   ## the "magic" one-way K=k*G curve multiplication (K=public key,k=private key, G=generator point)
+point = public_key.point
+
+point.x
+#=> 17761672841523182714332746445483761684317159074072585653954580096478387916431
+point.y
+#=> 81286693084077906561204577435230199871025343781583806206090259868058973358862
+```
+
+and convert the point to the compressed or uncompressed
+Standards for Efficient Cryptography (SEC)
+format used in Dodge:
+
+``` ruby
+point.to_s( :compressed )
+#=> "022744c02580b4905349bc481a60c308c2d98d823d44888835047f6bc5c38c4e8f"
+point.to_s( :uncompressed )
+#=> "042744c02580b4905349bc481a60c308c2d98d823d44888835047f6bc5c38c4e8fb3b6a34b90a571f6c2a1113dd5ff4576f61bbf3e970a6e148fa02bf9eb7bcb0e"
+```
+
+### Generate the Dodge Address from the (Elliptic Curve) Public Key
+
+Short version:
+Same as bitcoin or litecoin.
+Only difference - Add the version byte `0x1e` prefix for Dodge Main Network - P2PKH (pay to public key hash).
+
+
+Long version:
+Let's use the shortcut hash function helpers:
+
+- `HASH160     -  RMD160(SHA256(X))`
+- `BASE58CHECK -  BASE58(X || SHA256(SHA256(X))[:4])`
+
+``` ruby
+# Lets start with the public key ("raw" hex string encoded)
+pk = "022744c02580b4905349bc481a60c308c2d98d823d44888835047f6bc5c38c4e8f"
+
+# 1. Perform HASH-160 hashing on the public key
+#    a) Perform SHA-256 hashing on the public key
+#    b) Perform RIPEMD-160 hashing on the result of SHA-256
+step1 = hash160( pk )
+#=> "a1f37969bcb547cd9c3a28fa07c2269ef813340a"
+
+# 2. Add version byte in front of RIPEMD-160 hash (0x1e for Dodge Main Network)
+step2 = "1e" + step1
+#=> "1ea1f37969bcb547cd9c3a28fa07c2269ef813340a"
+
+# 3. Encode with BASE58CHECK
+#    a) Perform SHA-256 hash on the extended RIPEMD-160 result
+#    b) Perform SHA-256 hash on the result of the previous SHA-256 hash
+#    c) Take the first 4 bytes of the second SHA-256 hash. This is the address checksum
+#    d) Add the 4 checksum bytes at the end of
+#       extended RIPEMD-160 hash from step 2.
+#       This is the 25-byte binary Bitcoin Address.
+#    e) Convert the result from a byte string into a base58 string
+#       using Base58 encoding.
+#       This is the most commonly used Bitcoin Address format.
+addr  = base58check( step2 )
+#=> "DKuR12onkdp5GxC5c8DgXhGe4Z2AqCK3Xh"
+```
+
+
+## Litecoin
+
+### Derive the Litecoin (Elliptic Curve) Public Key from the Private Key
+
+Short version:  Same as in Ethereum, Bitcoin, Dodge.
+
+### Generate the Litecoin Address from the (Elliptic Curve) Public Key
+
+Short version:  Same as in Bitcoin or Dodge.
+Only difference - Add the version byte `0x30` prefix for Litecoin Main Network - P2PKH (pay to public key hash).
+
+
 
 
 
@@ -829,7 +995,7 @@ hash[-40,40]   ## -or- last 20 bytes (40 hex chars)
 #=> "001d3f1ef827552ae1114027bd3ecf1f086ba0f9"
 ```
 
-Note: Most often you will see ethereum addresses with the prefix `0x` that indicates 
+Note: Most often you will see ethereum addresses with the prefix `0x` that indicates
 they are hexadecimal-encoded, like this: `0x001d3f1ef827552ae1114027bd3ecf1f086ba0f9`.
 
 References

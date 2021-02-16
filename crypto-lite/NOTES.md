@@ -6,6 +6,31 @@
        if number is smaller than 32-bytes? hex string always with 64 hex(adecimal) chars
 
 
+## Chain Params
+
+
+Coin Network Prefix Version Table:
+
+      |  BIP 44    |      mainnet              |     mainnet     |     mainnet     |
+Coin  | coin_type  |    version_WIF            |  version_p2pkh  |  version_p2sh   |
+------|------------|-----------|---------------|-----------------|-----------------|
+BTC   |      0     |        128 (or 0x80)      |   0 (or 0x00) => ('1')       |   5/('3')       |
+TEST  |      1     |        239 (or 0xef)      | 111/('m' or 'n') | 196/('2')       |
+LTC   |      2     |        176 (or 0xb0)      |  48/('L')       |   5/('3')       |
+DOGE  |      3     |        158 (or 0x9e)      |  30 (or 0x1e) => ('D')       |  22/('9' or 'A') |
+
+
+- <https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp>
+- <https://github.com/litecoin-project/litecoin/blob/master/src/chainparams.cpp>
+- <https://github.com/dogecoin/dogecoin/blob/master/src/chainparams.cpp>
+
+
+Addresses:
+
+- <https://dogecoin.fandom.com/wiki/Your_address>
+
+
+
 ## Articles
 
 **Bitcoin**
