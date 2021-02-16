@@ -406,7 +406,7 @@ That's all the magic.
 - [Generate the Dodge Address from the (Elliptic Curve) Public Key](#generate-the-dodge-address-from-the-elliptic-curve-public-key)
 
 
-**Litcoin Chains**
+**Litecoin Chains**
 - [Derive the Litecoin (Elliptic Curve) Public Key from the Private Key](#derive-the-litecoin-elliptic-curve-public-key-from-the-private-key)
 - [Generate the Litecoin Address from the (Elliptic Curve) Public Key](#generate-the-litecoin-address-from-the-elliptic-curve-public-key)
 
@@ -728,7 +728,7 @@ Read more [Crypto Quotes »](https://github.com/openblockchains/crypto-quotes)
 >
 >
 > Dogecoin is the people's crypto.
-> The future curreny of earth and mars. Much wow!
+> The future currency of earth and mars. Much wow!
 >
 > -- Elon Musk, [February 2021](https://twitter.com/elonmusk/status/1357241340313141249)
 
