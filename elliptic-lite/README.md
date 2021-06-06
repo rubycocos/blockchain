@@ -14,7 +14,7 @@
 
 ### Finite Fields
 
-Let's start with definining a finite field (mod 13), that is,
+Let's start with defining a finite field (mod 13), that is,
 `F₁₃ = [0,1,2,3,4,5,6,7,8,9,10,11,12]` where the mod(ulus) is always
 a prime number - and the prime number is 13 in this case:
 
