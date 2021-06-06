@@ -2,6 +2,11 @@
 
 Gems:
 
+- [elliptic-lite](elliptic-lite) - elliptic curve cryptography from scratch / zero - start with finite fields, add elliptic curve points and point addition and scalar multiplications, add the elliptic curve digital signature algorithm (ECDSA) using the secp256k1 curve / group to sign and verify messages and more
+
+
+<!-- break -->
+
 - [crypto-lite](crypto-lite) - cryptographic secure hash functions and public key signature algorithms made easy
 - [base32-alphabets](base32-alphabets) - base32 encoding / decoding in 5-bit groups (2^5=32) with kai, crockford or electrologica notations / alphabets
 - [base58-alphabets](base58-alphabets) - base58 encoding / decoding numbers, hex or binary strings (incl. leading zeros) with bitcoin or flickr notations / alphabets
