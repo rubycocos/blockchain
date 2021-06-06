@@ -1,0 +1,16 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/elliptic-lite.rb
+lib/elliptic-lite/base.rb
+lib/elliptic-lite/field.rb
+lib/elliptic-lite/point.rb
+lib/elliptic-lite/secp256k1.rb
+lib/elliptic-lite/signature.rb
+lib/elliptic-lite/version.rb
+lib/elliptic/lite.rb
+test/helper.rb
+test/test_field.rb
+test/test_point.rb
+test/test_signature.rb

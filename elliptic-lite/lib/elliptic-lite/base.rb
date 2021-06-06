@@ -5,6 +5,10 @@ require 'digest'
 
 
 
+## our own code
+require 'elliptic-lite/version'
+
+
 module ECC
 class IntegerOp      ## change to IntegerFieldOp or such - why? why not?
   def self.add( a, b ) a + b;  end
@@ -41,7 +45,6 @@ end # module ECC
 
 
 
-## our own code
 require 'elliptic-lite/field'
 require 'elliptic-lite/point'
 
@@ -69,3 +72,5 @@ require 'elliptic-lite/signature'
 
 
 
+
+puts ECCLite.banner     ## say hello
