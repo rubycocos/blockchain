@@ -1,0 +1,8 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/digest-lite.rb
+lib/digest-lite/keccak.rb
+lib/digest-lite/sha3.rb
+lib/digest-lite/version.rb

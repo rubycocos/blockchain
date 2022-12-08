@@ -1,0 +1,29 @@
+require 'hoe'
+require './lib/digest-lite/version.rb'
+
+Hoe.spec 'digest-lite' do
+
+  self.version = Digestlite::VERSION
+
+  self.summary = 'digest-lite - crypto(graphic) hash functions / classes - Digest::KeccakLite (512bit, 256bit, etc), Digest::SHA3Lite (512bit, 256bit, etc) in "100% pure" ruby "lite" scripts, that is, without any c-extensions and with zero-dependency'
+  self.description = summary
+
+  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end
