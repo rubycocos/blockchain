@@ -22,9 +22,9 @@ are available:
 - RIPEMD-160 / RMD160  (160 bits / 20 bytes) -- RIPEMD-160 cryptographic hash function, designed by Hans Dobbertin, Antoon Bosselaers, and Bart Preneel.
 - SHA1  (160 bits / 20 bytes) -- Secure Hash Algorithm by NIST (the US' National Institute of Standards and Technology), described in FIPS PUB 180-1.
 - SHA2 Family -- described in FIPS 180-2.
-  - SHA512  (512 bits / 64 bytes)
-  - SHA384  (384 bits / 48 bytes)
   - SHA256  (256 bits / 32 bytes)
+  - SHA384  (384 bits / 48 bytes)
+  - SHA512  (512 bits / 64 bytes)
 
 Example:
 
