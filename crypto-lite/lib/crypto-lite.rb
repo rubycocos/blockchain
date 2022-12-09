@@ -3,12 +3,9 @@ require 'digest'
 require 'base64'
 require 'openssl'
 
-## 3rd party gems
-require 'digest/sha3'  # e.g. keccak (original submission/proposal NOT official sha3)
-## see https://rubygems.org/gems/digest-sha3-patched
-##     https://github.com/teamhedge/digest-sha3-ruby
 
 ## our own 3rd party (2nd party?)
+require 'digest-lite'  # e.g. keccak (original submission/proposal NOT official sha3)
 require 'base32-alphabets'
 require 'base58-alphabets'
 require 'elliptic'
@@ -16,9 +13,9 @@ require 'elliptic'
 
 
 ## our own code
-require 'crypto-lite/version'    # note: let version always go first
-require 'crypto-lite/config'
-require 'crypto-lite/metal'
+require_relative 'crypto-lite/version'    # note: let version always go first
+require_relative 'crypto-lite/config'
+require_relative 'crypto-lite/metal'
 
 
 
@@ -135,11 +132,11 @@ end # module Crypto
 
 
 
-require 'crypto-lite/helper'
+require_relative 'crypto-lite/helper'
 include CryptoHelper      # add convenience "top-level" / global helpers
 
 
-require 'crypto-lite/sign_rsa'
+require_relative 'crypto-lite/sign_rsa'
 RSA = Crypto::RSA
 
 

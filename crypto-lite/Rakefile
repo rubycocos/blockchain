@@ -19,7 +19,7 @@ Hoe.spec 'crypto-lite' do
   self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
-     ['digest-sha3-patched'],
+     ['digest-lite'],
      ['base32-alphabets'],
      ['base58-alphabets'],
      ['elliptic'],

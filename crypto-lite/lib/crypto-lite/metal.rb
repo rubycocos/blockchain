@@ -28,7 +28,7 @@ module Metal
 
   def self.keccak256bin( input )
     message = message( input )   ## "normalize" / convert to (binary) string
-    Digest::SHA3.digest( message, 256 )
+    Digest::KeccakLite.digest( message, 256 )
   end
 
   def self.rmd160bin( input )
@@ -56,13 +56,20 @@ module Metal
     end
   end
 
-  def self.sha3_256bin( input )
+
+  def self.sha3_256bin( input, engine=nil )
     message = message( input )  ## "normalize" / convert to (binary) string
 
-    digest = OpenSSL::Digest.new( 'SHA3-256' )
-    digest.update( message )
-    digest.digest
+    if engine && ['openssl'].include?( engine.to_s.downcase )
+      puts "  engine: #{engine}"    if debug?
+      digest = OpenSSL::Digest.new( 'SHA3-256' )
+      digest.update( message )
+      digest.digest
+    else  ## use "built-in" hash function from digest module
+      Digest::SHA3Lite.digest( message, 256 )
+    end
   end
+
 
   ####
   ## helper
