@@ -2,8 +2,8 @@
 
 blockchain-lite library / gem - build your own blockchain with crypto hashes - revolutionize the world with blockchains, blockchains, blockchains one block at a time
 
-* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
-* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
+* home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)
+* bugs  :: [github.com/rubycocos/blockchain/issues](https://github.com/rubycocos/blockchain/issues)
 * gem   :: [rubygems.org/gems/blockchain-lite](https://rubygems.org/gems/blockchain-lite)
 * rdoc  :: [rubydoc.info/gems/blockchain-lite](http://rubydoc.info/gems/blockchain-lite)
 

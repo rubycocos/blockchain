@@ -7,11 +7,18 @@ Gems:
 
 <!-- break -->
 
-- [digest-lite](digest-lite) - crypto(graphic) hash functions / classes - Digest::KeccakLite (512bit, 256bit, etc), Digest::SHA3Lite (512bit, 256bit, etc) in "100% pure" ruby "lite" scripts, that is, without any c-extensions and with zero-dependency
 - [crypto-lite](crypto-lite) - cryptographic secure hash functions and public key signature algorithms made easy
 - [base32-alphabets](base32-alphabets) - base32 encoding / decoding in 5-bit groups (2^5=32) with kai, crockford or electrologica notations / alphabets
 - [base58-alphabets](base58-alphabets) - base58 encoding / decoding numbers, hex or binary strings (incl. leading zeros) with bitcoin or flickr notations / alphabets
 - [elliptic](elliptic) - elliptic curve digital signature algorithm (ECDSA) cryptography with OpenSSL made easy (incl. secp256k1 curve)
+- [digest-lite](digest-lite) - crypto(graphic) hash functions / classes - Digest::KeccakLite (512bit, 256bit, etc), Digest::SHA3Lite (512bit, 256bit, etc) in "100% pure" ruby "lite" scripts, that is, without any c-extensions and with zero-dependency
+- [rlp-lite](rlp-lite) - light-weight ("lite") machinery to serialize / deserialze using the recursive-length prefix (rlp) scheme
+
+
+<!-- break -->
+
+- [ethlite](ethlite) - light-weight machinery to query / call ethereum (blockchain contract) services via json-rpc (incl. tuple support)
+
 
 
 <!-- break -->

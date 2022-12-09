@@ -8,7 +8,7 @@ Hoe.spec 'elliptic' do
   self.summary = "elliptic - elliptic curve digital signature algorithm (ECDSA) cryptography with OpenSSL made easy (incl. secp256k1 curve)"
   self.description = summary
 
-  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'wwwmake@googlegroups.com'

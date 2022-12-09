@@ -8,7 +8,7 @@ Hoe.spec 'centralbank' do
   self.summary = 'centralbank - print your own money / cryptocurrency; run your own federated central bank nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time'
   self.description = summary
 
-  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'ruby-talk@ruby-lang.org'

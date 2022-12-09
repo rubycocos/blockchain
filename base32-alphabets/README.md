@@ -5,8 +5,8 @@ Encode / decode numbers in 5-bit groups (2^5=32)
 with Kai, Crockford or Electrologica notation / alphabet
 
 
-* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
-* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
+* home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)
+* bugs  :: [github.com/rubycocos/blockchain/issues](https://github.com/rubycocos/blockchain/issues)
 * gem   :: [rubygems.org/gems/base32-alphabets](https://rubygems.org/gems/base32-alphabets)
 * rdoc  :: [rubydoc.info/gems/base32-alphabets](http://rubydoc.info/gems/base32-alphabets)
 

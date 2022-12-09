@@ -5,8 +5,8 @@ digest-lite gem - crypto(graphic) hash functions / classes - Digest::KeccakLite 
 
 
 
-* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
-* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
+* home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)
+* bugs  :: [github.com/rubycocos/blockchain/issues](https://github.com/rubycocos/blockchain/issues)
 * gem   :: [rubygems.org/gems/digest-lite](https://rubygems.org/gems/digest-lite)
 * rdoc  :: [rubydoc.info/gems/digest-lite](http://rubydoc.info/gems/digest-lite)
 

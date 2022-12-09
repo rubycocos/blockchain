@@ -1,8 +1,8 @@
 # elliptic-lite - elliptic curve cryptography from scratch / zero - start with finite fields, add elliptic curve points and point addition and scalar multiplications, add the elliptic curve digital signature algorithm (ECDSA) using the secp256k1 curve / group to sign and verify messages and more
 
 
-* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
-* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
+* home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)
+* bugs  :: [github.com/rubycocos/blockchain/issues](https://github.com/rubycocos/blockchain/issues)
 * gem   :: [rubygems.org/gems/elliptic-lite](https://rubygems.org/gems/elliptic-lite)
 * rdoc  :: [rubydoc.info/gems/elliptic-lite](http://rubydoc.info/gems/elliptic-lite)
 

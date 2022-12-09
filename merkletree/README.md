@@ -3,8 +3,8 @@
 merkletree library / gem - build your own crypto hash trees; named after Ralph Merkle who patented hash trees in 1979 (the patent expired in 2002); grow your own money on trees
 
 
-* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
-* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
+* home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)
+* bugs  :: [github.com/rubycocos/blockchain/issues](https://github.com/rubycocos/blockchain/issues)
 * gem   :: [rubygems.org/gems/merkletree](https://rubygems.org/gems/merkletree)
 * rdoc  :: [rubydoc.info/gems/merkletree](http://rubydoc.info/gems/merkletree)
 

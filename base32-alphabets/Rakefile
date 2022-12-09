@@ -8,7 +8,7 @@ Hoe.spec 'base32-alphabets' do
   self.summary = "base32-alphabets - base32 (2^5) encoding / decoding in 5-bit groups with kai, crockford or electrologica notation / alphabet"
   self.description = summary
 
-  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'wwwmake@googlegroups.com'

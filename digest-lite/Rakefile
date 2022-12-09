@@ -8,7 +8,7 @@ Hoe.spec 'digest-lite' do
   self.summary = 'digest-lite - crypto(graphic) hash functions / classes - Digest::KeccakLite (512bit, 256bit, etc), Digest::SHA3Lite (512bit, 256bit, etc) in "100% pure" ruby "lite" scripts, that is, without any c-extensions and with zero-dependency'
   self.description = summary
 
-  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'wwwmake@googlegroups.com'

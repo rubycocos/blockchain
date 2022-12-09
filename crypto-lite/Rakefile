@@ -9,7 +9,7 @@ Hoe.spec 'crypto-lite' do
   self.summary = "crypto-lite  - cryptographic secure hash functions and public key signature algorithms made easy"
   self.description = summary
 
-  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'wwwmake@googlegroups.com'

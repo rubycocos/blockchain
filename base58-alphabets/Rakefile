@@ -8,7 +8,7 @@ Hoe.spec 'base58-alphabets' do
   self.summary = "base58-alphabets - base58 encoding / decoding numbers, hex or binary strings (incl. leading zeros) with bitcoin or flickr notation / alphabet"
   self.description = summary
 
-  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'wwwmake@googlegroups.com'

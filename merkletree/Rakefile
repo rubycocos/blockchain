@@ -8,7 +8,7 @@ Hoe.spec 'merkletree' do
   self.summary = "merkletree - build your own crypto hash trees; named after Ralph Merkle who patented hash trees in 1979; grow your own money on trees"
   self.description = summary
 
-  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'wwwmake@googlegroups.com'

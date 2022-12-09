@@ -8,7 +8,7 @@ Hoe.spec 'cryptoquotes' do
   self.summary = "cryptoquotes - incl. oracle tool to get a random crypto quote of the day on the command line - on the new new 'in math we trust' ponzi economics - on get-rich-quick blockchain secrets - on bitcon maximalists, scammers, morons, clowns, shills & bagHODLers and more"
   self.description = summary
 
-  self.urls    = { home: 'https://github.com/rubycoco/blockchain' }
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
 
   self.author  = 'Gerald Bauer'
   self.email   = 'wwwmake@googlegroups.com'

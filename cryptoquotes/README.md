@@ -12,8 +12,8 @@ Yes, but what if there's only 21 million of it?
 cryptoquotes library / gem - incl. oracle tool to get a random crypto quote of the day on the command line - on the new new "in math we trust" ponzi economics - on get-rich-quick blockchain secrets - on bitcon maximalists, scammers, morons, clowns, shills & bagHODLers and more
 
 
-* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
-* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
+* home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)
+* bugs  :: [github.com/rubycocos/blockchain/issues](https://github.com/rubycocos/blockchain/issues)
 * gem   :: [rubygems.org/gems/cryptoquotes](https://rubygems.org/gems/cryptoquotes)
 * rdoc  :: [rubydoc.info/gems/cryptoquotes](http://rubydoc.info/gems/cryptoquotes)
 

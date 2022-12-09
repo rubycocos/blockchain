@@ -3,8 +3,8 @@
 Encode / decode numbers, hex or binary strings (incl. leading zeros) with Bitcoin or Flickr base58 notation / alphabet
 
 
-* home  :: [github.com/rubycoco/blockchain](https://github.com/rubycoco/blockchain)
-* bugs  :: [github.com/rubycoco/blockchain/issues](https://github.com/rubycoco/blockchain/issues)
+* home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)
+* bugs  :: [github.com/rubycocos/blockchain/issues](https://github.com/rubycocos/blockchain/issues)
 * gem   :: [rubygems.org/gems/base58-alphabets](https://rubygems.org/gems/base58-alphabets)
 * rdoc  :: [rubydoc.info/gems/base58-alphabets](http://rubydoc.info/gems/base58-alphabets)
 
