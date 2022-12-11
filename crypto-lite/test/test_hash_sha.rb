@@ -30,10 +30,17 @@ class TestHashSha < MiniTest::Test
   ]
 
 
+
+def assert_hexdigest( exp, bin )
+  assert_equal exp, bin.hexdigest
+end
+
+
+
 def test_bin
    BIN_TESTS.each do |item|
-     assert_equal item[1], sha256( item[0].b )
-     assert_equal item[1], sha256( item[0].b, engine: 'openssl' )
+     assert_hexdigest item[1], Crypto.sha256( item[0].b )
+     assert_hexdigest item[1], Crypto.sha256( item[0].b, engine: 'openssl' )
    end
 end
 
@@ -42,17 +49,17 @@ def test_abc
   ['abc',
    'abc'.b,
    "\x61\x62\x63",
-   0x616263
+   # 0x616263
   ].each do |input|
-    assert_equal SHA256_ABC, sha256( input )
-    assert_equal SHA256_ABC, sha256( input, engine: 'openssl' )
+    assert_hexdigest SHA256_ABC, Crypto.sha256( input )
+    assert_hexdigest SHA256_ABC, Crypto.sha256( input, engine: 'openssl' )
   end
 
   ['616263',
    '0x616263',
    '0X616263'
   ].each do |input|
-    assert_equal SHA256_ABC, sha256( hex: input )
+    assert_hexdigest SHA256_ABC, Crypto.sha256( hex: input )
   end
 ## pp sha256hex( 'hello' )  -- fails - uses non-hex chars
 
@@ -60,30 +67,30 @@ def test_abc
 
   [ 'a',
     "\x61",
-    0b01100001,
-    0x61
+    # 0b01100001,
+    # 0x61
   ].each do |input|
-    assert_equal SHA256_A, sha256( input )
-    assert_equal SHA256_A, sha256( input, engine: 'openssl' )
+    assert_hexdigest SHA256_A, Crypto.sha256( input )
+    assert_hexdigest SHA256_A, Crypto.sha256( input, engine: 'openssl' )
   end
 
   ['61',
    '0x61',
    '0X61'
   ].each do |input|
-    assert_equal SHA256_A, sha256( hex: input )
+    assert_hexdigest SHA256_A, Crypto.sha256( hex: input )
   end
 
   [ 'b',
-    0b01100010
+    # 0b01100010
   ].each do |input|
-    assert_equal SHA256_B, sha256( input )
+    assert_hexdigest SHA256_B, Crypto.sha256( input )
   end
 
   [ 'c',
-    0b01100011
+    # 0b01100011
   ].each do |input|
-    assert_equal SHA256_C, sha256( input )
+    assert_hexdigest SHA256_C, Crypto.sha256( input )
   end
 end
 

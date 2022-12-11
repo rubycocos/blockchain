@@ -35,7 +35,7 @@ pp point.to_s( :uncompressed )
 
 pk = "022744c02580b4905349bc481a60c308c2d98d823d44888835047f6bc5c38c4e8f"
 
-pp step1 = hash160( pk )
+pp step1 = hash160( hex: pk ).hexdigest
 #=> "a1f37969bcb547cd9c3a28fa07c2269ef813340a"
 
 # 2. Add version byte in front of RIPEMD-160 hash (0x1e for Dodge Main Network)
@@ -52,7 +52,7 @@ pp step2 = "1e" + step1
 #    e) Convert the result from a byte string into a base58 string
 #       using Base58 encoding.
 #       This is the most commonly used Dodge Address format.
-pp addr  = base58check( step2 )
+pp addr  = base58check( hex: step2 )
 #=> "DKuR12onkdp5GxC5c8DgXhGe4Z2AqCK3Xh"
 
 

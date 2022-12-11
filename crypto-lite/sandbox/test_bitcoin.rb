@@ -6,6 +6,8 @@
 require 'crypto-lite'
 
 
+
+
 puts EC::SECP256K1.order
 puts EC::SECP256K1.order.to_s(16).downcase
 
@@ -65,10 +67,10 @@ pp point.to_s( :uncompressed )
 
 puts "checksum:"
 # puts checksum('00662ad25db00e7bb38bc04831ae48b4b446d12698') #=> 17d515b6
-pp hash256( '00662ad25db00e7bb38bc04831ae48b4b446d12698' )[0..7]
+pp hash256( hex: '00662ad25db00e7bb38bc04831ae48b4b446d12698' ).hexdigest[0..7]
 
 puts "base58:"
-pp base58('00662ad25db00e7bb38bc04831ae48b4b446d1269817d515b6')
+pp base58( hex: '00662ad25db00e7bb38bc04831ae48b4b446d1269817d515b6')
 
 
 puts
@@ -76,17 +78,17 @@ puts "wif:"
 privatekey = "ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2"
 pp extended = "80" + privatekey + "01"
 #=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db201"
-pp checksum = hash256( extended )[0..7]
+pp checksum = hash256( hex: extended ).hexdigest[0..7]
 #=> "66557e53"
 pp extendedchecksum = extended + checksum
 #=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db20166557e53"
-pp wif = base58( extendedchecksum )
+pp wif = base58( hex: extendedchecksum )
 #=> "L5EZftvrYaSudiozVRzTqLcHLNDoVn7H5HSfM9BAN6tMJX8oTWz6"
 
 puts
 privatekey = "ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2"
 pp extended = "80" + privatekey + "01"
 #=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db201"
-pp wif = base58check( extended )
+pp wif = base58check( hex: extended )
 #=> "L5EZftvrYaSudiozVRzTqLcHLNDoVn7H5HSfM9BAN6tMJX8oTWz6"
 

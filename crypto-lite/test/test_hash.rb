@@ -24,22 +24,28 @@ class TestHash < MiniTest::Test
  ]
 
 
+def assert_hexdigest( exp, bin )
+  assert_equal exp, bin.hexdigest
+end
+
+
 
 def test_keccak256
    KECCAK256_TESTS.each do |item|
-     assert_equal item[1], keccak256( item[0].b )
+     assert_hexdigest item[1], Crypto.keccak256( item[0].b )
    end
 end
 
 def test_sha3_256
   SHA3_256_TESTS.each do |item|
-    assert_equal item[1], sha3_256( item[0].b )
+    assert_hexdigest item[1], Crypto.sha3_256( item[0].b )
   end
 end
 
 def test_ripemd160
   RIPEMD160_TESTS.each do |item|
-    assert_equal item[1], ripemd160( item[0].b )
+    assert_hexdigest item[1], Crypto.ripemd160( item[0].b )
+    assert_hexdigest item[1], Crypto.rmd160( item[0].b )
   end
 end
 

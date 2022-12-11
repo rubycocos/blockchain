@@ -15,23 +15,36 @@
 **SHA256 - Secure Hash Algorithm (SHA) 256-Bit (32 Bytes)**
 
 
+Note:  By default all hash functions return binary strings.
+Use `String#hexdigest` (or `String#bin_to_hex`
+or `String#btoh`)
+to convert binary strings to hex(adecimal)
+strings (via `Bytes.bin_to_hex`).
+
+
+
+
 ``` ruby
 require 'crypto'      ## or use require 'crypto-lite'
 
 ## try abc
-sha256( "abc" )           #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256( "abc".b )         #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256( "\x61\x62\x63" )  #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256( 0x616263 )        #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( "abc" ).hexdigest           #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( "abc".b ).hexdigest         #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( "\x61\x62\x63" ).hexdigest  #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 
-sha256( hex: '616263' )     #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256( hex: '0x616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256( hex: '0X616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '616263' ).hexdigest     #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '0x616263' ).hexdigest   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '0X616263' ).hexdigest   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+```
+
+<!--
+sha256( 0x616263 )        #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 
 # "auto-magic" hex string to binary string conversion heuristic
 sha256( '0x616263' )      #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 sha256( '0X616263' )      #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-```
+
+-->
 
 
 Bonus Back Stage Tip: How does SHA256 work?
@@ -45,27 +58,32 @@ Onwards with more sha256 examples:
 
 ``` ruby
 ## try a
-sha256( "a" )         #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
-sha256( "\x61" )      #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+sha256( "a" ).hexdigest         #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+sha256( "\x61" ).hexdigest      #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+
+sha256( hex: '61' ).hexdigest     #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+sha256( hex: '0x61' ).hexdigest   #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+
+
+## try some more
+sha256( "Hello, Cryptos!" ).hexdigest  #=> "33eedea60b0662c66c289ceba71863a864cf84b00e10002ca1069bf58f9362d5"
+```
+
+<!--
 sha256( 0b01100001 )  #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 sha256( 0x61 )        #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
-
-sha256( hex: '61' )     #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
-sha256( hex: '0x61' )   #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 
 # "auto-magic" hex string to binary string conversion heuristic
 sha256( '0x61' )      #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 
+-->
 
-## try some more
-sha256( "Hello, Cryptos!" )  #=> "33eedea60b0662c66c289ceba71863a864cf84b00e10002ca1069bf58f9362d5"
-```
 
 
 **SHA3-256 - Secure Hashing Algorthim (SHA) 3, 256-Bit (32 Bytes)**
 
 ``` ruby
-sha3_256( "Hello, Cryptos!" )  #=> "7dddf4bc9b86352b67e8823e5010ddbd2a90a854469e2517992ca7ca89e5bd58"
+sha3_256( "Hello, Cryptos!" ).hexdigest  #=> "7dddf4bc9b86352b67e8823e5010ddbd2a90a854469e2517992ca7ca89e5bd58"
 ```
 
 Note:  Yes, SHA256 vs SHA3-256 / SHA-2 vs SHA-3 the hashing functions are
@@ -79,7 +97,7 @@ The sha3_256 is part of the (newer) Secure Hash Algorithm (SHA) 3 family / stand
 **Keccak 256-Bit**
 
 ``` ruby
-keccak256( "Hello, Cryptos!" )  #=> "2cf14baa817e931f5cc2dcb63c889619d6b7ae0794fc2223ebadf8e672c776f5"
+keccak256( "Hello, Cryptos!" ).hexdigest  #=> "2cf14baa817e931f5cc2dcb63c889619d6b7ae0794fc2223ebadf8e672c776f5"
 ```
 
 
@@ -101,13 +119,13 @@ original or official? - check your hash:
 For keccak 256-bit:
 
 ``` ruby
-keccak256( '' )   #=> "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+keccak256( '' ).hexdigest   #=> "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
 ```
 
 For sha3 256-bit:
 
 ``` ruby
-sha3_256( '' )   #=> "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
+sha3_256( '' ).hexdigest   #=> "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a"
 ```
 
 
@@ -118,9 +136,9 @@ sha3_256( '' )   #=> "a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80
 
 
 ``` ruby
-rmd160( "Hello, Cryptos!" )     #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
+rmd160( "Hello, Cryptos!" ).hexdigest     #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
 # or use the alias / alternate name
-ripemd160( "Hello, Cryptos!" )  #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
+ripemd160( "Hello, Cryptos!" ).hexdigest  #=>"4d65f7b740bbade4097e1348e15d2a7d52ac5f53"
 ```
 
 
@@ -162,14 +180,16 @@ to the hash function and that will "automagically"
 handle the hex-to-bin conversion for you. Example:
 
 ``` ruby
-sha256( hex: '61' )     #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
-sha256( hex: '0x61' )   #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+sha256( hex: '61' ).hexdigest     #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
+sha256( hex: '0x61' ).hexdigest   #=> "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb"
 
-sha256( hex: '616263' )     #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256( hex: '0x616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-sha256( hex: '0X616263' )   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '616263' ).hexdigest     #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '0x616263' ).hexdigest   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+sha256( hex: '0X616263' ).hexdigest   #=> "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
 ```
 
+
+<!-- >
 What about the built-in "auto-magic" hex-to-bin conversion / heuristic?
 
 Yes, if your passed in string starts with the
@@ -194,6 +214,9 @@ hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
 
 # and so on
 ```
+-->
+
+
 
 
 #### Hash Function Helpers
@@ -204,10 +227,10 @@ All-in-one "best-of-both-worlds" helper - first hash with sha256 and than hash w
 
 
 ``` ruby
-hash160( '02b9d1cc0b793b03b9f64d022e9c67d5f32670b03f636abf0b3147b34123d13990' )
+hash160( '02b9d1cc0b793b03b9f64d022e9c67d5f32670b03f636abf0b3147b34123d13990' ).hexdigest
 #=> "e6b145a3908a4d6616b13c1109717add8672c900"
 
-hash160( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' )
+hash160( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' ).hexdigest
 #=> "93ce48570b55c42c2af816aeaba06cfee1224fae"
 ```
 
@@ -222,7 +245,7 @@ All-in-one double sha256 hash helper, that is, first hash with sha256 and than h
 
 
 ``` ruby
-hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
+hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' ).hexdigest
 #=> "02335f08b8fe4ddad263a50b7a33c5d38ea1cbd8fd2056a1320a3ddece541711"
 ```
 
@@ -233,15 +256,18 @@ hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' )
 Base58 encoding / decoding with leading zero bytes (in hex or binary strings) getting encoded from `00` to `1` and back:
 
 ``` ruby
-base58( "516b6fcd0f" )    #=> "ABnLTmg"
-base58( "00000000000000000000123456789abcdef0" )   #=> "111111111143c9JGph3DZ"
+base58( hex: "516b6fcd0f" )    #=> "ABnLTmg"
+base58( hex: "00000000000000000000123456789abcdef0" )   #=> "111111111143c9JGph3DZ"
 # or with optional 0x or 0X prefix
-base58( "0x516b6fcd0f" )  #=> "ABnLTmg"
-base58( "0x00000000000000000000123456789abcdef0" ) #=> "111111111143c9JGph3DZ"
+base58( hex: "0x516b6fcd0f" )  #=> "ABnLTmg"
+base58( hex: "0x00000000000000000000123456789abcdef0" ) #=> "111111111143c9JGph3DZ"
 
-unbase58( "ABnLTmg" )  #=> "516b6fcd0f"
+unbase58( "ABnLTmg" ) #=> "516b6fcd0f"
 unbase58( "111111111143c9JGph3DZ" ) #=> "00000000000000000000123456789abcdef0"
 ```
+
+<!-- todo/fix:  check if unbase58 needs #bin_to_hex ???
+-->
 
 
 **BASE58CHECK -  BASE58(X || SHA256(SHA256(X))[:4])**
@@ -249,13 +275,15 @@ unbase58( "111111111143c9JGph3DZ" ) #=> "00000000000000000000123456789abcdef0"
 Base58 encoding with an extra 4-byte secure hash checksum.
 
 ``` ruby
-base58check( "516b6fcd0f" )  #=> "237LSrY9NUUas"
-base58check( "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31" ) #=> "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs"
+base58check( hex: "516b6fcd0f" )  #=> "237LSrY9NUUas"
+base58check( hex: "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31" ) #=> "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs"
 
 unbase58check( "237LSrY9NUUas" )   #=> "516b6fcd0f"
 unbase58check( "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs" )   #=> "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
 ```
 
+<!-- todo/fix:  check if unbase58check needs #bin_to_hex ???
+-->
 
 
 ### Public Key Signature Algorithms
@@ -313,7 +341,7 @@ Sign a transaction with an (elliptic curve) private key:
 ``` ruby
 # Step 1 - Calculate the Transaction (tx) Hash
 tx = 'from: Alice  to: Bob     cryptos: 43_000_000_000'
-txhash = sha256( tx )
+txhash = sha256( tx ).hexdigest
 
 # Step 2 - Get the Signer's Private key
 private_key = EC::PrivateKey.new( 1234 )     # This private key is just an example. It should be much more secure!
@@ -340,7 +368,7 @@ Verify a signed transaction with an (elliptic curve) public key:
 ``` ruby
 # Step 1 - Calculate the Transaction (tx) Hash
 tx = 'from: Alice  to: Bob     cryptos: 43_000_000_000'
-txhash = sha256( tx )
+txhash = sha256( tx ).hexdigest
 
 # Step 2 - Get the Signer's Public Key
 public_key = EC::PublicKey.new(
@@ -582,11 +610,11 @@ Let's follow the steps from [How to create Bitcoin Address](https://en.bitcoin.i
 pk = "0250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b2352"
 
 # 1. Perform SHA-256 hashing on the public key
-step1 = sha256( pk )
+step1 = sha256( hex: pk ).hexdigest
 #=> "0b7c28c9b7290c98d7438e70b3d3f7c848fbd7d1dc194ff83f4f7cc9b1378e98"
 
 # 2. Perform RIPEMD-160 hashing on the result of SHA-256
-step2 = ripemd160( step1 )
+step2 = ripemd160( hex: step1 ).hexdigest
 #=> "f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
 
 # 3. Add version byte in front of RIPEMD-160 hash (0x00 for Bitcoin Main Network)
@@ -594,11 +622,11 @@ step3 = "00" + step2
 #=> "00f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
 
 # 4. Perform SHA-256 hash on the extended RIPEMD-160 result
-step4 = sha256( step3 )
+step4 = sha256( hex: step3 ).hexdigest
 #=> "ad3c854da227c7e99c4abfad4ea41d71311160df2e415e713318c70d67c6b41c"
 
 # 5. Perform SHA-256 hash on the result of the previous SHA-256 hash
-step5 = sha256( step4 )
+step5 = sha256( hex: step4 ).hexdigest
 #=> "c7f18fe8fcbed6396741e58ad259b5cb16b7fd7f041904147ba1dcffabf747fd"
 
 # 6. Take the first 4 bytes of the second SHA-256 hash. This is the address checksum
@@ -613,7 +641,7 @@ step7 = step3 + step6
 
 # 8. Convert the result from a byte string into a base58 string using Base58 encoding.
 #  This is the most commonly used Bitcoin Address format.
-addr  = base58( step7 )
+addr  = base58( hex: step7 )
 #=> "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs"
 ```
 
@@ -629,7 +657,7 @@ pk = "0250863ad64a87ae8a2fe83c1af1a8403cb53f53e486d8511dad8a04887e5b2352"
 # 1. Perform HASH-160 hashing on the public key
 #    a) Perform SHA-256 hashing on the public key
 #    b) Perform RIPEMD-160 hashing on the result of SHA-256
-step1 = hash160( pk )
+step1 = hash160( hex: pk ).hexdigest
 #=> "f54a5851e9372b87810a8e60cdd2e7cfd80b6e31"
 
 # 2. Add version byte in front of RIPEMD-160 hash (0x00 for Bitoin Main Network)
@@ -646,7 +674,7 @@ step2 = "00" + step1
 #    e) Convert the result from a byte string into a base58 string
 #       using Base58 encoding.
 #       This is the most commonly used Bitcoin Address format.
-addr  = base58check( step2 )
+addr  = base58check( hex: step2 )
 #=> "1PMycacnJaSqwwJqjawXBErnLsZ7RkXUAs"
 ```
 
@@ -676,11 +704,11 @@ This is all then converted to Base58, which shortens the string and makes it eas
 privatekey  = "ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2"
 extended = "80" + privatekey + "01"
 #=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db201"
-checksum = hash256( extended )[0..7]
+checksum = hash256( hex: extended ).hexdigest[0..7]
 #=> "66557e53"
 extendedchecksum = extended + checksum
 #=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db20166557e53"
-wif = base58( extendedchecksum )
+wif = base58( hex: extendedchecksum )
 #=> "L5EZftvrYaSudiozVRzTqLcHLNDoVn7H5HSfM9BAN6tMJX8oTWz6"
 ```
 
@@ -690,7 +718,7 @@ Or let's try again with the base58check (`BASE58(X || SHA256(SHA256(X))[:4])`) s
 privatekey = "ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db2"
 extended   = "80" + privatekey + "01"
 #=> "80ef235aacf90d9f4aadd8c92e4b2562e1d9eb97f0df9ba3b508258739cb013db201"
-wif = base58check( extended )
+wif = base58check( hex: extended )
 #=> "L5EZftvrYaSudiozVRzTqLcHLNDoVn7H5HSfM9BAN6tMJX8oTWz6"
 ```
 
@@ -832,7 +860,7 @@ pk = "022744c02580b4905349bc481a60c308c2d98d823d44888835047f6bc5c38c4e8f"
 # 1. Perform HASH-160 hashing on the public key
 #    a) Perform SHA-256 hashing on the public key
 #    b) Perform RIPEMD-160 hashing on the result of SHA-256
-step1 = hash160( pk )
+step1 = hash160( hex: pk ).hexdigest
 #=> "a1f37969bcb547cd9c3a28fa07c2269ef813340a"
 
 # 2. Add version byte in front of RIPEMD-160 hash (0x1e for Dodge Main Network)
@@ -849,7 +877,7 @@ step2 = "1e" + step1
 #    e) Convert the result from a byte string into a base58 string
 #       using Base58 encoding.
 #       This is the most commonly used Dodge Address format.
-addr  = base58check( step2 )
+addr  = base58check( hex: step2 )
 #=> "DKuR12onkdp5GxC5c8DgXhGe4Z2AqCK3Xh"
 ```
 
@@ -980,7 +1008,7 @@ to calculate the hash of the public key
 
 ``` ruby
 pub = "6e145ccef1033dea239875dd00dfb4fee6e3348b84985c92f103444683bae07b83b5c38e5e2b0c8529d7fa3f64d46daa1ece2d9ac14cab9477d042c84c32ccd0"
-hash = keccak256( pub )
+hash = keccak256( hex: pub ).hexdigest
 #=> "2a5bc342ed616b5ba5732269001d3f1ef827552ae1114027bd3ecf1f086ba0f9"
 ```
 
