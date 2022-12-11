@@ -227,10 +227,10 @@ All-in-one "best-of-both-worlds" helper - first hash with sha256 and than hash w
 
 
 ``` ruby
-hash160( '02b9d1cc0b793b03b9f64d022e9c67d5f32670b03f636abf0b3147b34123d13990' ).hexdigest
+hash160( hex: '02b9d1cc0b793b03b9f64d022e9c67d5f32670b03f636abf0b3147b34123d13990' ).hexdigest
 #=> "e6b145a3908a4d6616b13c1109717add8672c900"
 
-hash160( '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' ).hexdigest
+hash160( hex: '02b4632d08485ff1df2db55b9dafd23347d1c47a457072a1e87be26896549a8737' ).hexdigest
 #=> "93ce48570b55c42c2af816aeaba06cfee1224fae"
 ```
 
@@ -245,9 +245,10 @@ All-in-one double sha256 hash helper, that is, first hash with sha256 and than h
 
 
 ``` ruby
-hash256( '6fe6b145a3908a4d6616b13c1109717add8672c900' ).hexdigest
+hash256( hex: '6fe6b145a3908a4d6616b13c1109717add8672c900' ).hexdigest
 #=> "02335f08b8fe4ddad263a50b7a33c5d38ea1cbd8fd2056a1320a3ddece541711"
 ```
+
 
 #### Base58 Encoding / Decoding Helpers
 
@@ -341,7 +342,7 @@ Sign a transaction with an (elliptic curve) private key:
 ``` ruby
 # Step 1 - Calculate the Transaction (tx) Hash
 tx = 'from: Alice  to: Bob     cryptos: 43_000_000_000'
-txhash = sha256( tx ).hexdigest
+txhash = sha256( tx )
 
 # Step 2 - Get the Signer's Private key
 private_key = EC::PrivateKey.new( 1234 )     # This private key is just an example. It should be much more secure!
@@ -368,7 +369,7 @@ Verify a signed transaction with an (elliptic curve) public key:
 ``` ruby
 # Step 1 - Calculate the Transaction (tx) Hash
 tx = 'from: Alice  to: Bob     cryptos: 43_000_000_000'
-txhash = sha256( tx ).hexdigest
+txhash = sha256( tx )
 
 # Step 2 - Get the Signer's Public Key
 public_key = EC::PublicKey.new(

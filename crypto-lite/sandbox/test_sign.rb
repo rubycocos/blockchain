@@ -97,7 +97,8 @@ puts bob_pub
 
 
 tx = "from: alice, to: bob,  $21"
-pp tx_hash = sha256( tx ).hexdigest
+tx_hash = sha256( tx )
+pp tx_hash.hexdigest
 #=> "426a472a6c69bf68354391b7822393bea3952cde9df8949ad7a0f5f405b2fcb5"
 
 puts "---"
@@ -113,7 +114,8 @@ pp RSA.valid_signature?( tx_hash, tx_signature, alice_pub )
 #=> true
 
 tx = "from: alice, to: bob,  $22"
-pp tx_hash = sha256( tx ).hexdigest
+tx_hash = sha256( tx )
+pp tx_hash.hexdigest
 #=> "e899604bb4c95d2f1a7cfe561ad65941769e2064bdbbcaa79eb64ce0a2832380"
 
 pp RSA.valid_signature?( tx_hash, tx_signature, alice_pub )
