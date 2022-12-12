@@ -34,21 +34,21 @@ end
 def algos
   ## try openssl digest algos
   names = [
-    'MD4',
-    'MD5',
-    'RIPEMD160',
-    'SHA224',
-    'SHA256',
-    'SHA384',
-    'SHA512',
-    'SHA512-224',
-    'SHA512-256',
-    'SHA3-224',
-    'SHA3-256',
-    'SHA3-384',
-    'SHA3-512',
-    'BLAKE2s256',
-    'BLAKE2b512'
+    'md4',
+    'md5',
+    'ripemd160',
+    'sha224',
+    'sha256',
+    'sha384',
+    'sha512',
+    'sha512-224',
+    'sha512-256',
+    'sha3-224',
+    'sha3-256',
+    'sha3-384',
+    'sha3-512',
+    'blake2s256',
+    'blake2b512'
   ]
 
 
@@ -68,6 +68,8 @@ def algos
    end
 
 
+   puts
+   puts "OpenSSL::Digest.constants:"
    pp OpenSSL::Digest.constants
 #=> [:SHA224, :SHA256, :SHA384, :SHA512,
 #     :MD4, :MD5,
@@ -198,3 +200,19 @@ sm3WithRSAEncryption => SM3
 ssl3-md5 => MD5
 ssl3-sha1 => SHA1
 whirlpool
+
+
+#  or
+$ openssl dgst -list
+Supported digests:
+-blake2b512                -blake2s256                -md4
+-md5                       -md5-sha1                  -mdc2
+-ripemd                    -ripemd160                 -rmd160
+-sha1                      -sha224                    -sha256
+-sha3-224                  -sha3-256                  -sha3-384
+-sha3-512                  -sha384                    -sha512
+-sha512-224                -sha512-256                -shake128
+-shake256                  -sm3                       -ssl3-md5
+-ssl3-sha1                 -whirlpool
+
+
