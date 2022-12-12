@@ -1,5 +1,24 @@
 require 'cocos'
 
+
+### todo/fix:
+##  move .env  loader to
+##    cocos - why? why not?
+def load_env( path='./.env' )
+  if File.exist?( path )
+     puts "==> loading .env settings..."
+     env = read_yaml( path )
+     puts "    applying .env settings... (merging into ENV)"
+     pp env
+     env.each do |k,v|
+         ENV[k] ||= v
+     end
+  end
+end
+
+load_env
+
+
 require 'uri'
 require 'net/http'
 require 'net/https'
@@ -32,10 +51,9 @@ require_relative 'ethlite/contract'
 
 
 
-
 module Ethlite
 class Configuration
-  def rpc()       @rpc || JsonRpc.new( ENV['INFURA_URI'] ); end
+  def rpc()       @rpc ||= JsonRpc.new( ENV['INFURA_URI'] ); end
   def rpc=(value)
     @rpc =   if value.is_a?( String )
                  JsonRpc.new( value )   ## auto-wrap in (built-in/simple) jsonrpc client/serverproxy
