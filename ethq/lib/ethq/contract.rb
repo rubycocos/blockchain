@@ -12,7 +12,11 @@ class Contract
               outputs: ['string'] },
     totalSupply: { inputs: [],
                    outputs: ['uint256'] },
+
+    supportsInterface: { inputs: ['bytes4'],
+                          outputs: ['bool'] },
   }
+
 
 
    METHODS.each do |name, m|
