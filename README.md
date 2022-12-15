@@ -18,6 +18,7 @@ Gems:
 <!-- break -->
 
 - [ethlite](ethlite) - light-weight machinery to query / call ethereum (blockchain contract) services via json-rpc (incl. tuple support)
+- [etherscan-lite](etherscan-lite) - light-weight machinery / helper for the Etherscan (blockchain) JSON HTTP API / web services (note: API key sign-up required)
 
 
 

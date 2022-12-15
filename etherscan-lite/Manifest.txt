@@ -1,0 +1,8 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/etherscan-lite.rb
+lib/etherscan-lite/account.rb
+lib/etherscan-lite/base.rb
+lib/etherscan-lite/version.rb
