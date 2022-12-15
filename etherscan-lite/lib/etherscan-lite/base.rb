@@ -32,19 +32,26 @@ module Etherscan
       text = text.force_encoding( Encoding::UTF_8 )
 
       data = JSON.parse( text )
-      data
 
       ## note:  "unwrap" result - and auto-check status/message e.g.
       ##   {"status"=>"1",
       ##    "message"=>"OK",
       ##    "result"=>  ..
       ##    }
+      ##
+      ## An API call that encounters an error  will return 0 as its status code and display the cause of the error under the result field.
+      ## {
+      ##   "status":"0",
+      ##   "message":"NOTOK",
+      ##   "result":"Max rate limit reached, please use API Key for higher rate limit"
+      ## }
+
       if data['status'] == '1' && data['message'] == 'OK'
-         puts "#{data['status']} #{data['message']}"
+         ## puts "#{data['status']} #{data['message']}"
          data['result']
       else
         puts "!! ETHERSCAN API ERROR:"
-        puts "#{data['status']} #{data['message']}"
+        puts "#{data['status']} #{data['message']} - #{data['result']}"
         exit 1
       end
     else
