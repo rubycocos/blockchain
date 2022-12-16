@@ -19,6 +19,8 @@ Gems:
 
 - [ethlite](ethlite) - light-weight machinery to query / call ethereum (blockchain contract) services via json-rpc (incl. tuple support)
 - [etherscan-lite](etherscan-lite) - light-weight machinery / helper for the Etherscan (blockchain) JSON HTTP API / web services (note: API key sign-up required)
+- [ethname](ethname) - light-weight crowd-sourced "off-chain" ethereum name to (contract) address service / helper (incl. punks v1,v2,v3,v4; phunks v1,v2, synth punks, punk blocks, etc.)  - yes, you can! - add more names / contracts via git ;-)
+
 
 
 
