@@ -1,11 +1,11 @@
-address, names
-0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2, punks data | crypto punks data
-0xf4a4644e818c2843ba0aabea93af6c80b5984114, punks v1 wrapped i | classic punks
+address, names, interfaces
+0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2, punks data | crypto punks data,
+0xf4a4644e818c2843ba0aabea93af6c80b5984114, punks v1 wrapped i | classic punks,  erc721
 
-0xa82f3a61f002f83eba7d184c50bb2a8b359ca1ce, phunks v1 | philips
-0xf07468ead8cf26c752c676e43c814fee9c8cf402, phunks v2 | phunks
+0xa82f3a61f002f83eba7d184c50bb2a8b359ca1ce, phunks v1 | philips,  erc721
+0xf07468ead8cf26c752c676e43c814fee9c8cf402, phunks v2 | phunks,  erc721
 
-0x031920cc2d9f5c10b444fd44009cd64f829e7be2, zunks
+0x031920cc2d9f5c10b444fd44009cd64f829e7be2, zunks,  erc721
 
-0x0d0167a823c6619d430b1a96ad85b888bcf97c37, xpunks | expansion punks
-0x71eb5c179ceb640160853144cbb8df5bd24ab5cc, xphunks | expansion phunks
+0x0d0167a823c6619d430b1a96ad85b888bcf97c37, xpunks | expansion punks,  erc721
+0x71eb5c179ceb640160853144cbb8df5bd24ab5cc, xphunks | expansion phunks,  erc721

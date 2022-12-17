@@ -6,5 +6,5 @@ config/contracts.2017.csv
 config/contracts.2021.csv
 config/contracts.2022.csv
 lib/ethname.rb
-lib/ethname/dictionary.rb
+lib/ethname/directory.rb
 lib/ethname/version.rb

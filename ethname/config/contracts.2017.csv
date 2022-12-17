@@ -1,6 +1,6 @@
-address, names
-0x6Ba6f2207e343923BA692e5Cae646Fb0F566DB8D,  punks v1 | crypto punks v1
-0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb,  punks v2 | crypto punks v2 | crypto punks market
-0x60cd862c9c687a9de49aecdc3a99b74a4fc54ab6,  mooncats | mooncatrescue
+address, names, interfaces
+0x6Ba6f2207e343923BA692e5Cae646Fb0F566DB8D,  punks v1 | crypto punks v1,  erc20
+0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb,  punks v2 | crypto punks v2 | crypto punks market,  erc20
+0x60cd862c9c687a9de49aecdc3a99b74a4fc54ab6,  mooncats | mooncatrescue,
 
 

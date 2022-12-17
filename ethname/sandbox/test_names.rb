@@ -6,13 +6,9 @@ require 'ethname'
 
 
 
-pp Ethname.dict.recs
-puts "  #{Ethname.dict.size} (contract) address record(s)"
+pp Ethname.directory.records
+puts "  #{Ethname.directory.size} (contract) address record(s)"
 
-
-pp Ethname.lookup( 'PUNKS V2' )
-pp Ethname.lookup( 'Punks V.2' )
-pp Ethname.lookup( '404 NOT FOUND' )
 
 pp Ethname[ 'PUNKS V2' ]
 pp Ethname[ 'Punks V.2' ]
@@ -42,6 +38,15 @@ pp Ethname['synth punks']
 pp Ethname['punks data']
 pp Ethname['punk blocks']
 
+
+
+pp rec = Ethname::Record.find( '0xaf9CE4B327A3b690ABEA6F78eCCBfeFFfbEa9FDf' )
+pp rec.addr
+pp rec.address
+pp rec.name
+pp rec.names
+
+pp rec = Ethname::Record.find_by( name: 'synth punks' )
 
 
 puts "bye"
