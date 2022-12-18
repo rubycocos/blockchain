@@ -3,7 +3,7 @@
 #     (and get creation timestamp etc.)
 #
 #  to run use
-#     ruby -I ./lib sandbox/etherscan.rb
+#     ruby -I ./lib sandbox/timeline.rb
 
 
 $LOAD_PATH.unshift( "../etherscan-lite/lib" )
@@ -13,62 +13,79 @@ require 'etherscan-lite'
 
 puts "  #{Ethname.directory.size} (contract) address record(s)"
 
-##
+##  step 1:
 ## collect more metadata about (contract) address
 
 meta = []
 
-Ethname.directory.records.each_with_index do |rec,i|
+
+Ethname.directory.records[0..2].each_with_index do |rec,i|
   puts "==> [#{i+1}] #{rec.names.join('|')} @ #{rec.addr} supports #{rec.interfaces.join('|')}..."
 
-
-  data = Etherscan.getcontractcreation( contractaddresses: [rec.addr] )
+  data = Etherscan.getcontractdetails( contractaddress: rec.addr )
   pp data
-  # [{"contractAddress"=>"0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2",
+  # {"contractAddress"=>"0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2",
   #   "contractCreator"=>"0xc352b534e8b987e036a93539fd6897f53488e56a",
-  #   "txHash"=>"0xc82aa34310c310463eb9fe7835471f7317ac4b5008034a78c93b2a8a237be228"}]
+  #   "txHash"=>"0xc82aa34310c310463eb9fe7835471f7317ac4b5008034a78c93b2a8a237be228",
+  #  ...}
+
+   ## note: timestamp is a (encoded) hex string e.g. "0x598a9136"
+   timestamp = data['timestamp'].to_i(16)
+   blocknumber =  data['blockNumber'].to_i(16)   ## convert to decimal
 
 
-  address = data[0]['contractAddress']
-  creator = data[0]['contractCreator']
-  txid    = data[0]['txHash']
-
-
-  data2 = Etherscan.gettransactionbyhash( txhash: txid )
-  ## puts
-  ## pp data2
-  #  {"blockHash"=>"0x07f9b4846ee2702da8d18b9eeead15912d977acc8886ab9bf5d760914cb37670",
-  #  "blockNumber"=>"0x3f17d2",
-  # "from"=>"0xa97f8ffc8f8e354475880448334e4e99a0e7212f",
-  #  "gas"=>"0x2c51d3",
-  # "gasPrice"=>"0x53c53dc33",
-  # "hash"=>"0x79d48c41b99f0ac8f735dbf4d048165542576862df2b05a80be9a4dbe233a623",
-  blocknumber = data2['blockNumber'].to_i(16)
-
-
-  data3 = Etherscan.getblockbynumber( blocknumber: data2['blockNumber'] )
-  ## puts
-  ## pp data3
-
-  timestamp   = data3['timestamp'].to_i(16)
-  date        = Time.at( timestamp ).utc
-
-
-  meta << [ address,
-            creator,
-            txid,
-            blocknumber.to_s,
-            timestamp.to_s,
-            date.to_s,
-            rec.names.join( '|' )
-          ]
+   meta << [ rec,
+             { 'address' => data['contractAddress'],
+               'creator' => data['contractCreator'],
+               'txid' => data['txHash'],
+               'blocknumber' => blocknumber,
+               'timestamp' => timestamp
+             }
+           ]
 
   ## print last added entry
   puts meta[-1]
 end
 
+## sort by blocknumber  (reverse chronological)
+meta = meta.sort { |l,r| l[1]['blocknumber'] <=> r[1]['blocknumber'] }
+
 puts
 pp meta
+
+
+
+## create report / page
+
+buf = "# Contracts - Timeline\n\n"
+
+meta.each do |rec,data|
+
+  txid        = data['txid']
+  creator     = data['creator']
+  blocknumber = data['blocknumber']
+  timestamp   = data['timestamp']
+  date = Time.at( timestamp).utc
+
+
+  buf << "###  #{rec.names.join( ' | ')} - #{date.strftime('%b %-d, %Y')}\n\n"
+
+  buf << "_#{rec.interfaces.join(' | ' )}_\n\n"    unless rec.interfaces.empty?
+
+  buf << "contract @ [**#{rec.addr}**](https://etherscan.io/address/#{rec.addr})\n\n"
+
+  buf << "created by [#{creator}](https://etherscan.io/address/#{creator}))"
+  buf << " at block no. #{blocknumber} (#{date})"
+  buf << " - txid [#{txid}](https://etherscan.io/tx/#{txid})"
+  buf << "\n\n"
+end
+
+
+
+write_text( './CONTRACTS.md', buf )
+
+
+
 
 puts "bye"
 

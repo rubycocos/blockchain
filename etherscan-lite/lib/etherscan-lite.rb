@@ -48,6 +48,7 @@ require_relative 'etherscan-lite/base'
 require_relative 'etherscan-lite/account'
 require_relative 'etherscan-lite/contract'
 require_relative 'etherscan-lite/proxy'
+require_relative 'etherscan-lite/misc'
 
 
 
