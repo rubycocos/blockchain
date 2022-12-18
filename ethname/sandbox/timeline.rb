@@ -19,7 +19,7 @@ puts "  #{Ethname.directory.size} (contract) address record(s)"
 meta = []
 
 
-Ethname.directory.records[0..2].each_with_index do |rec,i|
+Ethname.directory.records.each_with_index do |rec,i|
   puts "==> [#{i+1}] #{rec.names.join('|')} @ #{rec.addr} supports #{rec.interfaces.join('|')}..."
 
   data = Etherscan.getcontractdetails( contractaddress: rec.addr )

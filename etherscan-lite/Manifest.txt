@@ -5,4 +5,7 @@ Rakefile
 lib/etherscan-lite.rb
 lib/etherscan-lite/account.rb
 lib/etherscan-lite/base.rb
+lib/etherscan-lite/contract.rb
+lib/etherscan-lite/misc.rb
+lib/etherscan-lite/proxy.rb
 lib/etherscan-lite/version.rb
