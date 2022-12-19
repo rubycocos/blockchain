@@ -17,5 +17,21 @@ module Etherscan
     call( getcontractcreation_url( **kwargs ) )
   end
 
+  #####
+  ##  Get Contract ABI for Verified Contract Source Codes
+  ##   Returns the Contract Application Binary Interface ( ABI )
+  ##   of a verified smart contract.
+  ##      see https://docs.etherscan.io/api-endpoints/contracts#get-contract-abi-for-verified-contract-source-codes
+  def self.getabi_url( address: )
+    src = "#{BASE}?module=contract&action=getabi" +
+            "&address=#{address}" +
+            "&apikey=#{config.key}"
+    src
+  end
+
+  def self.getabi( **kwargs )
+    call( getabi_url( **kwargs ) )
+  end
+
 
 end  # module Etherscan
