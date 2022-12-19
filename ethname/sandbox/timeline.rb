@@ -13,33 +13,102 @@ require 'etherscan-lite'
 
 puts "  #{Ethname.directory.size} (contract) address record(s)"
 
+
+
 ##  step 1:
 ## collect more metadata about (contract) address
 
+
+
+class ContractDetailsCache
+
+  def initialize( path )
+    @path = path
+    @table = if File.exist?( path )
+                 build_table( read_csv( path ) )
+             else
+                 {}
+             end
+  end
+
+  def [](addr)
+     if @table.has_key?( addr )
+         @table[ addr ]
+     else  ## fetch missing data
+        data = Etherscan.getcontractdetails( contractaddress: addr )
+        ## note: add new data to cache
+        @table[ addr ] = data
+        data
+     end
+  end
+
+
+
+  def build_table( recs )
+    h = {}
+    recs.each do |rec|
+        ## (re)use contractdetails format / hash keys
+        h[ rec['address'] ] = {
+              'contractAddress' => rec['address'],
+              'contractCreator' => rec['creator'],
+              'txHash'          => rec['txid'],
+              'blockNumber'     => rec['blocknumber'],
+              'timestamp'       => rec['timestamp']
+           }
+    end
+    h
+  end
+
+  def save
+    ##############
+    ## save cache - sort by blocknumber
+    entries = @table.values.sort { |l,r| l['blockNumber'].to_i(16) <=> r['blockNumber'].to_i(16)  }
+    buf = ''
+    buf << ['blocknumber', 'timestamp', 'address', 'creator', 'txid'].join( ', ' )
+    buf << "\n"
+    entries.each do |entry|
+       buf << [entry['blockNumber'],
+               entry['timestamp'],
+               entry['contractAddress'],
+               entry['contractCreator'],
+               entry['txHash']
+               ].join( ', ' )
+       buf << "\n"
+    end
+    write_text( @path, buf )
+  end
+end  # class  ContractDetailsCache
+
+
+
+## build cache
+cache = ContractDetailsCache.new( './sandbox/contractdetails.csv' )
+
 meta = []
+
 
 
 Ethname.directory.records.each_with_index do |rec,i|
   puts "==> [#{i+1}] #{rec.names.join('|')} @ #{rec.addr} supports #{rec.interfaces.join('|')}..."
 
-  data = Etherscan.getcontractdetails( contractaddress: rec.addr )
-  pp data
-  # {"contractAddress"=>"0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2",
-  #   "contractCreator"=>"0xc352b534e8b987e036a93539fd6897f53488e56a",
-  #   "txHash"=>"0xc82aa34310c310463eb9fe7835471f7317ac4b5008034a78c93b2a8a237be228",
-  #  ...}
+  data = cache[ rec.addr ]
+   pp data
+   # {"contractAddress"=>"0x16f5a35647d6f03d5d3da7b35409d65ba03af3b2",
+   #   "contractCreator"=>"0xc352b534e8b987e036a93539fd6897f53488e56a",
+   #   "txHash"=>"0xc82aa34310c310463eb9fe7835471f7317ac4b5008034a78c93b2a8a237be228",
+   #  ...}
+
 
    ## note: timestamp is a (encoded) hex string e.g. "0x598a9136"
    timestamp = data['timestamp'].to_i(16)
    blocknumber =  data['blockNumber'].to_i(16)   ## convert to decimal
 
-
    meta << [ rec,
-             { 'address' => data['contractAddress'],
-               'creator' => data['contractCreator'],
-               'txid' => data['txHash'],
+             { 'address'     => data['contractAddress'],
+               'creator'     => data['contractCreator'],
+               'txid'        => data['txHash'],
                'blocknumber' => blocknumber,
-               'timestamp' => timestamp
+               'timestamp'   => timestamp
              }
            ]
 
@@ -47,13 +116,18 @@ Ethname.directory.records.each_with_index do |rec,i|
   puts meta[-1]
 end
 
+
+### note:  save back contractdetails cache
+cache.save
+
+
+
+############
 ## sort by blocknumber  (reverse chronological)
 meta = meta.sort { |l,r| l[1]['blocknumber'] <=> r[1]['blocknumber'] }
 
 puts
 pp meta
-
-
 
 ## create report / page
 

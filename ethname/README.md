@@ -70,7 +70,7 @@ Example - [config/contracts.2017.csv](config/contracts.2017.csv):
 address, names
 0x6Ba6f2207e343923BA692e5Cae646Fb0F566DB8D,  punks v1 | crypto punks v1
 0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb,  punks v2 | crypto punks v2 | crypto punks market
-0x60cd862c9c687a9de49aecdc3a99b74a4fc54ab6,  mooncats | mooncatrescue
+0x60cd862c9c687a9de49aecdc3a99b74a4fc54ab6,  mooncats | mooncat rescue
 ...
 ```
 
@@ -78,15 +78,22 @@ Example - [config/contracts.2022.csv](config/contracts.2022.csv):
 
 ``` csv
 address, names
-0x282bdd42f4eb70e7a9d9f40c8fea0825b7f68c5d, punks v1 wrapped ii
-0xD33c078C2486B7Be0F7B4DDa9B14F35163B949e0, punks v3
-0xd12882c8b5d1bccca57c994c6af7d96355590dbd, punks v4
+0x282bdd42f4eb70e7a9d9f40c8fea0825b7f68c5d,  punks v1 wrapped ii
+0xD33c078C2486B7Be0F7B4DDa9B14F35163B949e0,  punks v3
+0xd12882c8b5d1bccca57c994c6af7d96355590dbd,  punks v4
 0xA19f0378A6F3f3361d8e962F3589Ec28f4f8F159,  phunks v3
-0xaf9CE4B327A3b690ABEA6F78eCCBfeFFfbEa9FDf, synthetic punks | synth punks
-0x58E90596C2065BEfD3060767736C829C18F3474c, punk blocks
+0xaf9CE4B327A3b690ABEA6F78eCCBfeFFfbEa9FDf,  synth punks | synthetic punks
+0x58E90596C2065BEfD3060767736C829C18F3474c,  punk blocks
 0x23581767a106ae21c074b2276D25e5C3e136a68b,  moonbirds
+0xe9b91d537c3aa5a3fa87275fbd2e4feaaed69bd0,  marcs | crypto marcs
+0xad8474ba5a7f6abc52708f171f57fefc5cdc8c1c,  mad camels
+0xe5a5520b798c5f67ca1b0657b932656df02595ad,  punk apes yacht club
+0x9b66d03fc1eee61a512341058e95f1a68dc3a913,  phunk ape origins
+0x2204a94f96d39df3b6bc0298cf068c8c82dc8d61,  chi chis
 ...
 ```
+
+
 
 ###  Yes, You Can! - Add More Names / Contracts Via Git ;-)
 
