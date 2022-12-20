@@ -1,0 +1,12 @@
+---
+ContractName: CryptoPunksMarket
+CompilerVersion: v0.4.11+commit.68ef5810
+OptimizationUsed: '1'
+Runs: '200'
+ConstructorArguments: ''
+EVMVersion: Default
+Library: ''
+LicenseType: ''
+Proxy: '0'
+Implementation: ''
+SwarmSource: bzzr://e876fd2bb43babdd65d8ea9d7f8fb4a2de975957026c8b91057b2e1417ff38a2

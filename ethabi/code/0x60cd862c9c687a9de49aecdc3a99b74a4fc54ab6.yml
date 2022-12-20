@@ -1,0 +1,12 @@
+---
+ContractName: MoonCatRescue
+CompilerVersion: v0.4.14+commit.c2215d46
+OptimizationUsed: '1'
+Runs: '200'
+ConstructorArguments: ''
+EVMVersion: Default
+Library: ''
+LicenseType: ''
+Proxy: '0'
+Implementation: ''
+SwarmSource: bzzr://a4e578d3d7c9a384b5985a5957dd2477a19f9d32052121927063bf9f549c6032

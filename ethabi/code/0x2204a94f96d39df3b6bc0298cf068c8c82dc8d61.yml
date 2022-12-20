@@ -1,0 +1,12 @@
+---
+ContractName: Indelible
+CompilerVersion: v0.8.14+commit.80d49f37
+OptimizationUsed: '1'
+Runs: '200'
+ConstructorArguments: ''
+EVMVersion: Default
+Library: ''
+LicenseType: MIT
+Proxy: '0'
+Implementation: ''
+SwarmSource: ''

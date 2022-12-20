@@ -1,0 +1,12 @@
+---
+ContractName: CryptopunksData
+CompilerVersion: v0.7.6+commit.7338295f
+OptimizationUsed: '0'
+Runs: '200'
+ConstructorArguments: ''
+EVMVersion: Default
+Library: ''
+LicenseType: None
+Proxy: '0'
+Implementation: ''
+SwarmSource: ipfs://b5cb11115801def41650f7bf1e201c6d351bae4bbea91fcfec5f6b5be6c6f5b3

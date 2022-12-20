@@ -1,0 +1,12 @@
+---
+ContractName: ExpansionPunks
+CompilerVersion: v0.8.7+commit.e28d00a7
+OptimizationUsed: '1'
+Runs: '400'
+ConstructorArguments: ''
+EVMVersion: Default
+Library: ''
+LicenseType: MIT
+Proxy: '0'
+Implementation: ''
+SwarmSource: ''

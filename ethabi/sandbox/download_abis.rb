@@ -3,7 +3,7 @@
 
 #
 #  to run use
-#     ruby sandbox/download.rb
+#     ruby sandbox/download_abis.rb
 
 
 $LOAD_PATH.unshift( "../etherscan-lite/lib" )

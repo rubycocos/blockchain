@@ -33,5 +33,19 @@ module Etherscan
     call( getabi_url( **kwargs ) )
   end
 
+  #########
+  ##  Get Contract Source Code for Verified Contract Source Codes
+  ##  Returns the Solidity source code of a verified smart contract.
+  ##    see https://docs.etherscan.io/api-endpoints/contracts#get-contract-source-code-for-verified-contract-source-codes
+  def self.getsourcecode_url( address: )
+    src = "#{BASE}?module=contract&action=getsourcecode" +
+            "&address=#{address}" +
+            "&apikey=#{config.key}"
+    src
+  end
 
+  def self.getsourcecode( **kwargs )
+    call( getsourcecode_url( **kwargs ) )
+  end
 end  # module Etherscan
+

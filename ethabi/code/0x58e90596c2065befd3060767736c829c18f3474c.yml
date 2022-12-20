@@ -1,0 +1,12 @@
+---
+ContractName: PunkBlocks
+CompilerVersion: v0.8.17+commit.8df45f5f
+OptimizationUsed: '0'
+Runs: '200'
+ConstructorArguments: ''
+EVMVersion: Default
+Library: ''
+LicenseType: MIT
+Proxy: '0'
+Implementation: ''
+SwarmSource: ipfs://32ad0fbc576ca3e373c18d9fa8a6a0bc02f0077ebfb274d6760570e76ebf86e6
