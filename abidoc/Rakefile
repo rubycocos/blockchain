@@ -1,0 +1,32 @@
+require 'hoe'
+require './lib/abidoc/version.rb'
+
+
+Hoe.spec 'abidoc' do
+
+  self.version = ABIDoc::VERSION
+
+  self.summary = "abidoc - application binary interface (abi) documentation generator for Ethereum & Co. (blockchain) contracts"
+  self.description = summary
+
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+    ['abiparser'],
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end
+

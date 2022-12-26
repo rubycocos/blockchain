@@ -1,3 +1,4 @@
+module ABI
 class Param
 
     attr_reader :type, :name
@@ -32,3 +33,4 @@ class Param
       buf
     end
 end  ## class Param
+end  ## module ABI

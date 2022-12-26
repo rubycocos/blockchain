@@ -1,0 +1,34 @@
+require 'hoe'
+require './lib/abiparser/version.rb'
+
+
+Hoe.spec 'abiparser' do
+
+  self.version = ABIParser::VERSION
+
+  self.summary = "abiparser - application binary interface (abi) parser machinery / helper for Ethereum & Co. (blockchain) contracts"
+  self.description = summary
+
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+    ['cocos'],
+    ['bytes'],
+    ['digest-lite'],
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end
+

@@ -1,4 +1,4 @@
-
+module ABI
 class Constructor
 
   def self.parse( o )
@@ -104,5 +104,6 @@ end
 
 
 end  # class Constructor
+end  # module ABI
 
 

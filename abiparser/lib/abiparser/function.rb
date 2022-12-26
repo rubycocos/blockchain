@@ -1,4 +1,4 @@
-
+module ABI
 class Function
 
   def self.parse( o )
@@ -144,4 +144,5 @@ def types
 end
 
 end  ## class Function
+end  ## module ABI
 
