@@ -1,5 +1,5 @@
 module ABI
-class Contract
+class Interface
 
 
   def generate_interface( name: )   ## interface declarations
@@ -49,5 +49,5 @@ class Contract
   end
 
 
-end  ## class Contract
+end  ## class Interface
 end  ## module ABI

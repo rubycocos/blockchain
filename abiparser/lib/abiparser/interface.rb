@@ -1,5 +1,5 @@
 module ABI
-class Contract
+class Interface
 
   def self.read( path )
     data = read_json( path )
@@ -63,7 +63,52 @@ class Contract
       @events = events
       @has_receive = has_receive
       @has_fallback = has_fallback
+
+      @selectors = {}
+
+      ## auto-add selectors (hashed signatures)
+      @funcs.each do |func|
+         sighash =  keccak256( func.sig )[0,4].hexdigest
+         puts "0x#{sighash} => #{func.sig}"
+
+         ## assert - no duplicates allowed
+         if @selectors[sighash]
+            puts "!! ERROR - duplicate function signature #{func.sig}; already in use; sorry"
+            exit 1
+         end
+
+         @selectors[sighash] = func
+      end
   end
+
+  ## return hexstrings of sig(natures) - why? why not?
+  ## rename to sighashes - why? why not?
+  def selectors()  @selectors.keys;  end
+
+
+
+  SIGHASH_RX = /\A
+                (0x)?
+                (?<sighash>[0-9a-f]{8})
+                \z/ix
+
+ def support?( sig )
+     sighash =  if m=SIGHASH_RX.match( sig )
+                  m[:sighash].downcase  ## assume it's sighash (hexstring)
+                else
+                  ## for convenience allow (white)spaces; auto-strip - why? why not?
+                  sig = sig.gsub( /[ \r\t\n]/, '' )
+                  keccak256( sig )[0,4].hexdigest
+                end
+
+     if @selectors[ sighash ]
+        true
+     else
+        false
+     end
+  end
+  alias_method :supports?, :support?   ## add alternate spelling - why? why not?
+
 
   def constructor() @ctor; end
   def functions() @funcs; end
@@ -87,5 +132,5 @@ class Contract
     @funcs.select { |func| func.pure? }
   end
 
-end  # class Contract
+end  # class Interface
 end # module ABI

@@ -2,6 +2,9 @@
 
 ## Todos
 
+- [] add sighash method to function!!!
+
+
 - [ ] add internal_name  to param!!!
   - [ ] use internal_name if present & different in pretty print etc.
 

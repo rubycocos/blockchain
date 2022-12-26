@@ -4,8 +4,8 @@ README.md
 Rakefile
 lib/abiparser.rb
 lib/abiparser/constructor.rb
-lib/abiparser/contract.rb
 lib/abiparser/export/interface.rb
 lib/abiparser/function.rb
+lib/abiparser/interface.rb
 lib/abiparser/param.rb
 lib/abiparser/version.rb
