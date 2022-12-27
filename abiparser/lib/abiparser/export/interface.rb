@@ -1,16 +1,19 @@
 module ABI
-class Interface
+class Contract
 
 
   def generate_interface( name: )   ## interface declarations
     buf = ''
     buf << "interface #{name} {"
 
-    if @ctor
-      buf << "\n"
-      buf << "// Constructor\n"
-      buf << "#{@ctor.decl}\n"
-    end
+
+#  include constructor - why? why not?
+#
+#   if @ctor
+#      buf << "\n"
+#      buf << "// Constructor\n"
+#      buf << "#{@ctor.decl}\n"
+#    end
 
     if payable_functions.size > 0
       buf << "\n"
@@ -49,5 +52,5 @@ class Interface
   end
 
 
-end  ## class Interface
+end  ## class Contract
 end  ## module ABI

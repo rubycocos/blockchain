@@ -1,5 +1,5 @@
 module ABI
-class Interface
+class Contract
 
   def self.read( path )
     data = read_json( path )
@@ -68,7 +68,7 @@ class Interface
 
       ## auto-add selectors (hashed signatures)
       @funcs.each do |func|
-         sighash =  keccak256( func.sig )[0,4].hexdigest
+         sighash = func.sighash
          puts "0x#{sighash} => #{func.sig}"
 
          ## assert - no duplicates allowed
@@ -80,6 +80,7 @@ class Interface
          @selectors[sighash] = func
       end
   end
+
 
   ## return hexstrings of sig(natures) - why? why not?
   ## rename to sighashes - why? why not?
@@ -132,5 +133,5 @@ class Interface
     @funcs.select { |func| func.pure? }
   end
 
-end  # class Interface
+end  # class Contract
 end # module ABI

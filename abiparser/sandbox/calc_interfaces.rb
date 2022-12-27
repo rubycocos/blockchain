@@ -109,6 +109,22 @@ pp (sig('symbol()')).hexdigest
 pp (sig('decimals()')).hexdigest
 
 
+
+IERC165                = Interface.new( 'ERC165', '0x01ffc9a7'.hex_to_bin )
+IERC20                 = Interface.new( 'ERC20',  '0x36372b07'.hex_to_bin )
+IERC721                = Interface.new( 'ERC721', '0x80ac58cd'.hex_to_bin )
+IERC721_METADATA       = Interface.new( 'ERC721_METADATA', '0x5b5e139f'.hex_to_bin )
+IERC721_ENUMERABLE     = Interface.new( 'ERC721_ENUMERABLE', '0x780e9d63'.hex_to_bin )
+
+interfaces = [
+  IERC165,       ## supportsInterface
+  IERC20,        ##  token interface
+  IERC721,       ##  (non-fungible) token interface
+  IERC721_METADATA,   ##  (non-fungible) token interface / metadata
+  IERC721_ENUMERABLE, ##  (non-fungible) token interface / enumerable
+]
+
+
 puts "bye"
 
 __END__

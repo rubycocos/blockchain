@@ -94,9 +94,14 @@ class Function
     buf
  end
 
+  def sighash
+    keccak256( sig )[0,4].hexdigest
+  end
+
 
   def doc
-      buf = "function #{@name}"
+      ## note: text with markdown formatting
+      buf = "function **#{@name}**"
       if @inputs.empty?
         buf << "()"
       else

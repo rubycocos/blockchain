@@ -9,7 +9,7 @@ class String
 
     # given two numeric strings,
     # returns the bitwise xor string
-    def ^(other)
+    def xor(other)
         a = self.bytes
         b = other.bytes
         ## todo/check: cut-off on lower count (lc) - why? why not?
@@ -22,7 +22,9 @@ class String
         puts "#{self.bin_to_hex} ^ #{other.bin_to_hex} = #{c.bin_to_hex}<"
         c
     end
+    alias_method :^, :xor
 end  # class String
+
 
 
 def keccak256( bin )
@@ -40,7 +42,7 @@ require_relative 'abiparser/version'    # note: let version always go first
 require_relative 'abiparser/param'
 require_relative 'abiparser/constructor'
 require_relative 'abiparser/function'
-require_relative 'abiparser/interface'
+require_relative 'abiparser/contract'
 
 require_relative 'abiparser/export/interface.rb'
 
@@ -50,10 +52,9 @@ require_relative 'abiparser/export/interface.rb'
 module ABI
 
 
-
   ## rename to QueryInterface or SupportInterface
-  ##   or InterfaceType or such - why? why not?
-class InterfaceId
+  ##   or InterfaceType or InterfaceId or such - why? why not?
+class Interface
 
   attr_reader :interface_id
 
@@ -113,7 +114,7 @@ class InterfaceId
   end
   alias_method :supports?, :support?   ## add alternate spelling - why? why not?
 
-end  ## class InterfaceId
+end  ## class Interface
 
 
 
@@ -125,7 +126,7 @@ end  # module ABI
 ## note: make "global" constants - why? why not?
 
 ## IERC20  0x36372b07
-IERC20  = ABI::InterfaceId.new(
+IERC20  = ABI::Interface.new(
    'totalSupply()',
    'balanceOf(address)',
    'allowance(address,address)',
@@ -135,7 +136,7 @@ IERC20  = ABI::InterfaceId.new(
 
 
 ## IERC721  0x80ac58cd
-IERC721 = ABI::InterfaceId.new(
+IERC721 = ABI::Interface.new(
   'balanceOf(address)',
   'ownerOf(uint256)',
   'approve(address,uint256)',
@@ -146,15 +147,33 @@ IERC721 = ABI::InterfaceId.new(
   'safeTransferFrom(address,address,uint256)',
   'safeTransferFrom(address,address,uint256,bytes)' )
 
+## IERC165  0x01ffc9a7
+IERC165 = ABI::Interface.new(
+  'supportsInterface(bytes4)',
+)
+
+## IERC721_METADATA  0x5b5e139f
+IERC721Metadata   = ABI::Interface.new(
+  'name()',
+  'symbol()',
+  'tokenURI(uint256)',
+)
+
+## ERC721_ENUMERABLE  0x780e9d63
+IERC721Enumerable   = ABI::Interface.new(
+  'tokenOfOwnerByIndex(address,uint256)',
+  'totalSupply()',
+  'tokenByIndex(uint256)',
+)
 
 
 
 
 
 module ABI
-  def self.read( path )  Interface.read( path ); end
+  def self.read( path )  Contract.read( path ); end
 
-  def self.parse( data ) Interface.parse( data ); end
+  def self.parse( data ) Contract.parse( data ); end
 end  # module ABI
 
 

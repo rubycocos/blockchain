@@ -5,10 +5,16 @@
 require 'abiparser'
 
 
-abi = ABI.read( './test/data/0x6ba6f2207e343923ba692e5cae646fb0f566db8d.json' )
+punks_v1    = '0x6ba6f2207e343923ba692e5cae646fb0f566db8d'
+punk_blocks = '0x58e90596c2065befd3060767736c829c18f3474c'
+
+abi = ABI.read( "../test/address/#{punks_v1}.json" )
 pp abi
 
-puts abi.generate_interface( name: 'CryptoPunks' )
+buf =  abi.generate_interface( name: 'CryptoPunks' )
+puts buf
+write_text( "./tmp/cryptopunks.sol", buf )
+
 
 
 puts "selectorrs:"
@@ -32,6 +38,19 @@ pp abi.support?( 'tokenURI(uint256)' )
 
 
 
+abi = ABI.read( "../test/address/#{punk_blocks}.json" )
+pp abi
+
+buf = abi.generate_interface( name: 'PunkBlocks' )
+puts buf
+write_text( "./tmp/punkblocks.sol", buf )
+
+
+puts "selectorrs:"
+pp abi.selectors
+
+
+
 pp IERC20
 pp IERC20.interface_id
 pp IERC20.calc_interface_id
@@ -46,6 +65,11 @@ pp IERC721.calc_interface_id
 
 pp IERC721.support?( 'balanceOf(address)' )
 pp IERC721.support?( 'name( )' )
+
+
+
+sig = 'supportsInterface(bytes4)'
+pp keccak256( sig ).hexdigest
 
 
 puts "bye"
