@@ -74,7 +74,7 @@ class Constructor
       buf << "(#{buf2.join(',')})"
     end
     buf
- end
+  end
 
 
   def doc
@@ -98,9 +98,7 @@ class Constructor
     end
     buf << ";"
     buf
-end
-
-
+  end
 
 
 end  # class Constructor

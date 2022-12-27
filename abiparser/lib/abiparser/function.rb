@@ -7,9 +7,9 @@ class Function
     inputs  = o['inputs'].map {|param| Param.parse( param ) }
     outputs = o['outputs'].map {|param| Param.parse( param ) }
 
-    payable = nil
-    contant = nil
-    pure    = nil
+    payable  = nil
+    constant = nil
+    pure     = nil
 
     ## old soliditity before v0.6
     ##  newer version uses stateMutability
@@ -92,7 +92,7 @@ class Function
       buf << "(#{buf2.join(',')})"
     end
     buf
- end
+  end
 
   def sighash
     keccak256( sig )[0,4].hexdigest
@@ -139,7 +139,7 @@ class Function
     end
     buf << ";"
     buf
-end
+  end
 
 
 def types

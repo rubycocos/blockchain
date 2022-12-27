@@ -42,88 +42,21 @@ require_relative 'abiparser/version'    # note: let version always go first
 require_relative 'abiparser/param'
 require_relative 'abiparser/constructor'
 require_relative 'abiparser/function'
+require_relative 'abiparser/utils'
 require_relative 'abiparser/contract'
+require_relative 'abiparser/interface'
 
 require_relative 'abiparser/export/interface.rb'
 
 
 
 
-module ABI
-
-
-  ## rename to QueryInterface or SupportInterface
-  ##   or InterfaceType or InterfaceId or such - why? why not?
-class Interface
-
-  attr_reader :interface_id
-
-  def initialize( *functions )
-    @functions = functions
-    @selectors = {}
-
-    @functions.each do |func|
-      sig = func
-      sighash =  keccak256( sig )[0,4].hexdigest
-      puts "0x#{sighash} => #{sig}"
-
-      ## assert - no duplicates allowed
-      if @selectors[sighash]
-        puts "!! ERROR - duplicate function signature #{sig}; already in use; sorry"
-        exit 1
-      end
-
-      @selectors[sighash] = sig
-    end
-    @interface_id = calc_interface_id
-  end
-
-
-  def calc_interface_id
-    interface_id = nil
-    @selectors.each do |sighash,_|
-      sighash = sighash.hex_to_bin   ## note: convert to binary string (from hexstring)!!
-      interface_id = if interface_id.nil?
-        sighash   ## init with sighash
-      else
-        interface_id ^ sighash   ## use xor
-      end
-    end
-    interface_id.hexdigest
-  end
-
-  SIGHASH_RX = /\A
-                (0x)?
-                (?<sighash>[0-9a-f]{8})
-                \z/ix
-
- def support?( sig )
-     sighash =  if m=SIGHASH_RX.match( sig )
-                  m[:sighash].downcase  ## assume it's sighash (hexstring)
-                else
-                  ## for convenience allow (white)spaces; auto-strip - why? why not?
-                  sig = sig.gsub( /[ \r\t\n]/, '' )
-                  keccak256( sig )[0,4].hexdigest
-                end
-
-     if @selectors[ sighash ]
-        true
-     else
-        false
-     end
-  end
-  alias_method :supports?, :support?   ## add alternate spelling - why? why not?
-
-end  ## class Interface
-
-
-
-end  # module ABI
-
-
-
-
 ## note: make "global" constants - why? why not?
+
+## IERC165  0x01ffc9a7
+IERC165 = ABI::Interface.new(
+  'supportsInterface(bytes4)',
+)
 
 ## IERC20  0x36372b07
 IERC20  = ABI::Interface.new(
@@ -132,8 +65,23 @@ IERC20  = ABI::Interface.new(
    'allowance(address,address)',
    'transfer(address,uint256)',
    'approve(address,uint256)',
-   'transferFrom(address,address,uint256)' )
+   'transferFrom(address,address,uint256)'
+)
 
+## IERC20_NAME 0x06fdde03
+IERC20_NAME = ABI::Interface.new(
+  'name()'
+)
+
+## IERC20_SYMBOL 0x95d89b41
+IERC20_SYMBOL = ABI::Interface.new(
+  'symbol()'
+)
+
+## IERC20_DECIMALS 0x313ce567
+IERC20_DECIMALS = ABI::Interface.new(
+  'decimals()'
+)
 
 ## IERC721  0x80ac58cd
 IERC721 = ABI::Interface.new(
@@ -145,25 +93,21 @@ IERC721 = ABI::Interface.new(
   'isApprovedForAll(address,address)',
   'transferFrom(address,address,uint256)',
   'safeTransferFrom(address,address,uint256)',
-  'safeTransferFrom(address,address,uint256,bytes)' )
-
-## IERC165  0x01ffc9a7
-IERC165 = ABI::Interface.new(
-  'supportsInterface(bytes4)',
+  'safeTransferFrom(address,address,uint256,bytes)'
 )
 
 ## IERC721_METADATA  0x5b5e139f
-IERC721Metadata   = ABI::Interface.new(
+IERC721_METADATA   = ABI::Interface.new(
   'name()',
   'symbol()',
-  'tokenURI(uint256)',
+  'tokenURI(uint256)'
 )
 
-## ERC721_ENUMERABLE  0x780e9d63
-IERC721Enumerable   = ABI::Interface.new(
+## IERC721_ENUMERABLE  0x780e9d63
+IERC721_ENUMERABLE   = ABI::Interface.new(
   'tokenOfOwnerByIndex(address,uint256)',
   'totalSupply()',
-  'tokenByIndex(uint256)',
+  'tokenByIndex(uint256)'
 )
 
 

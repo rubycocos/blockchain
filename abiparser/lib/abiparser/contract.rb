@@ -87,28 +87,11 @@ class Contract
   def selectors()  @selectors.keys;  end
 
 
-
-  SIGHASH_RX = /\A
-                (0x)?
-                (?<sighash>[0-9a-f]{8})
-                \z/ix
-
  def support?( sig )
-     sighash =  if m=SIGHASH_RX.match( sig )
-                  m[:sighash].downcase  ## assume it's sighash (hexstring)
-                else
-                  ## for convenience allow (white)spaces; auto-strip - why? why not?
-                  sig = sig.gsub( /[ \r\t\n]/, '' )
-                  keccak256( sig )[0,4].hexdigest
-                end
+   Utils.support?( @selectors.keys, sig )
+ end
+ alias_method :supports?, :support?   ## add alternate spelling - why? why not?
 
-     if @selectors[ sighash ]
-        true
-     else
-        false
-     end
-  end
-  alias_method :supports?, :support?   ## add alternate spelling - why? why not?
 
 
   def constructor() @ctor; end

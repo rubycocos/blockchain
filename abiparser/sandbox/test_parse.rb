@@ -13,7 +13,7 @@ pp abi
 
 buf =  abi.generate_interface( name: 'CryptoPunks' )
 puts buf
-write_text( "./tmp/cryptopunks.sol", buf )
+write_text( "./tmp/punks_v1.sol", buf )
 
 
 
@@ -43,10 +43,10 @@ pp abi
 
 buf = abi.generate_interface( name: 'PunkBlocks' )
 puts buf
-write_text( "./tmp/punkblocks.sol", buf )
+write_text( "./tmp/punk_blocks.sol", buf )
 
 
-puts "selectorrs:"
+puts "selectors:"
 pp abi.selectors
 
 
