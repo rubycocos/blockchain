@@ -87,11 +87,11 @@ Voila!
 Or re(use) the builtin pre-defined interfaces. Example:
 
 ``` ruby
-pp IERC165.inteface_id            #=> "0x01ffc9a7"
-pp IERC20.interface_id            #=> "0x36372b07"
-pp IERC721.interface_id           #=> "0x80ac58cd"
-pp IERC721Metadata.interface_id   #=> "0x5b5e139f"
-pp IERC721Enumerable.interface_id #=> "0x780e9d63"
+pp IERC165.inteface_id             #=> "0x01ffc9a7"
+pp IERC20.interface_id             #=> "0x36372b07"
+pp IERC721.interface_id            #=> "0x80ac58cd"
+pp IERC721_METADATA.interface_id   #=> "0x5b5e139f"
+pp IERC721_ENUMERABLE.interface_id #=> "0x780e9d63"
 ```
 
 Yes, you can. Define your own interface. Let's have a looksie
@@ -122,12 +122,12 @@ IERC721 = ABI::Interface.new(
   'safeTransferFrom(address,address,uint256)',
   'safeTransferFrom(address,address,uint256,bytes)' )
 
-IERC721Metadata = ABI::Interface.new(
+IERC721_METADATA = ABI::Interface.new(
   'name()',
   'symbol()',
   'tokenURI(uint256)' )
 
-IERC721Enumerable   = ABI::Interface.new(
+IERC721_ENUMERABLE = ABI::Interface.new(
   'tokenOfOwnerByIndex(address,uint256)',
   'totalSupply()',
   'tokenByIndex(uint256)' )
