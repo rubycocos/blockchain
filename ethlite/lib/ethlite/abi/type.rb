@@ -11,7 +11,9 @@ module Ethlite
       #
       def self.parse( type )
 
+        ## todo/fix:  remove tron token hack!!!!
         return parse('uint256')   if type=='trcToken'
+
 
         if type =~ /^\((.*)\)((\[[0-9]*\])*)/
           return Tuple.parse $1, $2.scan(/\[[0-9]*\]/)

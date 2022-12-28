@@ -13,7 +13,7 @@ def eth_call( rpc,
   ## binary encode method sig(nature)
   signature      = "#{name}(#{inputs.join(',')})"
   signature_hash =  Ethlite::Utils.encode_hex(
-                        Ethlite::Utils.keccak256(signature))[0..7]
+                        Ethlite::Utils.keccak256(signature)[0,4])
 
   pp signature
   pp signature_hash

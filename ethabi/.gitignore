@@ -1,0 +1,11 @@
+# do NOT check in dev/test enviroment variables in .env (dot env files)
+.env
+
+
+##
+# ignore tmp directories
+
+tmp/
+tmp2/
+
+
