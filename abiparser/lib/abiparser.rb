@@ -39,6 +39,9 @@ end
 
 ## our own code
 require_relative 'abiparser/version'    # note: let version always go first
+require_relative 'abiparser/type'
+require_relative 'abiparser/type_tuple'
+
 require_relative 'abiparser/param'
 require_relative 'abiparser/constructor'
 require_relative 'abiparser/function'
@@ -46,7 +49,7 @@ require_relative 'abiparser/utils'
 require_relative 'abiparser/contract'
 require_relative 'abiparser/interface'
 
-require_relative 'abiparser/export/interface.rb'
+require_relative 'abiparser/export/interface'
 
 
 

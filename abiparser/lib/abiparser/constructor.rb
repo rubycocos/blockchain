@@ -47,13 +47,19 @@ class Constructor
   end
 
 
-  attr_reader :inputs
+  attr_reader :inputs, :input_types
 
   def initialize( inputs: [],
                   payable: false )
      @inputs  = inputs
      @payable = payable
+
+     ##  parse inputs into types
+     ##    note: use "calculated" sig(nature) and NOT the type
+     ##        (differs for tuples, that is, types with components !!!)
+     @input_types  = @inputs.map {|param| Type.parse( param.sig ) }
   end
+
 
   ##  add - why? why not?
   ## def constant?() false; end
