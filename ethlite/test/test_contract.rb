@@ -32,8 +32,8 @@ TXT
 
    assert_equal  true, tokenURI.constant
    assert_equal 'tokenURI', tokenURI.name
-   assert_equal ['uint256'], tokenURI.input_types
-   assert_equal ['string'], tokenURI.output_types
+   assert_equal ['uint256'], tokenURI.input_types.map {|type| type.format }
+   assert_equal ['string'], tokenURI.output_types.map {|type| type.format }
    assert_equal 'tokenURI(uint256)', tokenURI.signature
    assert_equal 'c87b56dd', tokenURI.signature_hash
 
@@ -44,8 +44,8 @@ TXT
 
    assert_equal  true, tokenURI.constant
    assert_equal 'tokenURI', tokenURI.name
-   assert_equal ['uint256'], tokenURI.input_types
-   assert_equal ['string'], tokenURI.output_types
+   assert_equal ['uint256'], tokenURI.input_types.map {|type| type.format }
+   assert_equal ['string'], tokenURI.output_types.map {|type| type.format }
    assert_equal 'tokenURI(uint256)', tokenURI.signature
    assert_equal 'c87b56dd', tokenURI.signature_hash
 
@@ -73,8 +73,8 @@ TXT
 
    assert_equal  true, traitData.constant
    assert_equal 'traitData', traitData.name
-   assert_equal ['uint256', 'uint256'], traitData.input_types
-   assert_equal ['string'], traitData.output_types
+   assert_equal ['uint256', 'uint256'], traitData.input_types.map {|type| type.format }
+   assert_equal ['string'], traitData.output_types.map {|type| type.format }
    assert_equal 'traitData(uint256,uint256)', traitData.signature
    assert_equal '09dbabca', traitData.signature_hash
 
@@ -85,8 +85,8 @@ TXT
 
    assert_equal  true, traitData.constant
    assert_equal 'traitData', traitData.name
-   assert_equal ['uint256', 'uint256'], traitData.input_types
-   assert_equal ['string'], traitData.output_types
+   assert_equal ['uint256', 'uint256'], traitData.input_types.map {|type| type.format }
+   assert_equal ['string'], traitData.output_types.map {|type| type.format }
    assert_equal 'traitData(uint256,uint256)', traitData.signature
    assert_equal '09dbabca', traitData.signature_hash
 
@@ -115,8 +115,8 @@ TXT
 
   assert_equal  true, traitDetails.constant
   assert_equal 'traitDetails', traitDetails.name
-  assert_equal ['uint256', 'uint256'], traitDetails.input_types
-  assert_equal ['(string,string,bool)'], traitDetails.output_types
+  assert_equal ['uint256', 'uint256'], traitDetails.input_types.map {|type| type.format }
+  assert_equal ['(string,string,bool)'], traitDetails.output_types.map {|type| type.format }
   assert_equal 'traitDetails(uint256,uint256)', traitDetails.signature
   assert_equal 'ea84b59b', traitDetails.signature_hash
 
@@ -127,8 +127,8 @@ TXT
 
   assert_equal  true, traitDetails.constant
   assert_equal 'traitDetails', traitDetails.name
-  assert_equal ['uint256', 'uint256'], traitDetails.input_types
-  assert_equal ['(string,string,bool)'], traitDetails.output_types
+  assert_equal ['uint256', 'uint256'], traitDetails.input_types.map {|type| type.format }
+  assert_equal ['(string,string,bool)'], traitDetails.output_types.map {|type| type.format }
   assert_equal 'traitDetails(uint256,uint256)', traitDetails.signature
   assert_equal 'ea84b59b', traitDetails.signature_hash
 

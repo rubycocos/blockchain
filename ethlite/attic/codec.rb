@@ -19,21 +19,19 @@ module Ethlite
     # Encodes multiple arguments using the head/tail mechanism.
     #
     def encode_abi(types, args)
-      ## for convenience check if types is a String
-      ##   otherwise assume ABI::Type already
-      types = types.map { |type| type.is_a?( String ) ? ::ABI::Type.parse( type ) : type }
+      parsed_types = types.map {|t| Type.parse(t) }
 
       head_size = (0...args.size)
-        .map {|i| types[i].size || 32 }
+        .map {|i| parsed_types[i].size || 32 }
         .reduce(0, &:+)
 
       head, tail = '', ''
       args.each_with_index do |arg, i|
-        if types[i].dynamic?
+        if parsed_types[i].dynamic?
           head += encode_type(Type.size_type, head_size + tail.size)
-          tail += encode_type(types[i], arg)
+          tail += encode_type(parsed_types[i], arg)
         else
-          head += encode_type(types[i], arg)
+          head += encode_type(parsed_types[i], arg)
         end
       end
 
@@ -187,24 +185,22 @@ module Ethlite
     end
 
 
-    def min_data_size( types )
+    def min_data_size types
       types.size*32
     end
 
     ##
     # Decodes multiple arguments using the head/tail mechanism.
     #
-    def decode_abi( types, data, raise_errors = false )
-      ## for convenience check if types is a String
-      ##   otherwise assume ABI::Type already
-      types = types.map { |type| type.is_a?( String ) ? ::ABI::Type.parse( type ) : type }
+    def decode_abi types, data, raise_errors = false
+      parsed_types = types.map {|t| Type.parse(t) }
 
       outputs = [nil] * types.size
       start_positions = [nil] * types.size + [data.size]
 
       # TODO: refactor, a reverse iteration will be better
       pos = 0
-      types.each_with_index do |t, i|
+      parsed_types.each_with_index do |t, i|
         # If a type is static, grab the data directly, otherwise record its
         # start position
         if t.dynamic?
@@ -245,7 +241,7 @@ module Ethlite
       end
 
 
-      types.each_with_index do |t, i|
+      parsed_types.each_with_index do |t, i|
         if t.dynamic?
           offset, next_offset = start_positions[i, 2]
           if offset<=data.size && next_offset<=data.size
@@ -258,11 +254,11 @@ module Ethlite
         raise DecodingError, "Not all data can be parsed"
       end
 
-      types.zip(outputs).map {|(type, out)| decode_type(type, out) }
+      parsed_types.zip(outputs).map {|(type, out)| decode_type(type, out) }
     end
 
 
-    def zero_padding( data, pos, count, start_positions )
+    def zero_padding data, pos, count, start_positions
       if pos >= data.size
         start_positions[start_positions.size-1] += count
         "\x00"*count
@@ -274,13 +270,13 @@ module Ethlite
       end
     end
 
-    def decode_typed_data( type_name, data )
+    def decode_typed_data type_name, data
       decode_primitive_type Type.parse(type_name), data
     end
 
     def decode_type(type, arg)
       return nil if arg.nil? || arg.empty?
-      if type.kind_of?( ABI::Tuple ) && type.dims.empty?
+      if type.kind_of?(Tuple) && type.dims.empty?
         arg ? decode_abi(type.types, arg) : []
       elsif %w(string bytes).include?(type.base) && type.sub.empty?
         l = Utils.big_endian_to_int arg[0,32]

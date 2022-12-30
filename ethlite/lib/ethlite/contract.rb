@@ -1,6 +1,7 @@
   module Ethlite
       class ContractMethod
 
+
        def self.parse_abi( abi )
          ## convenience helper -  auto-convert to json if string passed in
          abi = JSON.parse( abi ) if abi.is_a?( String )
@@ -26,7 +27,6 @@
 
 
 
-
         attr_reader :signature,
                     :name,
                     :signature_hash,
@@ -39,10 +39,14 @@
                               constant: true )
           @name         = name
           @constant     = constant
-          @input_types  = inputs
-          @output_types = outputs
-          @signature      = "#{@name}(#{@input_types.join(',')})"
-          @signature_hash = Utils.signature_hash( @signature, 8 )
+
+          ##  parse inputs & outputs into types
+          @input_types  = inputs.map { |str| ABI::Type.parse( str ) }
+          @output_types = outputs.map { |str| ABI::Type.parse( str ) }
+
+          types = @input_types.map {|type| type.format }.join(',')
+          @signature      = "#{@name}(#{types})"
+          @signature_hash = Utils.encode_hex( Utils.keccak256( @signature)[0,4] )
         end
 
 

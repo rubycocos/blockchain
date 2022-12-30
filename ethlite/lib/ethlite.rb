@@ -31,6 +31,7 @@ require 'digest'
 ## 3rd party gems
 require 'rlp-lite'
 require 'digest-lite'
+require 'abiparser'
 
 
 require_relative 'jsonrpc/jsonrpc'
@@ -43,7 +44,6 @@ require_relative 'ethlite/constant'
 require_relative 'ethlite/utils'
 
 
-require_relative 'ethlite/abi/type'
 require_relative 'ethlite/abi/codec'
 
 
