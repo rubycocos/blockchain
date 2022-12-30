@@ -1,0 +1,38 @@
+require 'hoe'
+require './lib/abicoder/version.rb'
+
+
+###
+# hack/ quick fix for broken intuit_values - overwrite with dummy
+class Hoe
+  def intuit_values( input ); end
+end
+
+
+Hoe.spec 'abicoder' do
+
+  self.version = ABICoder::VERSION
+
+  self.summary = "abicoder - 'lite' application binary interface (abi) encoding / decoding machinery / helper for Ethereum & Co. (blockchain) contracts with zero-dependencies for easy (re)use"
+  self.description = summary
+
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end
+

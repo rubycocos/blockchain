@@ -1,8 +1,5 @@
 
-
-module Ethlite
-  module Abi
-
+module ABI
   ##
   # Contract ABI encoding and decoding.
   #
@@ -21,7 +18,7 @@ module Ethlite
     def encode_abi(types, args)
       ## for convenience check if types is a String
       ##   otherwise assume ABI::Type already
-      types = types.map { |type| type.is_a?( String ) ? ::ABI::Type.parse( type ) : type }
+      types = types.map { |type| type.is_a?( String ) ? Type.parse( type ) : type }
 
       head_size = (0...args.size)
         .map {|i| types[i].size || 32 }
@@ -43,13 +40,13 @@ module Ethlite
     ##
     # Encodes a single value (static or dynamic).
     #
-    # @param type [Ethereum::ABI::Type] value type
+    # @param type [ABI::Type] value type
     # @param arg [Object] value
     #
     # @return [String] encoded bytes
     #
     def encode_type(type, arg)
-      if %w(string bytes).include?(type.base) && type.sub.empty?
+      if ['string', 'bytes'].include?(type.base) && type.sub.empty?
         encode_primitive_type type, arg
       elsif type.dynamic?
         raise ArgumentError, "arg must be an array" unless arg.instance_of?(Array)
@@ -107,18 +104,6 @@ module Ethlite
         rescue EncodingError
           raise ValueOutOfBounds, arg
         end
-      when 'ufixed'
-        high, low = type.sub.split('x').map(&:to_i)
-
-        raise ValueOutOfBounds, arg unless arg >= 0 && arg < 2**high
-        Utils.zpad_int((arg * 2**low).to_i)
-      when 'fixed'
-        high, low = type.sub.split('x').map(&:to_i)
-
-        raise ValueOutOfBounds, arg unless arg >= -2**(high - 1) && arg < 2**(high - 1)
-
-        i = (arg * 2**low).to_i
-        Utils.zpad_int(i % 2**(high+low))
       when 'string'
         if arg.encoding.name == 'UTF-8'
           arg = arg.b
@@ -156,19 +141,6 @@ module Ethlite
           raise ValueOutOfBounds, "invalid bytes length #{sub}" if sub < 0 || sub > 32
           Utils.rpad(arg, BYTE_ZERO, 32)
         end
-      when 'hash'
-        size = type.sub.to_i
-        raise EncodingError, "too long: #{arg}" unless size > 0 && size <= 32
-
-        if arg.is_a?(Integer)
-          Utils.zpad_int(arg)
-        elsif arg.size == size
-          Utils.zpad arg, 32
-        elsif arg.size == size * 2
-          Utils.zpad_hex arg
-        else
-          raise EncodingError, "Could not parse hash: #{arg}"
-        end
       when 'address'
         if arg.is_a?(Integer)
           Utils.zpad_int arg
@@ -197,7 +169,7 @@ module Ethlite
     def decode_abi( types, data, raise_errors = false )
       ## for convenience check if types is a String
       ##   otherwise assume ABI::Type already
-      types = types.map { |type| type.is_a?( String ) ? ::ABI::Type.parse( type ) : type }
+      types = types.map { |type| type.is_a?( String ) ? Type.parse( type ) : type }
 
       outputs = [nil] * types.size
       start_positions = [nil] * types.size + [data.size]
@@ -280,7 +252,7 @@ module Ethlite
 
     def decode_type(type, arg)
       return nil if arg.nil? || arg.empty?
-      if type.kind_of?( ABI::Tuple ) && type.dims.empty?
+      if type.kind_of?( Tuple ) && type.dims.empty?
         arg ? decode_abi(type.types, arg) : []
       elsif %w(string bytes).include?(type.base) && type.sub.empty?
         l = Utils.big_endian_to_int arg[0,32]
@@ -359,7 +331,7 @@ module Ethlite
       end
     end
 
-    private
+private
 
     def get_uint(n)
       case n
@@ -417,24 +389,25 @@ end # class Codec
 
 
 
-
-
-
 def self.codec
   @codec ||= Codec.new
 end
 
-def self.encode_abi(types, args)
+def self.encode_abi( types, args )
     codec.encode_abi( types, args )
 end
 
-def self.decode_abi(types, data, raise_errors = false)
+def self.decode_abi( types, data, raise_errors = false )
     codec.decode_abi( types, data, raise_errors )
 end
 
+## add alternate names
+##  todo/fix: change to encode / decode by default
+##              from encode_abi / decode_abi  - why? why not?
+class << self
+   alias_method :encode, :encode_abi
+   alias_method :decode, :decode_abi
+end
 
-end  # module Abi
-end  # module Ethlite
-
-
+end  # module ABI
 

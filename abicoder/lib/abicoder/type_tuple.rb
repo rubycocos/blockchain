@@ -41,7 +41,7 @@ class Tuple < Type
     ## note:  use Type.parse NOT Tuple._parse
     ##           to parse Tuple!!!
     def self._parse( tuple, dims=[] )
-      puts "  enter Tuple.parse( types: >#{tuple.inspect}<, dims: >#{dims.inspect}< )"
+      ## puts "  enter Tuple.parse( types: >#{tuple.inspect}<, dims: >#{dims.inspect}< )"
 
       # e.g.
       #=>   enter Tuple.parse( types: >"string,string,bool"<, dims: >[]< )
@@ -59,8 +59,8 @@ class Tuple < Type
       super( 'tuple', '', dims )
       @types = types
 
-      puts "tuple:"
-      pp self
+      ## puts "tuple:"
+      ## pp self
     end
 
 
