@@ -389,25 +389,5 @@ end # class Codec
 
 
 
-def self.codec
-  @codec ||= Codec.new
-end
-
-def self.encode_abi( types, args )
-    codec.encode_abi( types, args )
-end
-
-def self.decode_abi( types, data, raise_errors = false )
-    codec.decode_abi( types, data, raise_errors )
-end
-
-## add alternate names
-##  todo/fix: change to encode / decode by default
-##              from encode_abi / decode_abi  - why? why not?
-class << self
-   alias_method :encode, :encode_abi
-   alias_method :decode, :decode_abi
-end
-
 end  # module ABI
 
