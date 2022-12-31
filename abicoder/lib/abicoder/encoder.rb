@@ -89,15 +89,20 @@ module ABI
     def encode_primitive_type( type, arg )
       case type.base
       when 'uint'
-        encode_uint( arg,  type.sub )
+        ## note: for now size in  bits always required
+        encode_uint( arg, type.sub.to_i )
       when 'int'
-        encode_int( arg,  type.sub )
+        ## note: for now size in  bits always required
+        encode_int( arg, type.sub.to_i )
       when 'bool'
         encode_bool( arg )
       when 'string'
         encode_string( arg )
       when 'bytes'
-        encode_bytes( arg, type.sub )
+        ## note: if no length/size in bytes than
+        #          bytes  is dynamic otherweise
+        #          bytes1, bytes2, .. bytes32 is fixed
+        encode_bytes( arg, type.sub.empty? ? nil : type.sub.to_i )
       when 'address'
         encode_address( arg )
       else
@@ -113,26 +118,24 @@ module ABI
     end
 
 
-    def encode_uint256( arg ) encode_uint( arg, '256' ); end
-    def encode_uint( arg, sub )
+    def encode_uint256( arg ) encode_uint( arg, 256 ); end
+    def encode_uint( arg, bits )
       begin
-        real_size = sub.to_i
         i = get_uint( arg )
 
-        raise ValueOutOfBounds, arg   unless i >= 0 && i < 2**real_size
+        raise ValueOutOfBounds, arg   unless i >= 0 && i < 2**bits
         Utils.zpad_int i
       rescue EncodingError
         raise ValueOutOfBounds, arg
       end
     end
 
-    def encode_int( arg, sub )
+    def encode_int( arg, bits )
       begin
-        real_size = sub.to_i
         i = get_int( arg )
 
-        raise ValueOutOfBounds, arg   unless i >= -2**(real_size-1) && i < 2**(real_size-1)
-        Utils.zpad_int(i % 2**real_size)
+        raise ValueOutOfBounds, arg   unless i >= -2**(bits-1) && i < 2**(bits-1)
+        Utils.zpad_int(i % 2**bits)
       rescue EncodingError
         raise ValueOutOfBounds, arg
       end
@@ -157,20 +160,19 @@ module ABI
     end
 
 
-    def encode_bytes( arg, sub )
+    def encode_bytes( arg, length=nil )
       raise EncodingError, "Expecting string: #{arg}" unless arg.instance_of?(String)
       arg = arg.b
 
-      if sub.empty? # variable length type
+      if length # fixed length type
+        raise ValueOutOfBounds, "invalid bytes length #{length}" if arg.size > length
+        raise ValueOutOfBounds, "invalid bytes length #{length}" if length < 0 || length > 32
+        Utils.rpad( arg, BYTE_ZERO, 32 )
+      else  # variable length type  (if length is nil)
         raise ValueOutOfBounds, "Integer invalid or out of range: #{arg.size}" if arg.size >= TT256
         size = Utils.zpad_int arg.size
         value = Utils.rpad arg, BYTE_ZERO, Utils.ceil32(arg.size)
         "#{size}#{value}"
-      else # fixed length type
-        real_size = sub.to_i
-        raise ValueOutOfBounds, "invalid bytes length #{sub}" if arg.size > real_size
-        raise ValueOutOfBounds, "invalid bytes length #{sub}" if real_size < 0 || real_size > 32
-        Utils.rpad( arg, BYTE_ZERO, 32 )
       end
     end
 

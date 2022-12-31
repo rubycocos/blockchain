@@ -15,9 +15,11 @@ def encode_primitive_type( type, arg )
 end
 
 def encode_bool( arg )       ABI.encoder.encode_bool( arg ); end
-def encode_uint( arg, sub )  ABI.encoder.encode_uint( arg, sub ); end
-def encode_int( arg, sub )   ABI.encoder.encode_int( arg, sub ); end
-def encode_bytes( arg, sub ) ABI.encoder.encode_bytes( arg, sub ); end
+def encode_uint( arg, bits )  ABI.encoder.encode_uint( arg, bits ); end
+def encode_uint8( arg )      encode_uint( arg, 8 ); end
+def encode_int( arg, bits )   ABI.encoder.encode_int( arg, bits ); end
+def encode_int8( arg )      encode_int( arg, 8 ); end
+def encode_bytes( arg, length=nil ) ABI.encoder.encode_bytes( arg, length ); end
 def encode_address( arg )    ABI.encoder.encode_address( arg ); end
 
 
@@ -88,8 +90,8 @@ class TestAbi < MiniTest::Test
     assert_equal ABI::Utils.zpad_int(255), encode_primitive_type(type, 255)
     assert_raises(ValueOutOfBounds) { encode_primitive_type(type, 256) }
 
-    assert_equal ABI::Utils.zpad_int(255), encode_uint( 255, '8' )
-    assert_raises(ValueOutOfBounds) { encode_uint( 256, '8' ) }
+    assert_equal ABI::Utils.zpad_int(255), encode_uint8( 255 )
+    assert_raises(ValueOutOfBounds) { encode_uint8( 256 ) }
 
 
 
@@ -102,10 +104,10 @@ class TestAbi < MiniTest::Test
     assert_raises(ValueOutOfBounds) { encode_primitive_type(type, -129) }
     assert_raises(ValueOutOfBounds) { encode_primitive_type(type, 128) }
 
-    assert_equal ABI::Utils.zpad("\x80", 32).b, encode_int(-128, '8')
-    assert_equal ABI::Utils.zpad("\x7f", 32).b, encode_int( 127, '8')
-    assert_raises(ValueOutOfBounds) { encode_int( -129, '8') }
-    assert_raises(ValueOutOfBounds) { encode_int( 128, '8') }
+    assert_equal ABI::Utils.zpad("\x80", 32).b, encode_int(-128, 8)
+    assert_equal ABI::Utils.zpad("\x7f", 32).b, encode_int( 127, 8)
+    assert_raises(ValueOutOfBounds) { encode_int8( -129 ) }
+    assert_raises(ValueOutOfBounds) { encode_int8( 128 ) }
 
 
 
@@ -113,14 +115,14 @@ class TestAbi < MiniTest::Test
     assert_equal "#{ABI::Utils.zpad_int(3)}\x01\x02\x03#{"\x00"*29}",
                   encode_primitive_type(type, "\x01\x02\x03")
     assert_equal "#{ABI::Utils.zpad_int(3)}\x01\x02\x03#{"\x00"*29}",
-                  encode_bytes( "\x01\x02\x03", '' )
+                  encode_bytes( "\x01\x02\x03" )
 
 
     type = Type.parse( 'bytes8' )
     assert_equal "\x01\x02\x03#{"\x00"*29}",
                  encode_primitive_type(type, "\x01\x02\x03" )
     assert_equal "\x01\x02\x03#{"\x00"*29}",
-                 encode_bytes( "\x01\x02\x03", '8' )
+                 encode_bytes( "\x01\x02\x03", 8 )
 
 
     type = Type.parse( 'address' )
