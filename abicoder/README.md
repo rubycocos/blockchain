@@ -13,6 +13,63 @@ abicoder - "lite" application binary interface (abi) encoding / decoding machine
 ## Usage
 
 
+See the  [**Contract ABI Specification**](https://docs.soliditylang.org/en/develop/abi-spec.html)
+for the full (and latest) official application
+binary inteface (abi) specification.
+This abicoder supports:
+
+
+### Types
+
+The following elementary types are supported:
+
+- `uint<M>`: unsigned integer type of `M` bits, `0 < M <= 256`, `M % 8 == 0`. e.g. `uint32`, `uint8`, `uint256`.
+
+- `int<M>`: two's complement signed integer type of `M` bits, `0 < M <= 256`, `M % 8 == 0`.
+
+- `address`: equivalent to `uint160`, except for the assumed interpretation and language typing.
+  For computing the function selector, `address` is used.
+
+- `uint`, `int`: synonyms for `uint256`, `int256` respectively. For computing the function
+  selector, `uint256` and `int256` have to be used.
+
+- `bool`: equivalent to `uint8` restricted to the values 0 and 1. For computing the function selector, `bool` is used.
+
+- `bytes<M>`: binary type of `M` bytes, `0 < M <= 32`.
+
+
+The following (fixed-size) array types are supported:
+
+- `<type>[M]`: a fixed-length array of `M` elements, `M >= 0`, of the given type.
+
+<!--
+Note: While this ABI specification can express fixed-length arrays with zero elements,
+they're not supported by the compiler.
+-->
+
+The following non-fixed-size types are supported:
+
+- `bytes`: dynamic sized byte sequence.
+
+- `string`: dynamic sized unicode string assumed to be UTF-8 encoded.
+
+- `<type>[]`: a variable-length array of elements of the given type.
+
+Types can be combined to a tuple by enclosing them inside parentheses, separated by commas:
+
+- `(T1,T2,...,Tn)`: tuple consisting of the types `T1`, ..., `Tn`, `n >= 0`
+
+It is possible to form tuples of tuples, arrays of tuples and so on.
+
+<!--
+It is also possible to form zero-tuples (where `n == 0`).
+-->
+
+
+
+###  Encode & Decode Types (Contract Function Call Data)
+
+
 ``` ruby
 require 'abicode'
 
@@ -55,7 +112,7 @@ ABI.decode( types, data)   # returns args
 
 
 ##  Decoding with arrays types
-types = [ 'uint256[]', 'string' ] 
+types = [ 'uint256[]', 'string' ]
 data = hex'0000000000000000000000000000000000000000000000000000000000000040'+
           '00000000000000000000000000000000000000000000000000000000000000a0'+
           '0000000000000000000000000000000000000000000000000000000000000002'+
