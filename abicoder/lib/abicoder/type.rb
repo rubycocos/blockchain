@@ -26,6 +26,29 @@ class Type
   end
 
 
+  def self._validate_base_type( base, sub )
+    case base
+    when 'string'
+      # note: string can not have any suffix
+      raise ParseError, "String cannot have suffix" unless sub.empty?
+    when 'bytes'
+      raise ParseError, "Maximum 32 bytes for fixed-length bytes" unless sub.empty? || sub.to_i <= 32
+    when 'uint', 'int'
+      raise ParseError, "Integer type must have numerical suffix" unless sub =~ /\A[0-9]+\z/
+
+      size = sub.to_i
+      raise ParseError, "Integer size out of bounds" unless size >= 8 && size <= 256
+      raise ParseError, "Integer size must be multiple of 8" unless size % 8 == 0
+    when 'address'
+      raise ParseError, "Address cannot have suffix" unless sub.empty?
+    when 'bool'
+      raise ParseError, "Bool cannot have suffix" unless sub.empty?
+    else
+      ## puts "  type: >#{type}<"
+      raise ParseError, "Unrecognized type base: #{base}"
+    end
+  end
+
 
     TUPLE_TYPE_RX = /^\((.*)\)
                     ((\[[0-9]*\])*)
@@ -42,25 +65,9 @@ class Type
 
        base, sub, dims = _parse_base_type( type )
 
-        case base
-          when 'bytes', 'string'
-            raise ParseError, "Maximum 32 bytes for fixed-length string or bytes" unless sub.empty? || sub.to_i <= 32
-          when 'uint', 'int'
-            raise ParseError, "Integer type must have numerical suffix" unless sub =~ /\A[0-9]+\z/
+       _validate_base_type( base, sub )
 
-            size = sub.to_i
-            raise ParseError, "Integer size out of bounds" unless size >= 8 && size <= 256
-            raise ParseError, "Integer size must be multiple of 8" unless size % 8 == 0
-          when 'address'
-            raise ParseError, "Address cannot have suffix" unless sub.empty?
-          when 'bool'
-            raise ParseError, "Bool cannot have suffix" unless sub.empty?
-          else
-            puts "  type: >#{type}<"
-            raise ParseError, "Unrecognized type base: #{base}"
-        end
-
-        new( base, sub, dims )
+       new( base, sub, dims )
       end
 
 

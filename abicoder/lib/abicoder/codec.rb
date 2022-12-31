@@ -5,12 +5,15 @@ module ABI
   #
   # @see https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI
   #
-  class Codec
-    class EncodingError < StandardError; end
-    class DecodingError < StandardError; end
-    class ValueError < StandardError; end
 
-    class ValueOutOfBounds < ValueError; end
+  class EncodingError < StandardError; end
+  class DecodingError < StandardError; end
+  class ValueError < StandardError; end
+
+  class ValueOutOfBounds < ValueError; end
+
+
+  class Codec
 
     ##
     # Encodes multiple arguments using the head/tail mechanism.
