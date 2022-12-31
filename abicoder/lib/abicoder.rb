@@ -41,28 +41,31 @@ require_relative 'abicoder/utils'
 require_relative 'abicoder/type'
 require_relative 'abicoder/type_tuple'
 
-require_relative 'abicoder/codec'
+require_relative 'abicoder/encoder'
+require_relative 'abicoder/decoder'
 
 
 module ABI
-  def self.codec
-    @codec ||= Codec.new
+  def self.encoder
+    @encoder ||= Encoder.new
+  end
+  def self.decoder
+    @decoder ||= Decoder.new
   end
 
-  def self.encode_abi( types, args )
-      codec.encode_abi( types, args )
+
+  def self.encode( types, args )
+      encoder.encode( types, args )
   end
 
-  def self.decode_abi( types, data, raise_errors = false )
-      codec.decode_abi( types, data, raise_errors )
+  def self.decode( types, data, raise_errors = false )
+      decoder.decode( types, data, raise_errors )
   end
 
-  ## add alternate names
-  ##  todo/fix: change to encode / decode by default
-  ##              from encode_abi / decode_abi  - why? why not?
+  ## add alternate names  - why? why not?
   class << self
-     alias_method :encode, :encode_abi
-     alias_method :decode, :decode_abi
+     alias_method :encode_abi, :encode
+     alias_method :decode_abi, :decode
   end
 end    ## module ABI
 

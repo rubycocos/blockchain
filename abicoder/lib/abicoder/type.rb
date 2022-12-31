@@ -71,11 +71,6 @@ class Type
       end
 
 
-      def self.size_type
-        @size_type ||= new( 'uint', '256' )
-      end
-
-
     attr :base, :sub, :dims
 
     ##
