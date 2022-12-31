@@ -25,8 +25,6 @@ The following elementary types are supported:
 - `int<M>`: two's complement signed integer type of `M` bits, `0 < M <= 256`, `M % 8 == 0`.
 - `address`: equivalent to `uint160`, except for the assumed interpretation and language typing.
   For computing the function selector, `address` is used.
-- `uint`, `int`: synonyms for `uint256`, `int256` respectively. For computing the function
-  selector, `uint256` and `int256` have to be used.
 - `bool`: equivalent to `uint8` restricted to the values 0 and 1. For computing the function selector, `bool` is used.
 - `bytes<M>`: binary type of `M` bytes, `0 < M <= 32`.
 
