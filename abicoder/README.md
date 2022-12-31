@@ -12,10 +12,8 @@ abicoder - "lite" application binary interface (abi) encoding / decoding machine
 
 ## Usage
 
-
-See the  [**Contract ABI Specification**](https://docs.soliditylang.org/en/develop/abi-spec.html)
-for the full (and latest) official application
-binary inteface (abi) specification.
+For the full (and latest) official application
+binary inteface (abi) specification see the [**Contract ABI Specification**](https://docs.soliditylang.org/en/develop/abi-spec.html).
 This abicoder supports:
 
 
@@ -24,17 +22,12 @@ This abicoder supports:
 The following elementary types are supported:
 
 - `uint<M>`: unsigned integer type of `M` bits, `0 < M <= 256`, `M % 8 == 0`. e.g. `uint32`, `uint8`, `uint256`.
-
 - `int<M>`: two's complement signed integer type of `M` bits, `0 < M <= 256`, `M % 8 == 0`.
-
 - `address`: equivalent to `uint160`, except for the assumed interpretation and language typing.
   For computing the function selector, `address` is used.
-
 - `uint`, `int`: synonyms for `uint256`, `int256` respectively. For computing the function
   selector, `uint256` and `int256` have to be used.
-
 - `bool`: equivalent to `uint8` restricted to the values 0 and 1. For computing the function selector, `bool` is used.
-
 - `bytes<M>`: binary type of `M` bytes, `0 < M <= 32`.
 
 
@@ -50,9 +43,7 @@ they're not supported by the compiler.
 The following non-fixed-size types are supported:
 
 - `bytes`: dynamic sized byte sequence.
-
 - `string`: dynamic sized unicode string assumed to be UTF-8 encoded.
-
 - `<type>[]`: a variable-length array of elements of the given type.
 
 Types can be combined to a tuple by enclosing them inside parentheses, separated by commas:
