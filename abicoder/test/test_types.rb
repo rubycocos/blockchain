@@ -9,27 +9,28 @@ require 'helper'
 
 class TestTypes < MiniTest::Test
 
-  Type  = ABI::Type
-  Tuple = ABI::Tuple
+  Type   = ABI::Type
+  Tuple  = ABI::Tuple
+  Parser = ABI::Type::Parser
 
   ParseError = ABI::Type::ParseError
 
   def test_parse_dims
-    assert_equal [],     Type._parse_dims( '' )
-    assert_equal [-1],   Type._parse_dims( '[]' )
-    assert_equal [-1,3], Type._parse_dims( '[][3]' )
-    assert_equal [2,3],  Type._parse_dims( '[2][3]' )
+    assert_equal [],     Parser._parse_dims( '' )
+    assert_equal [-1],   Parser._parse_dims( '[]' )
+    assert_equal [-1,3], Parser._parse_dims( '[][3]' )
+    assert_equal [2,3],  Parser._parse_dims( '[2][3]' )
   end
 
 
   def test_parse_base_type
-     assert_equal ['uint', 256, []],  Type._parse_base_type( 'uint256' )
-     assert_equal ['uint', 8, []],    Type._parse_base_type( 'uint8' )
-     assert_equal ['string', nil, []],   Type._parse_base_type( 'string' )
+     assert_equal ['uint', 256, []],  Parser._parse_base_type( 'uint256' )
+     assert_equal ['uint', 8, []],    Parser._parse_base_type( 'uint8' )
+     assert_equal ['string', nil, []],   Parser._parse_base_type( 'string' )
 
-     assert_equal ['uint', 256, [-1]],    Type._parse_base_type( 'uint256[]' )
-     assert_equal ['uint', 256, [-1,3]],  Type._parse_base_type( 'uint256[][3]' )
-     assert_equal ['string', nil, [-1]],     Type._parse_base_type( 'string[]' )
+     assert_equal ['uint', 256, [-1]],    Parser._parse_base_type( 'uint256[]' )
+     assert_equal ['uint', 256, [-1,3]],  Parser._parse_base_type( 'uint256[][3]' )
+     assert_equal ['string', nil, [-1]],     Parser._parse_base_type( 'string[]' )
   end
 
 
@@ -58,10 +59,10 @@ class TestTypes < MiniTest::Test
 
 
   def test_parse_tuple_type
-     assert_equal ['string', 'string', 'bool'],  Tuple._parse_tuple_type('string,string,bool')
-     assert_equal ['string', '(string,bool)'],   Tuple._parse_tuple_type('string,(string,bool)')
+     assert_equal ['string', 'string', 'bool'],  Parser._parse_tuple_type('string,string,bool')
+     assert_equal ['string', '(string,bool)'],   Parser._parse_tuple_type('string,(string,bool)')
      assert_equal ['string', '(string,(string,uint256[]))','address[4]'],
-                    Tuple._parse_tuple_type('string,(string,(string,uint256[])),address[4]')
+                                 Parser._parse_tuple_type('string,(string,(string,uint256[])),address[4]')
   end
 
 

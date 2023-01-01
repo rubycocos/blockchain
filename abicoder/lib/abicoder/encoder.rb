@@ -39,7 +39,7 @@ module ABI
         end
       end
 
-      "#{head}#{tail}"
+      head + tail
     end
 
     ##
@@ -54,7 +54,7 @@ module ABI
       if ['string', 'bytes'].include?(type.base) && type.sub.nil?
         encode_primitive_type type, arg
       elsif type.dynamic?
-        raise ArgumentError, "arg must be an array" unless arg.instance_of?(Array)
+        raise ArgumentError, "arg must be an array" unless arg.is_a?(Array)
 
         head, tail = '', ''
         if type.dims.last == -1
@@ -74,7 +74,7 @@ module ABI
           end
         end
 
-        "#{head}#{tail}"
+        head + tail
       else # static type
         if type.dims.empty?
           encode_primitive_type type, arg
@@ -113,32 +113,22 @@ module ABI
 
 
     def encode_bool( arg )
-      raise ArgumentError, "arg is not bool: #{arg}" unless arg.instance_of?(TrueClass) || arg.instance_of?(FalseClass)
-      Utils.zpad_int( arg ? 1 : 0 )
+      raise ArgumentError, "arg is not bool: #{arg}" unless arg.is_a?(TrueClass) || arg.is_a?(FalseClass)
+      lpad_int( arg ? 1 : 0 )
     end
 
 
     def encode_uint256( arg ) encode_uint( arg, 256 ); end
     def encode_uint( arg, bits )
-      begin
-        i = get_uint( arg )
-
-        raise ValueOutOfBounds, arg   unless i >= 0 && i < 2**bits
-        Utils.zpad_int i
-      rescue EncodingError
-        raise ValueOutOfBounds, arg
-      end
+      raise ArgumentError, "arg is not integer: #{arg}" unless arg.is_a?(Integer)
+      raise ValueOutOfBounds, arg   unless arg >= 0 && arg < 2**bits
+      lpad_int( arg )
     end
 
     def encode_int( arg, bits )
-      begin
-        i = get_int( arg )
-
-        raise ValueOutOfBounds, arg   unless i >= -2**(bits-1) && i < 2**(bits-1)
-        Utils.zpad_int(i % 2**bits)
-      rescue EncodingError
-        raise ValueOutOfBounds, arg
-      end
+      raise ArgumentError, "arg is not integer: #{arg}" unless arg.is_a?(Integer)
+      raise ValueOutOfBounds, arg   unless arg >= -2**(bits-1) && arg < 2**(bits-1)
+      lpad_int( arg % 2**bits )
     end
 
 
@@ -153,108 +143,82 @@ module ABI
         end
       end
 
-      raise ValueOutOfBounds, "Integer invalid or out of range: #{arg.size}" if arg.size >= TT256
-      size = Utils.zpad_int arg.size
-      value = Utils.rpad arg, BYTE_ZERO, Utils.ceil32(arg.size)
-      "#{size}#{value}"
+      raise ValueOutOfBounds, "Integer invalid or out of range: #{arg.size}" if arg.size > UINT_MAX
+      size  =  lpad_int( arg.size )
+      value =  rpad( arg, ceil32(arg.size) )
+
+      size + value
     end
 
 
     def encode_bytes( arg, length=nil )
-      raise EncodingError, "Expecting string: #{arg}" unless arg.instance_of?(String)
+      raise EncodingError, "Expecting string: #{arg}" unless arg.is_a?(String)
       arg = arg.b
 
       if length # fixed length type
         raise ValueOutOfBounds, "invalid bytes length #{length}" if arg.size > length
         raise ValueOutOfBounds, "invalid bytes length #{length}" if length < 0 || length > 32
-        Utils.rpad( arg, BYTE_ZERO, 32 )
+        rpad( arg )
       else  # variable length type  (if length is nil)
-        raise ValueOutOfBounds, "Integer invalid or out of range: #{arg.size}" if arg.size >= TT256
-        size = Utils.zpad_int arg.size
-        value = Utils.rpad arg, BYTE_ZERO, Utils.ceil32(arg.size)
-        "#{size}#{value}"
+        raise ValueOutOfBounds, "Integer invalid or out of range: #{arg.size}" if arg.size > UINT_MAX
+        size =  lpad_int( arg.size )
+        value = rpad( arg, ceil32(arg.size) )
+        size + value
       end
     end
 
 
     def encode_address( arg )
-      if arg.is_a?(Integer)
-        Utils.zpad_int arg
+      if arg.is_a?( Integer )
+        lpad_int( arg )
       elsif arg.size == 20
-        Utils.zpad arg, 32
+        lpad( arg )
       elsif arg.size == 40
-        Utils.zpad_hex arg
-      elsif arg.size == 42 && arg[0,2] == '0x'
-        Utils.zpad_hex arg[2..-1]
+        lpad_hex( arg )
+      elsif arg.size == 42 && arg[0,2] == '0x'   ## todo/fix: allow 0X too - why? why not?
+        lpad_hex( arg[2..-1] )
       else
         raise EncodingError, "Could not parse address: #{arg}"
       end
     end
 
-=begin
-    def min_data_size( types )
-       types.size*32
-    end
-=end
+
+###########
+#  encoding helpers / utils
+
+def rpad( bin, l=32, symbol=BYTE_ZERO )    ## note: same as builtin String#ljust !!!
+  return bin  if bin.size >= l
+  bin + symbol * (l - bin.size)
+end
+
+def lpad( bin, l=32, symbol=BYTE_ZERO )    ## note: same as builtin String#rjust !!!
+  return bin  if bin.size >= l
+  symbol * (l - bin.size) + bin
+end
+
+def lpad_int( n, l=32, symbol=BYTE_ZERO )
+  raise ArgumentError, "Integer invalid or out of range: #{n}" unless n.is_a?(Integer) && n >= 0 && n <= UINT_MAX
+  hex = n.to_s(16)
+  hex = "0#{hex}"   if hex.size.odd?
+  bin = [hex].pack("H*")
+
+  lpad( bin, l, symbol )
+end
+
+def lpad_hex( hex, l=32, symbol=BYTE_ZERO )
+  raise TypeError, "Value must be a string"  unless hex.is_a?( String )
+  raise TypeError, 'Non-hexadecimal digit found' unless hex =~ /\A[0-9a-fA-F]*\z/
+  bin = [hex].pack("H*")
+
+  lpad( bin, l, symbol )
+end
 
 
-private
 
-    def get_uint(n)
-      case n
-      when Integer
-        raise EncodingError, "Number out of range: #{n}" if n > UINT_MAX || n < UINT_MIN
-        n
-      when String
-        i = if n.size == 40
-              Utils.decode_hex(n)
-            elsif n.size <= 32
-              n
-            else
-              raise EncodingError, "String too long: #{n}"
-            end
-        i = Utils.big_endian_to_int i
+def ceil32(x)
+  x % 32 == 0 ? x : (x + 32 - x%32)
+end
 
-        raise EncodingError, "Number out of range: #{i}" if i > UINT_MAX || i < UINT_MIN
-        i
-      when true
-        1
-      when false, nil
-        0
-      else
-        raise EncodingError, "Cannot decode uint: #{n}"
-      end
-    end
-
-    def get_int(n)
-      case n
-      when Integer
-        raise EncodingError, "Number out of range: #{n}" if n > INT_MAX || n < INT_MIN
-        n
-      when String
-        i = if n.size == 40
-              Utils.decode_hex(n)
-            elsif n.size <= 32
-              n
-            else
-              raise EncodingError, "String too long: #{n}"
-            end
-        i = Utils.big_endian_to_int i
-
-        i = i > INT_MAX ? (i-TT256) : i
-        raise EncodingError, "Number out of range: #{i}" if i > INT_MAX || i < INT_MIN
-        i
-      when true
-        1
-      when false, nil
-        0
-      else
-        raise EncodingError, "Cannot decode int: #{n}"
-      end
-    end
 end # class Encoder
-
-
-
 end  # module ABI
 

@@ -25,7 +25,7 @@ class Decoder
             raise DecodingError, "Position out of bounds #{pos}>#{data.size-1}"
           end
 
-          start_positions[i] = Utils.big_endian_to_int(data[pos, 32])
+          start_positions[i] = big_endian_to_int(data[pos, 32])
 
           if raise_errors && start_positions[i]>data.size-1
             raise DecodingError, "Start position out of bounds #{start_positions[i]}>#{data.size-1}"
@@ -81,13 +81,13 @@ class Decoder
       if type.kind_of?( Tuple ) && type.dims.empty?
         arg ? decode(type.types, arg) : []
       elsif ['string', 'bytes'].include?(type.base) && type.sub.nil?
-        l = Utils.big_endian_to_int arg[0,32]
+        l = big_endian_to_int( arg[0,32] )
         data = arg[32..-1]
         data[0, l]
       elsif !type.dims.empty? && (l = type.dims.last) != -1   # static-sized arrays
         subtype = type.subtype
         if subtype.dynamic?
-          start_positions = (0...l).map {|i| Utils.big_endian_to_int(arg[32*i, 32]) }
+          start_positions = (0...l).map {|i| big_endian_to_int(arg[32*i, 32]) }
           start_positions.push arg.size
 
           outputs = (0...l).map {|i| arg[start_positions[i]...start_positions[i+1]] }
@@ -98,14 +98,14 @@ class Decoder
         end
 
       elsif type.dynamic?
-        l = Utils.big_endian_to_int arg[0,32]
+        l = big_endian_to_int( arg[0,32] )
         raise DecodingError, "Too long length: #{l}"  if l > 100000
         subtype = type.subtype
 
         if subtype.dynamic?
           raise DecodingError, "Not enough data for head" unless arg.size >= 32 + 32*l
 
-          start_positions = (1..l).map {|i| 32+Utils.big_endian_to_int(arg[32*i, 32]) }
+          start_positions = (1..l).map {|i| 32+big_endian_to_int(arg[32*i, 32]) }
           start_positions.push arg.size
 
           outputs = (0...l).map {|i| arg[start_positions[i]...start_positions[i+1]] }
@@ -124,22 +124,22 @@ class Decoder
     def decode_primitive_type(type, data)
       case type.base
       when 'address'
-        Utils.encode_hex data[12..-1]
+        encode_hex( data[12..-1] )
       when 'string', 'bytes'
         if type.sub.nil? # dynamic
           if data.length==32
             data[0..32]
           else
-            size = Utils.big_endian_to_int data[0,32]
+            size = big_endian_to_int( data[0,32] )
             data[32..-1][0,size]
           end
         else # fixed
           data[0, type.sub.to_i]
         end
       when 'uint'
-        Utils.big_endian_to_int data
+        big_endian_to_int( data )
       when 'int'
-        u = Utils.big_endian_to_int data
+        u = big_endian_to_int( data )
         u >= 2**(type.sub-1) ? (u - 2**type.sub) : u
       when 'bool'
         data[-1] == BYTE_ONE
@@ -160,6 +160,23 @@ class Decoder
         data[pos, count]
       end
     end
+
+
+###########
+#  decoding helpers / utils
+
+def big_endian_to_int( bin )
+  bin = bin.sub( /\A(\x00)+/, '' )   ## keep "performance" shortcut - why? why not?
+  ### todo/check - allow nil - why? why not?
+  ##  raise DeserializationError, "Invalid serialization (not minimal length)" if !@size && serial.size > 0 && serial[0] == BYTE_ZERO
+  bin = bin || BYTE_ZERO
+  bin.unpack("H*").first.to_i(16)
+end
+
+def encode_hex( bin )   ## bin_to_hex
+  raise TypeError, "Value must be a String" unless bin.is_a?(String)
+  bin.unpack("H*").first
+end
 
 
 end  # class Decoder
