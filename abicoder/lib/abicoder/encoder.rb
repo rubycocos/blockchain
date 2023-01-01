@@ -14,7 +14,7 @@ module ABI
 
 
 
-  class Encoder
+class Encoder
 
     ##
     # Encodes multiple arguments using the head/tail mechanism.
@@ -24,18 +24,19 @@ module ABI
       ##   otherwise assume ABI::Type already
       types = types.map { |type| type.is_a?( Type ) ? type : Type.parse( type ) }
 
-      head_size = (0...args.size)
-        .map {|i| types[i].size || 32 }
-        .sum    ## was: reduce(0, &:+) -  to add up array use sum - why? why not?
-
+      ## todo/check:  use args.map (instead of types)
+      ##                 might allow encoding less args than types?  - why? why not?
+      head_size = types
+                    .map {|type| type.size || 32 }
+                    .sum
 
       head, tail = '', ''
-      args.each_with_index do |arg, i|
-        if types[i].dynamic?
+      types.each_with_index do |type, i|
+        if type.dynamic?
           head += encode_uint256( head_size + tail.size )
-          tail += encode_type(types[i], arg)
+          tail += encode_type( type, args[i] )
         else
-          head += encode_type(types[i], arg)
+          head += encode_type( type, args[i] )
         end
       end
 
@@ -50,39 +51,88 @@ module ABI
     #
     # @return [String] encoded bytes
     #
-    def encode_type(type, arg)
-      if ['string', 'bytes'].include?(type.base) && type.sub.nil?
-        encode_primitive_type type, arg
+    def encode_type( type, arg )
+      ## case 1)  string or bytes (note:are dynamic too!!! most go first)
+      ##  use type == Type.new( 'string', nil, [] ) - same as Type.new('string'))
+      ##   or type == Type.new( 'bytes', nil, [] )  - same as Type.new('bytes')
+      ##   - why? why not?
+      if type.base == 'string' && type.sub.nil? && type.dims.empty?
+        encode_string( arg )
+      elsif type.base == 'bytes' && type.sub.nil? && type.dims.empty?
+         encode_bytes( arg )
+      elsif type.base == 'tuple' && type.dims.empty?
+         encode_tuple( type, arg )
       elsif type.dynamic?
-        raise ArgumentError, "arg must be an array" unless arg.is_a?(Array)
-
-        head, tail = '', ''
-        if type.dims.last == -1
-          head += encode_uint256( arg.size )
-        else
-          raise ArgumentError, "Wrong array size: found #{arg.size}, expecting #{type.dims.last}" unless arg.size == type.dims.last
-        end
-
-        sub_type = type.subtype
-        sub_size = type.subtype.size
-        arg.size.times do |i|
-          if sub_size.nil?
-            head += encode_uint256( 32*arg.size + tail.size )
-            tail += encode_type(sub_type, arg[i])
-          else
-            head += encode_type(sub_type, arg[i])
-          end
-        end
-
-        head + tail
-      else # static type
+         encode_dynamic_array( type, arg )
+      else   # assume  static type
         if type.dims.empty?
-          encode_primitive_type type, arg
+          encode_primitive_type( type, arg )
         else
-          arg.map {|x| encode_type(type.subtype, x) }.join
+          encode_static_array( type, arg )
         end
       end
     end
+
+
+   def encode_dynamic_array( type, args )
+    raise ArgumentError, "arg must be an array" unless args.is_a?(Array)
+
+        head, tail = '', ''
+
+        if type.dims.last == -1
+          head += encode_uint256( args.size )
+        else
+          raise ArgumentError, "Wrong array size: found #{args.size}, expecting #{type.dims.last}" unless args.size == type.dims.last
+        end
+
+        # dim = type.dims.last
+        # dim = args.size     if dim  == -1
+
+        sub_type = type.subtype
+        args.each do |arg|
+          if sub_type.dynamic?
+            head += encode_uint256( 32*args.size + tail.size )
+            tail += encode_type( sub_type, arg )
+          else
+            head += encode_type( sub_type, arg )
+          end
+        end
+        head + tail
+   end
+
+
+   def encode_static_array( type, args )
+      raise ArgumentError, "arg must be an array" unless args.is_a?(Array)
+      raise ArgumentError, "Wrong array size: found #{args.size}, expecting #{type.dims.last}" unless args.size == type.dims.last
+
+      args.map {|arg| encode_type( type.subtype, arg ) }.join
+   end
+
+
+   ##
+   ##  todo/check:  if static tuple gets encoded different
+   ##                   without offset  (head/tail)
+
+   def encode_tuple( tuple, args )
+    raise ArgumentError, "arg must be an array" unless args.is_a?(Array)
+    raise ArgumentError, "Wrong array size (for tuple): found #{args.size}, expecting #{tuple.type.size} tuple elements" unless args.size == tuple.types.size
+
+       head_size =  tuple.types
+                     .map {|type| type.size || 32 }
+                     .sum
+
+        head, tail = '', ''
+        tuple.types.each_with_index do |type, i|
+          if type.dynamic?
+            head += encode_uint256( head_size + tail.size )
+            tail += encode_type( type, args[i] )
+          else
+            head += encode_type( type, args[i] )
+          end
+        end
+
+       head + tail
+   end
 
 
 

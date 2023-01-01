@@ -44,7 +44,7 @@ class Type
                   else
                     32
                   end
-                else   ## it's an array
+               else   ## it's an array
                   if @dims.last == -1    # note: -1 used for dynamic array []
                     nil
                   else
@@ -54,7 +54,7 @@ class Type
                       @dims.last * subtype.size
                     end
                   end
-                end
+               end
     end
 
     def dynamic?() size.nil?; end

@@ -51,7 +51,7 @@ class TestTypes < MiniTest::Test
      pp t
 
      assert_equal 'string', t.base
-     assert_equal nil,       t.sub    # subscript of type
+     assert_nil   t.sub    # subscript of type
      assert_equal [],       t.dims
      assert_equal true,    t.dynamic?
      assert_nil   t.size    ## note: size always  nil if type dynamic

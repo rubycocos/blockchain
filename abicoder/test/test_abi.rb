@@ -54,7 +54,6 @@ class TestAbi < MiniTest::Test
 
 
 
-
   def test_use_abi_class_methods
     types = ['int256']
     args  = [1]
@@ -62,11 +61,13 @@ class TestAbi < MiniTest::Test
                  ABI::Encoder.new.encode(types, args)
   end
 
+
+
   def test_abi_encode_var_sized_array
-    bytes = BYTE_ZERO * 32 * 3
+    data = BYTE_ZERO * 32 * 3
      types = ['address[]']
      args = [[BYTE_ZERO * 20] * 3]
-    assert_equal "#{zpad_int(32)}#{zpad_int(3)}#{bytes}",
+    assert_equal "#{zpad_int(32)}#{zpad_int(3)}#{data}",
                  ABI.encode(types, args)
   end
 
@@ -171,10 +172,8 @@ class TestAbi < MiniTest::Test
                       encode_primitive_type(type, 255))
 
     type = Type.parse( 'int8' )
-    assert_equal -128, decode_primitive_type(type,
-                       encode_primitive_type(type, -128))
-    assert_equal 127, decode_primitive_type(type,
-                      encode_primitive_type(type, 127))
+    assert_equal -128, decode_primitive_type(type, encode_primitive_type(type, -128))
+    assert_equal 127, decode_primitive_type(type, encode_primitive_type(type, 127))
 
     type = Type.parse( 'bool' )
     assert_equal true, decode_primitive_type(type,

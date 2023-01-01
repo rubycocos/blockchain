@@ -32,7 +32,19 @@ def test_encode
                '48656c6c6f20576f726c64000000000000000000000000000000000000000000'
 
   assert_equal data, ABI.encode( types, args )
+
+  types = [ 'uint256', '(uint256,string)']
+  args = [1234, [5678, 'Hello World']]
+  data = hex'00000000000000000000000000000000000000000000000000000000000004d2'+
+          '0000000000000000000000000000000000000000000000000000000000000040'+
+          '000000000000000000000000000000000000000000000000000000000000162e'+
+          '0000000000000000000000000000000000000000000000000000000000000040'+
+          '000000000000000000000000000000000000000000000000000000000000000b'+
+          '48656c6c6f20576f726c64000000000000000000000000000000000000000000'
+
+   assert_equal data, ABI.encode( types, args )
 end
+
 
 def test_decode
   types = [ 'uint256', 'string' ]
@@ -72,8 +84,8 @@ def test_decode
 
    types = ['uint256', '(address,uint256)[]', 'string']
    args  =  [66,
-             [["18a475d6741215709ed6cc5f4d064732379b5a58", 1]],
-               "QmWBiSE9ByR6vrx4hvrjqS3SG5r6wE4SRq7CP2RVpafZWV"]
+             [['18a475d6741215709ed6cc5f4d064732379b5a58', 1]],
+               'QmWBiSE9ByR6vrx4hvrjqS3SG5r6wE4SRq7CP2RVpafZWV']
    data = hex'0000000000000000000000000000000000000000000000000000000000000042'+
              '0000000000000000000000000000000000000000000000000000000000000060'+
              '00000000000000000000000000000000000000000000000000000000000000c0'+
@@ -109,8 +121,17 @@ def test_codec
         args: [291,
                [1110,1929],
                '1234567890'.b,
-               'Hello, world!'.b] }
+               'Hello, world!'.b] },
+      ### tuples
+      { types: [ 'uint256', '(uint256,string)'],
+         args: [1234,
+                [5678, 'Hello World']] },
+      { types: ['uint256', '(address,uint256)[]', 'string'],
+        args: [66,
+                [['18a475d6741215709ed6cc5f4d064732379b5a58', 1]],
+                  'QmWBiSE9ByR6vrx4hvrjqS3SG5r6wE4SRq7CP2RVpafZWV'] },
     ]
+
 
     tests.each do |test|
          types = test[:types]
