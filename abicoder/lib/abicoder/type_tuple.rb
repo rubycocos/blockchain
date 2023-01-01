@@ -56,11 +56,8 @@ class Tuple < Type
     attr_reader :types
 
     def initialize( types, dims=[] )
-      super( 'tuple', '', dims )
+      super( 'tuple', nil, dims )
       @types = types
-
-      ## puts "tuple:"
-      ## pp self
     end
 
 
@@ -75,19 +72,23 @@ class Tuple < Type
     end
 
     def calculate_size
-      if @dims.empty?
+      if @dims.empty?     ## "plain" tuple
         s = 0
         @types.each do |type|
           ts = type.size
-          return nil if ts.nil?
+          return nil   if ts.nil?
           s += ts
         end
         s
-      else
-        if @dims.last == 0     # note:  0 used for dynamic array []
+      else                  ## it's an array of tuples
+        if @dims.last == -1     # note:  -1 used for dynamic array []
           nil
         else
-          subtype.dynamic? ? nil : @dims.last * subtype.size
+          if subtype.dynamic?
+            nil
+          else
+            @dims.last * subtype.size
+          end
         end
       end
     end

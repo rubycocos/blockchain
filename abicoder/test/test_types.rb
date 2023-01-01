@@ -14,15 +14,22 @@ class TestTypes < MiniTest::Test
 
   ParseError = ABI::Type::ParseError
 
+  def test_parse_dims
+    assert_equal [],     Type._parse_dims( '' )
+    assert_equal [-1],   Type._parse_dims( '[]' )
+    assert_equal [-1,3], Type._parse_dims( '[][3]' )
+    assert_equal [2,3],  Type._parse_dims( '[2][3]' )
+  end
+
 
   def test_parse_base_type
-     assert_equal ['uint', '256', []],  Type._parse_base_type( 'uint256' )
-     assert_equal ['uint', '8', []],    Type._parse_base_type( 'uint8' )
-     assert_equal ['string', '', []],   Type._parse_base_type( 'string' )
+     assert_equal ['uint', 256, []],  Type._parse_base_type( 'uint256' )
+     assert_equal ['uint', 8, []],    Type._parse_base_type( 'uint8' )
+     assert_equal ['string', nil, []],   Type._parse_base_type( 'string' )
 
-     assert_equal ['uint', '256', [0]],    Type._parse_base_type( 'uint256[]' )
-     assert_equal ['uint', '256', [0,3]],  Type._parse_base_type( 'uint256[][3]' )
-     assert_equal ['string', '', [0]],     Type._parse_base_type( 'string[]' )
+     assert_equal ['uint', 256, [-1]],    Type._parse_base_type( 'uint256[]' )
+     assert_equal ['uint', 256, [-1,3]],  Type._parse_base_type( 'uint256[][3]' )
+     assert_equal ['string', nil, [-1]],     Type._parse_base_type( 'string[]' )
   end
 
 
@@ -33,7 +40,7 @@ class TestTypes < MiniTest::Test
      pp t
 
      assert_equal 'uint',     t.base
-     assert_equal '256',      t.sub     # subtype
+     assert_equal 256,        t.sub      # subscript of type (size in bits)
      assert_equal [],         t.dims
      assert_equal false,      t.dynamic?
      assert_equal 32,         t.size
@@ -43,7 +50,7 @@ class TestTypes < MiniTest::Test
      pp t
 
      assert_equal 'string', t.base
-     assert_equal '',       t.sub    # subtype
+     assert_equal nil,       t.sub    # subscript of type
      assert_equal [],       t.dims
      assert_equal true,    t.dynamic?
      assert_nil   t.size    ## note: size always  nil if type dynamic
@@ -87,14 +94,15 @@ class TestTypes < MiniTest::Test
 
 
   def test_type_parse
-    assert_equal Type.new('uint',  '8', []),              Type.parse("uint8")
-    assert_equal Type.new('bytes', '32', []),             Type.parse("bytes32")
-    assert_equal Type.new('uint',  '256',     [10]),      Type.parse("uint256[10]")
-    ## assert_equal Type.new('fixed', '128x128', [1,2,3,0]), Type.parse("fixed128x128[1][2][3][]")
+    assert_equal Type.new('uint',  8, []),      Type.parse("uint8")
+    assert_equal Type.new('bytes', 32, []),     Type.parse("bytes32")
+    assert_equal Type.new('uint',  256, [10]),  Type.parse("uint256[10]")
+
+    ## assert_equal Type.new('fixed', [128,128]', [1,2,3,0]), Type.parse("fixed128x128[1][2][3][]")
   end
 
   def test_type_parse_validations
-    ## assert_raises(ParseError) { Type.parse("string8") }
+    assert_raises(ParseError) { Type.parse("string8") }
     assert_raises(ParseError) { Type.parse("bytes33") }
     assert_raises(ParseError) { Type.parse('hash')}
     assert_raises(ParseError) { Type.parse('address8') }
@@ -121,11 +129,12 @@ class TestTypes < MiniTest::Test
     assert_nil Type.parse("uint256[4][]").size
 
     assert_equal 32, Type.parse("uint256").size
-    ## assert_equal 32, Type.parse("fixed128x128").size
     assert_equal 32, Type.parse("bool").size
 
     assert_equal 64, Type.parse("uint256[2]").size
     assert_equal 128, Type.parse("address[2][2]").size
+
+    ## assert_equal 32, Type.parse("fixed128x128").size
     ## assert_equal 1024, Type.parse("ufixed192x64[2][2][2][2][2]").size
   end
 

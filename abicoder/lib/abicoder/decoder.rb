@@ -80,11 +80,11 @@ class Decoder
 
       if type.kind_of?( Tuple ) && type.dims.empty?
         arg ? decode(type.types, arg) : []
-      elsif ['string', 'bytes'].include?(type.base) && type.sub.empty?
+      elsif ['string', 'bytes'].include?(type.base) && type.sub.nil?
         l = Utils.big_endian_to_int arg[0,32]
         data = arg[32..-1]
         data[0, l]
-      elsif !type.dims.empty? && (l = type.dims.last) > 0   # static-sized arrays
+      elsif !type.dims.empty? && (l = type.dims.last) != -1   # static-sized arrays
         subtype = type.subtype
         if subtype.dynamic?
           start_positions = (0...l).map {|i| Utils.big_endian_to_int(arg[32*i, 32]) }
@@ -99,7 +99,7 @@ class Decoder
 
       elsif type.dynamic?
         l = Utils.big_endian_to_int arg[0,32]
-        raise DecodingError, "Too long length: #{l}" if l>100000
+        raise DecodingError, "Too long length: #{l}"  if l > 100000
         subtype = type.subtype
 
         if subtype.dynamic?
@@ -126,7 +126,7 @@ class Decoder
       when 'address'
         Utils.encode_hex data[12..-1]
       when 'string', 'bytes'
-        if type.sub.empty? # dynamic
+        if type.sub.nil? # dynamic
           if data.length==32
             data[0..32]
           else
@@ -140,7 +140,7 @@ class Decoder
         Utils.big_endian_to_int data
       when 'int'
         u = Utils.big_endian_to_int data
-        u >= 2**(type.sub.to_i-1) ? (u - 2**type.sub.to_i) : u
+        u >= 2**(type.sub-1) ? (u - 2**type.sub) : u
       when 'bool'
         data[-1] == BYTE_ONE
       else

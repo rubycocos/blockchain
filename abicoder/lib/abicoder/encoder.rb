@@ -51,13 +51,13 @@ module ABI
     # @return [String] encoded bytes
     #
     def encode_type(type, arg)
-      if ['string', 'bytes'].include?(type.base) && type.sub.empty?
+      if ['string', 'bytes'].include?(type.base) && type.sub.nil?
         encode_primitive_type type, arg
       elsif type.dynamic?
         raise ArgumentError, "arg must be an array" unless arg.instance_of?(Array)
 
         head, tail = '', ''
-        if type.dims.last == 0
+        if type.dims.last == -1
           head += encode_uint256( arg.size )
         else
           raise ArgumentError, "Wrong array size: found #{arg.size}, expecting #{type.dims.last}" unless arg.size == type.dims.last
@@ -90,10 +90,10 @@ module ABI
       case type.base
       when 'uint'
         ## note: for now size in  bits always required
-        encode_uint( arg, type.sub.to_i )
+        encode_uint( arg, type.sub )
       when 'int'
         ## note: for now size in  bits always required
-        encode_int( arg, type.sub.to_i )
+        encode_int( arg, type.sub )
       when 'bool'
         encode_bool( arg )
       when 'string'
@@ -102,7 +102,7 @@ module ABI
         ## note: if no length/size in bytes than
         #          bytes  is dynamic otherweise
         #          bytes1, bytes2, .. bytes32 is fixed
-        encode_bytes( arg, type.sub.empty? ? nil : type.sub.to_i )
+        encode_bytes( arg, type.sub )
       when 'address'
         encode_address( arg )
       else
