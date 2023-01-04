@@ -1,6 +1,18 @@
 ##  ABI Coder Notes
 
 
+### Todos
+
+- [ ] check encode_string / bytes  for special case data.size/arg.size == 32
+           no need for length - gets placed "inline" as a convention - yes/no? why? why not?
+
+- [ ]  make sure encode always returns BINARY / ASCII_8BIT encoding !!!!!
+
+
+
+
+### Notes
+
 inspired by and follow ethers.js  - why? why not?
 
 see <https://docs.ethers.org/v5/api/utils/abi/coder/>
