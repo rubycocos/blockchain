@@ -125,9 +125,9 @@ class TestAbi < MiniTest::Test
 
     type = Type.parse( 'bytes' )
     assert_equal "#{zpad_int(3)}\x01\x02\x03#{"\x00"*29}",
-                  encode_primitive_type(type, "\x01\x02\x03")
+                    encode_primitive_type(type, "\x01\x02\x03")
     assert_equal "#{zpad_int(3)}\x01\x02\x03#{"\x00"*29}",
-                  encode_bytes( "\x01\x02\x03" )
+                    encode_bytes( "\x01\x02\x03" )
 
 
     type = Type.parse( 'bytes8' )
@@ -158,7 +158,7 @@ class TestAbi < MiniTest::Test
     type = Type.parse( 'bytes' )
     assert_equal "\x01\x02\x03",
                     decode_primitive_type(type,
-                    encode_primitive_type(type, "\x01\x02\x03"))
+                      encode_primitive_type(type, "\x01\x02\x03"))
 
     type = Type.parse( 'bytes8' )
     assert_equal ("\x01\x02\x03"+"\x00"*5),

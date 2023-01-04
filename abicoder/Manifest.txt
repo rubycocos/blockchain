@@ -3,7 +3,8 @@ Manifest.txt
 README.md
 Rakefile
 lib/abicoder.rb
-lib/abicoder/codec.rb
-lib/abicoder/type.rb
-lib/abicoder/type_tuple.rb
+lib/abicoder/decoder.rb
+lib/abicoder/encoder.rb
+lib/abicoder/parser.rb
+lib/abicoder/types.rb
 lib/abicoder/version.rb

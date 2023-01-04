@@ -20,6 +20,11 @@ class Encoder
     # Encodes multiple arguments using the head/tail mechanism.
     #
     def encode( types, args )
+
+      ## todo/fix:  enforce args.size and types.size must match!!
+      ##   raise ArgumentError - expected x arguments got y!!!
+
+
       ## for convenience check if types is a String
       ##   otherwise assume ABI::Type already
       types = types.map { |type| type.is_a?( Type ) ? type : Type.parse( type ) }
@@ -56,45 +61,42 @@ class Encoder
       ##  use type == Type.new( 'string', nil, [] ) - same as Type.new('string'))
       ##   or type == Type.new( 'bytes', nil, [] )  - same as Type.new('bytes')
       ##   - why? why not?
-      if type.base == 'string' && type.sub.nil? && type.dims.empty?
+      if type.is_a?( String )
         encode_string( arg )
-      elsif type.base == 'bytes' && type.sub.nil? && type.dims.empty?
+      elsif type.is_a?( Bytes )
          encode_bytes( arg )
-      elsif type.base == 'tuple' && type.dims.empty?
+      elsif type.is_a?( Tuple )
          encode_tuple( type, arg )
-      elsif type.dynamic?
-         encode_dynamic_array( type, arg )
-      else   # assume  static type
-        if type.dims.empty?
-          encode_primitive_type( type, arg )
-        else
-          encode_static_array( type, arg )
-        end
+      elsif type.is_a?( Array ) || type.is_a?( FixedArray )
+         if type.dynamic?
+           encode_dynamic_array( type, arg )
+         else
+           encode_static_array( type, arg )
+         end
+      else   # assume static (primitive) type
+         encode_primitive_type( type, arg )
       end
     end
 
 
    def encode_dynamic_array( type, args )
-    raise ArgumentError, "arg must be an array" unless args.is_a?(Array)
+    raise ArgumentError, "arg must be an array" unless args.is_a?(::Array)
 
         head, tail = '', ''
 
-        if type.dims.last == -1
+        if type.is_a?( Array )  ## dynamic array
           head += encode_uint256( args.size )
-        else
-          raise ArgumentError, "Wrong array size: found #{args.size}, expecting #{type.dims.last}" unless args.size == type.dims.last
+        else  ## fixed array
+          raise ArgumentError, "Wrong array size: found #{args.size}, expecting #{type.dim}" unless args.size == type.dim
         end
 
-        # dim = type.dims.last
-        # dim = args.size     if dim  == -1
-
-        sub_type = type.subtype
+        subtype = type.subtype
         args.each do |arg|
-          if sub_type.dynamic?
+          if subtype.dynamic?
             head += encode_uint256( 32*args.size + tail.size )
-            tail += encode_type( sub_type, arg )
+            tail += encode_type( subtype, arg )
           else
-            head += encode_type( sub_type, arg )
+            head += encode_type( subtype, arg )
           end
         end
         head + tail
@@ -102,8 +104,8 @@ class Encoder
 
 
    def encode_static_array( type, args )
-      raise ArgumentError, "arg must be an array" unless args.is_a?(Array)
-      raise ArgumentError, "Wrong array size: found #{args.size}, expecting #{type.dims.last}" unless args.size == type.dims.last
+      raise ArgumentError, "arg must be an array" unless args.is_a?(::Array)
+      raise ArgumentError, "Wrong array size: found #{args.size}, expecting #{type.dim}" unless args.size == type.dim
 
       args.map {|arg| encode_type( type.subtype, arg ) }.join
    end
@@ -114,7 +116,7 @@ class Encoder
    ##                   without offset  (head/tail)
 
    def encode_tuple( tuple, args )
-    raise ArgumentError, "arg must be an array" unless args.is_a?(Array)
+    raise ArgumentError, "arg must be an array" unless args.is_a?(::Array)
     raise ArgumentError, "Wrong array size (for tuple): found #{args.size}, expecting #{tuple.type.size} tuple elements" unless args.size == tuple.types.size
 
        head_size =  tuple.types
@@ -137,26 +139,25 @@ class Encoder
 
 
     def encode_primitive_type( type, arg )
-      case type.base
-      when 'uint'
+      case type
+      when Uint
         ## note: for now size in  bits always required
-        encode_uint( arg, type.sub )
-      when 'int'
+        encode_uint( arg, type.bits )
+      when Int
         ## note: for now size in  bits always required
-        encode_int( arg, type.sub )
-      when 'bool'
+        encode_int( arg, type.bits )
+      when Bool
         encode_bool( arg )
-      when 'string'
+      when String
         encode_string( arg )
-      when 'bytes'
-        ## note: if no length/size in bytes than
-        #          bytes  is dynamic otherweise
-        #          bytes1, bytes2, .. bytes32 is fixed
-        encode_bytes( arg, type.sub )
-      when 'address'
+      when FixedBytes
+        encode_bytes( arg, type.length )
+      when Bytes
+        encode_bytes( arg )
+      when Address
         encode_address( arg )
       else
-        raise EncodingError, "Unhandled type: #{type.base} #{type.sub}"
+        raise EncodingError, "Unhandled type: #{type.class.name} #{type.format}"
       end
     end
 
@@ -183,6 +184,10 @@ class Encoder
 
 
     def encode_string( arg )
+
+       ## todo/fix:  do NOT auto-unpack hexstring EVER!!!
+       ##                remove  arg.unpack('U*')
+
       if arg.encoding == Encoding::UTF_8    ## was: name == 'UTF-8'
         arg = arg.b
       else
@@ -202,7 +207,7 @@ class Encoder
 
 
     def encode_bytes( arg, length=nil )
-      raise EncodingError, "Expecting string: #{arg}" unless arg.is_a?(String)
+      raise EncodingError, "Expecting string: #{arg}" unless arg.is_a?(::String)
       arg = arg.b
 
       if length # fixed length type
@@ -256,7 +261,7 @@ def lpad_int( n, l=32, symbol=BYTE_ZERO )
 end
 
 def lpad_hex( hex, l=32, symbol=BYTE_ZERO )
-  raise TypeError, "Value must be a string"  unless hex.is_a?( String )
+  raise TypeError, "Value must be a string"  unless hex.is_a?( ::String )
   raise TypeError, 'Non-hexadecimal digit found' unless hex =~ /\A[0-9a-fA-F]*\z/
   bin = [hex].pack("H*")
 

@@ -40,9 +40,8 @@ class TestTypes < MiniTest::Test
      assert_equal 'uint256',  t.format
      pp t
 
-     assert_equal 'uint',     t.base
-     assert_equal 256,        t.sub      # subscript of type (size in bits)
-     assert_equal [],         t.dims
+     assert_equal ABI::Uint,  t.class
+     assert_equal 256,        t.bits      # subscript of type (size in bits)
      assert_equal false,      t.dynamic?
      assert_equal 32,         t.size
 
@@ -50,10 +49,8 @@ class TestTypes < MiniTest::Test
      assert_equal 'string',  t.format
      pp t
 
-     assert_equal 'string', t.base
-     assert_nil   t.sub    # subscript of type
-     assert_equal [],       t.dims
-     assert_equal true,    t.dynamic?
+     assert_equal ABI::String, t.class
+     assert_equal true,      t.dynamic?
      assert_nil   t.size    ## note: size always  nil if type dynamic
   end
 
@@ -71,7 +68,7 @@ class TestTypes < MiniTest::Test
      assert_equal '(string,string,bool)',  t.format
      pp t
 
-     assert_equal 'tuple',   t.base
+     assert_equal ABI::Tuple,   t.class
      assert_equal ['string', 'string', 'bool'],  t.types.map {|c| c.format }
      assert_equal true,    t.dynamic?     ## because it incl. string
      assert_nil   t.size    ## note: size always  nil if type dynamic
@@ -81,7 +78,7 @@ class TestTypes < MiniTest::Test
      assert_equal '(string,(string,(string,uint256[])),address[4])',  t.format
      pp t
 
-     assert_equal 'tuple',   t.base
+     assert_equal ABI::Tuple,   t.class
      assert_equal ['string', '(string,(string,uint256[]))', 'address[4]'],  t.types.map {|c| c.format }
      assert_equal true,    t.dynamic?     ## because it incl. string
      assert_nil   t.size    ## note: size always nil if type dynamic
@@ -95,9 +92,11 @@ class TestTypes < MiniTest::Test
 
 
   def test_type_parse
-    assert_equal Type.new('uint',  8, []),      Type.parse("uint8")
-    assert_equal Type.new('bytes', 32, []),     Type.parse("bytes32")
-    assert_equal Type.new('uint',  256, [10]),  Type.parse("uint256[10]")
+    assert_equal ABI::Uint.new( 8 ), Type.parse("uint8")
+    assert_equal ABI::FixedBytes.new( 32 ), Type.parse("bytes32")
+
+    assert_equal ABI::FixedArray.new(
+                   ABI::Uint.new( 256 ), 10 ), Type.parse("uint256[10]")
 
     ## assert_equal Type.new('fixed', [128,128]', [1,2,3,0]), Type.parse("fixed128x128[1][2][3][]")
   end
@@ -135,15 +134,37 @@ class TestTypes < MiniTest::Test
     assert_equal 64, Type.parse("uint256[2]").size
     assert_equal 128, Type.parse("address[2][2]").size
 
+    assert_equal 32*2, Type.parse( "bytes3[2]" ).size
+
+
     ## assert_equal 32, Type.parse("fixed128x128").size
     ## assert_equal 1024, Type.parse("ufixed192x64[2][2][2][2][2]").size
   end
 
   def test_subtype_of_array
-    assert_equal [], Type.parse("uint256").subtype.dims
-    assert_equal [2], Type.parse("uint256[2][]").subtype.dims
-    assert_equal [2], Type.parse("uint256[2][2]").subtype.dims
-  end
+    t = Type.parse("uint256[2][]")
+    puts "uint256[2][]:"
+    puts t.format
+    pp t
+    ##
+    #<ABI::Array @subtype=
+    #  <ABI::FixedArray @dim=2, @subtype=
+    #    <ABI::Uint @bits=256>>>
+    assert_equal 2, t.subtype.dim
+    assert_equal ABI::Array, t.class               ## note: outer most returns first
+    assert_equal ABI::FixedArray, t.subtype.class  ## note: inner most returned last!!
+    assert_equal ABI::Uint, t.subtype.subtype.class
+
+    t = Type.parse("uint256[2][3]")
+    puts "uint256[2][3]:"
+    puts t.format
+    pp t
+    assert_equal 3, t.dim           ## note: outer most returns first
+    assert_equal 2, t.subtype.dim   ## note: inner most returned last!!
+    assert_equal ABI::FixedArray, t.class
+    assert_equal ABI::FixedArray, t.subtype.class
+    assert_equal ABI::Uint, t.subtype.subtype.class
+ end
 
 
 

@@ -18,14 +18,26 @@ class Parser
 
              parsed_types = types.map{ |t| parse( t ) }
 
-             return Tuple.new( parsed_types, dims )
+             return _parse_array_type( Tuple.new( parsed_types ), dims )
         end
 
        base, sub, dims = _parse_base_type( type )
 
        _validate_base_type( base, sub )
 
-       Type.new( base, sub, dims )
+       subtype =  case base
+                  when 'string'  then   String.new
+                  when 'bytes'   then   sub ? FixedBytes.new( sub ) : Bytes.new
+                  when 'uint'    then   Uint.new( sub )
+                  when 'int'     then   Int.new( sub )
+                  when 'address' then   Address.new
+                  when 'bool'    then   Bool.new
+                  else
+                    ## puts "  type: >#{type}<"
+                    raise ParseError, "Unrecognized type base: #{base}"
+                  end
+
+       _parse_array_type( subtype, dims )
   end
 
   ##
@@ -64,6 +76,22 @@ class Parser
                          size == '' ? -1 : size.to_i
                     end
     dims
+  end
+
+  def self._parse_array_type( subtype, dims )
+     ##
+     ## todo/check - double check if the order in reverse
+     ##                  in solidity / abi encoding / decoding?
+     ##
+    dims.each do |dim|
+      subtype = if dim == -1
+                     Array.new( subtype )
+                else
+                     FixedArray.new( subtype, dim )
+                end
+    end
+
+    subtype
   end
 
 

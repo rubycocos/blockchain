@@ -21,6 +21,7 @@ def test_baz    ## baz(uint32,bool)
   assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
 
+
 def test_bar   ## bar(bytes3[2])
     types = ['bytes3[2]']
     args =  [['abc'.b,
@@ -31,6 +32,7 @@ def test_bar   ## bar(bytes3[2])
   assert_equal  hex, ABI.encode( types, args ).hexdigest
   assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
+
 
 def test_sam   ## sam(bytes,bool,uint256[])
    types = ['bytes','bool','uint256[]']
@@ -130,13 +132,12 @@ def test_g     ## g(uint256[][],string[])
 
    assert_equal  hex, ABI.encode( types, args ).hexdigest
 
-##  fix: decoding error!!!!
+##  fix: decoding error!!!!  - is now workng???
 # Expected: [[[1, 2], [3]], ["one", "two", "three"]]
 #  Actual: [[[1, 2], [3]], "\x00\x00\x00"]
 
-  ## assert_equal args, ABI.decode( types, hex( hex ))
-
-   ## assert_equal args, ABI.decode( types, ABI.encode( types, args ))
+  assert_equal args, ABI.decode( types, hex( hex ))
+  assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
 
 end   ## class TestSpec
