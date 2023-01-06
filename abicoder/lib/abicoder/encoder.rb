@@ -57,11 +57,7 @@ class Encoder
     # @return [String] encoded bytes
     #
     def encode_type( type, arg )
-      if type.is_a?( String )
-        encode_string( arg )
-      elsif type.is_a?( Bytes )
-         encode_bytes( arg )
-      elsif type.is_a?( Tuple )
+      if type.is_a?( Tuple )
          encode_tuple( type, arg )
       elsif type.is_a?( Array ) || type.is_a?( FixedArray )
          if type.dynamic?
@@ -69,7 +65,7 @@ class Encoder
          else
            encode_static_array( type, arg )
          end
-      else   # assume static (primitive) type
+      else  # assume primitive type
          encode_primitive_type( type, arg )
       end
     end
