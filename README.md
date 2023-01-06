@@ -15,8 +15,10 @@ Gems:
 - [rlp-lite](rlp-lite) - light-weight ("lite") machinery to serialize / deserialze using the recursive-length prefix (rlp) scheme
 
 
+
 <!-- break -->
 
+- [abicoder](abicoder) - "lite" application binary interface (abi) encoding / decoding machinery / helper (incl. nested arrays and/or tuples) for Ethereum & Co. (blockchain) contracts with zero-dependencies for easy (re)use
 - [abiparser](abiparser) - application binary interface (abi) parser machinery / helper for Ethereum & Co. (blockchain) contracts
 - [abidoc](abidoc) - application binary interface (abi) documentation generator for Ethereum & Co. (blockchain) contracts
 - [ethlite](ethlite) - light-weight machinery to query / call ethereum (blockchain contract) services via json-rpc (incl. tuple support)
