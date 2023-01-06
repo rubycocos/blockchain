@@ -13,12 +13,18 @@ require 'helper'
 
 class TestBasicAbi < MiniTest::Test
 
+  def assert_bin( exp, bin )   ## note: always check for BINARY encoding too
+     assert bin.encoding == Encoding::BINARY
+     assert_equal exp, bin
+  end
+
+
 def test_single_integer
     types = ['uint256']
     args = [98127491]
     data  = hex'0000000000000000000000000000000000000000000000000000000005d94e83'
 
-    assert_equal data, ABI.encode( types, args )
+    assert_bin   data, ABI.encode( types, args )
     assert_equal args, ABI.decode( types, data )
     assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
@@ -35,7 +41,7 @@ def test_integer_and_address
      data = hex'000000000000000000000000000000000000000000000000000000000004f21c' +
                '000000000000000000000000cd2a3d9f938e13cd947ec05abc7fe734df8dd826'
 
-    assert_equal data, ABI.encode( types, args )
+    assert_bin   data, ABI.encode( types, args )
     assert_equal args, ABI.decode( types, data )
     assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
@@ -59,7 +65,7 @@ def test_githubwiki
          '000000000000000000000000000000000000000000000000000000000000000d'+
          '48656c6c6f2c20776f726c642100000000000000000000000000000000000000'
 
-   assert_equal data, ABI.encode( types, args )
+   assert_bin   data, ABI.encode( types, args )
    assert_equal args, ABI.decode( types, data )
    assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end

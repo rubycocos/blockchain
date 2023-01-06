@@ -9,6 +9,12 @@ require 'helper'
 class TestCoder < MiniTest::Test
 
 
+ def assert_bin( exp, bin )   ## note: always check for BINARY encoding too
+    assert bin.encoding == Encoding::BINARY
+    assert_equal exp, bin
+ end
+
+
 def test_encode
 
   types = [ 'uint256', 'string' ]
@@ -18,7 +24,7 @@ def test_encode
                '000000000000000000000000000000000000000000000000000000000000000b'+
                '48656c6c6f20576f726c64000000000000000000000000000000000000000000'
 
-  assert_equal data, ABI.encode( types, args )
+  assert_bin data, ABI.encode( types, args )
 
 
   types = [ 'uint256[]', 'string' ]
@@ -31,7 +37,7 @@ def test_encode
                '000000000000000000000000000000000000000000000000000000000000000b'+
                '48656c6c6f20576f726c64000000000000000000000000000000000000000000'
 
-  assert_equal data, ABI.encode( types, args )
+  assert_bin data, ABI.encode( types, args )
 
   types = [ 'uint256', '(uint256,string)']
   args = [1234, [5678, 'Hello World']]
@@ -42,7 +48,7 @@ def test_encode
           '000000000000000000000000000000000000000000000000000000000000000b'+
           '48656c6c6f20576f726c64000000000000000000000000000000000000000000'
 
-   assert_equal data, ABI.encode( types, args )
+   assert_bin data, ABI.encode( types, args )
 end
 
 

@@ -11,13 +11,21 @@ require 'helper'
 
 class TestSpec < MiniTest::Test
 
+
+ def assert_bin( exp, bin )   ## note: always check for BINARY encoding too
+    assert bin.encoding == Encoding::BINARY
+    assert_equal exp, bin
+ end
+
+
+
 def test_baz    ## baz(uint32,bool)
   types = ['uint32', 'bool']
   args  = [69,true]
 
-  hex   = '0000000000000000000000000000000000000000000000000000000000000045'+
-          '0000000000000000000000000000000000000000000000000000000000000001'
-  assert_equal  hex, ABI.encode( types, args ).hexdigest
+  data   = hex'0000000000000000000000000000000000000000000000000000000000000045'+
+              '0000000000000000000000000000000000000000000000000000000000000001'
+  assert_bin  data, ABI.encode( types, args )
   assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
 
@@ -27,9 +35,9 @@ def test_bar   ## bar(bytes3[2])
     args =  [['abc'.b,
               'def'.b]]
 
-  hex = '6162630000000000000000000000000000000000000000000000000000000000' +
-        '6465660000000000000000000000000000000000000000000000000000000000'
-  assert_equal  hex, ABI.encode( types, args ).hexdigest
+  data = hex'6162630000000000000000000000000000000000000000000000000000000000' +
+            '6465660000000000000000000000000000000000000000000000000000000000'
+  assert_bin   data, ABI.encode( types, args )
   assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
 
@@ -40,7 +48,7 @@ def test_sam   ## sam(bytes,bool,uint256[])
             true,
             [1,2,3]]
 
-  hex = '0000000000000000000000000000000000000000000000000000000000000060' + # 1 (location#1)
+  data = hex'0000000000000000000000000000000000000000000000000000000000000060' + # 1 (location#1)
         '0000000000000000000000000000000000000000000000000000000000000001' + # 2 (bool)
         '00000000000000000000000000000000000000000000000000000000000000a0' + # 3 (location#3)
         '0000000000000000000000000000000000000000000000000000000000000004' + # 4 (bytes length)
@@ -63,7 +71,7 @@ def test_sam   ## sam(bytes,bool,uint256[])
   #        padded on the right to 32 bytes.
   #  ...
 
-  assert_equal  hex, ABI.encode( types, args ).hexdigest
+  assert_bin  data, ABI.encode( types, args )
   assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
 
@@ -74,7 +82,7 @@ def test_f  ## f(uint256,uint32[],bytes10,bytes)
            '1234567890'.b,
            'Hello, world!'.b ]
 
-  hex = '0000000000000000000000000000000000000000000000000000000000000123' +
+  data = hex'0000000000000000000000000000000000000000000000000000000000000123' +
         '0000000000000000000000000000000000000000000000000000000000000080' +
         '3132333435363738393000000000000000000000000000000000000000000000' +
         '00000000000000000000000000000000000000000000000000000000000000e0' +
@@ -84,7 +92,7 @@ def test_f  ## f(uint256,uint32[],bytes10,bytes)
         '000000000000000000000000000000000000000000000000000000000000000d' +
         '48656c6c6f2c20776f726c642100000000000000000000000000000000000000'
 
-  assert_equal  hex, ABI.encode( types, args ).hexdigest
+  assert_bin  data, ABI.encode( types, args )
   assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
 
@@ -95,7 +103,7 @@ def test_g     ## g(uint256[][],string[])
               ['one', 'two', 'three']
             ]
 
-   hex = '0000000000000000000000000000000000000000000000000000000000000040'+
+   data = hex'0000000000000000000000000000000000000000000000000000000000000040'+
          '0000000000000000000000000000000000000000000000000000000000000140'+
          '0000000000000000000000000000000000000000000000000000000000000002'+
          '0000000000000000000000000000000000000000000000000000000000000040'+
@@ -130,13 +138,13 @@ def test_g     ## g(uint256[][],string[])
   #  9 -  count for [3]            - 0x1
   # 10 -  encoding of 3
 
-   assert_equal  hex, ABI.encode( types, args ).hexdigest
+   assert_bin  data, ABI.encode( types, args )
 
 ##  fix: decoding error!!!!  - is now workng???
 # Expected: [[[1, 2], [3]], ["one", "two", "three"]]
 #  Actual: [[[1, 2], [3]], "\x00\x00\x00"]
 
-  assert_equal args, ABI.decode( types, hex( hex ))
+  assert_equal args, ABI.decode( types, data )
   assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
 

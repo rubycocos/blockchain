@@ -13,7 +13,7 @@ Hoe.spec 'abicoder' do
 
   self.version = ABICoder::VERSION
 
-  self.summary = "abicoder - 'lite' application binary interface (abi) encoding / decoding machinery / helper for Ethereum & Co. (blockchain) contracts with zero-dependencies for easy (re)use"
+  self.summary = "abicoder - 'lite' application binary interface (abi) encoding / decoding machinery / helper (incl. nested arrays and/or tuples) for Ethereum & Co. (blockchain) contracts with zero-dependencies for easy (re)use"
   self.description = summary
 
   self.urls    = { home: 'https://github.com/rubycocos/blockchain' }

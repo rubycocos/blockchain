@@ -24,17 +24,18 @@ def encode_address( arg )    ABI.encoder.encode_address( arg ); end
 
 BYTE_ZERO = "\x00".b
 
-def zpad( bin, l=32, symbol=BYTE_ZERO )    ## note: same as builtin String#rjust !!!
+def zpad( bin )    ## note: same as builtin String#rjust !!!
+  l=32
   return bin  if bin.size >= l
-  symbol * (l - bin.size) + bin
+  BYTE_ZERO * (l - bin.size) + bin
 end
 
-def zpad_int( n, l=32, symbol=BYTE_ZERO )
+def zpad_int( n )
   hex = n.to_s(16)
   hex = "0#{hex}"   if hex.size.odd?
   bin = [hex].pack("H*")
 
-  zpad( bin, l, symbol )
+  zpad( bin )
 end
 
 
@@ -54,6 +55,12 @@ class TestAbi < MiniTest::Test
 
 
 
+  def assert_bin( exp, bin )   ## note: always check for BINARY encoding too
+     assert bin.encoding == Encoding::BINARY
+     assert_equal exp, bin
+  end
+
+
   def test_use_abi_class_methods
     types = ['int256']
     args  = [1]
@@ -67,14 +74,14 @@ class TestAbi < MiniTest::Test
     data = BYTE_ZERO * 32 * 3
      types = ['address[]']
      args = [[BYTE_ZERO * 20] * 3]
-    assert_equal "#{zpad_int(32)}#{zpad_int(3)}#{data}",
+    assert_bin "#{zpad_int(32)}#{zpad_int(3)}#{data}",
                  ABI.encode(types, args)
   end
 
   def test_abi_encode_fixed_sized_array
     types  = ['uint16[2]']
     args   = [[5,6]]
-    assert_equal "#{zpad_int(5)}#{zpad_int(6)}",
+    assert_bin "#{zpad_int(5)}#{zpad_int(6)}",
                   ABI.encode( types, args)
   end
 
@@ -91,60 +98,57 @@ class TestAbi < MiniTest::Test
 
   def test_abi_encode_primitive_type
     type = Type.parse( 'bool' )
-    assert_equal zpad_int(1), encode_primitive_type(type, true)
-    assert_equal zpad_int(0), encode_primitive_type(type, false)
+    assert_bin zpad_int(1), encode_primitive_type(type, true)
+    assert_bin zpad_int(0), encode_primitive_type(type, false)
 
-    assert_equal zpad_int(1), encode_bool( true )
-    assert_equal zpad_int(0), encode_bool( false )
+    assert_bin zpad_int(1), encode_bool( true )
+    assert_bin zpad_int(0), encode_bool( false )
 
 
     type = Type.parse( 'uint8' )
-    assert_equal zpad_int(255), encode_primitive_type(type, 255)
+    assert_bin zpad_int(255), encode_primitive_type(type, 255)
     assert_raises(ValueOutOfBounds) { encode_primitive_type(type, 256) }
 
-    assert_equal zpad_int(255), encode_uint8( 255 )
+    assert_bin zpad_int(255), encode_uint8( 255 )
     assert_raises(ValueOutOfBounds) { encode_uint8( 256 ) }
 
 
 
-   ### todo/fix:
-   ##    check for encoding e.g. BINARY/ASCII_8BIT from encode_primitive_type
-   ##      should really be always  BINARY/ASCII_8BIT  - why? why not?
     type = Type.parse( 'int8' )
-    assert_equal zpad("\x80" ).b, encode_primitive_type(type, -128)
-    assert_equal zpad("\x7f" ).b, encode_primitive_type(type, 127)
+    assert_bin zpad("\x80".b ), encode_primitive_type(type, -128)
+    assert_bin zpad("\x7f".b ), encode_primitive_type(type, 127)
     assert_raises(ValueOutOfBounds) { encode_primitive_type(type, -129) }
     assert_raises(ValueOutOfBounds) { encode_primitive_type(type, 128) }
 
-    assert_equal zpad("\x80" ).b, encode_int(-128, 8)
-    assert_equal zpad("\x7f" ).b, encode_int( 127, 8)
+    assert_bin zpad("\x80".b ), encode_int(-128, 8)
+    assert_bin zpad("\x7f".b ), encode_int( 127, 8)
     assert_raises(ValueOutOfBounds) { encode_int8( -129 ) }
     assert_raises(ValueOutOfBounds) { encode_int8( 128 ) }
 
 
 
     type = Type.parse( 'bytes' )
-    assert_equal "#{zpad_int(3)}\x01\x02\x03#{"\x00"*29}",
-                    encode_primitive_type(type, "\x01\x02\x03")
-    assert_equal "#{zpad_int(3)}\x01\x02\x03#{"\x00"*29}",
+    assert_bin "#{zpad_int(3)}\x01\x02\x03#{"\x00"*29}".b,
+                    encode_primitive_type(type, "\x01\x02\x03" )
+    assert_bin "#{zpad_int(3)}\x01\x02\x03#{"\x00"*29}".b,
                     encode_bytes( "\x01\x02\x03" )
 
 
     type = Type.parse( 'bytes8' )
-    assert_equal "\x01\x02\x03#{"\x00"*29}",
+    assert_bin "\x01\x02\x03#{"\x00"*29}".b,
                  encode_primitive_type(type, "\x01\x02\x03" )
-    assert_equal "\x01\x02\x03#{"\x00"*29}",
+    assert_bin "\x01\x02\x03#{"\x00"*29}".b,
                  encode_bytes( "\x01\x02\x03", 8 )
 
 
     type = Type.parse( 'address' )
-    assert_equal zpad("\xff"*20), encode_primitive_type(type, "\xff"*20)
-    assert_equal zpad("\xff"*20).b, encode_primitive_type(type, "ff"*20)
-    assert_equal zpad("\xff"*20).b, encode_primitive_type(type, "0x"+"ff"*20)
+    assert_bin zpad("\xff"*20).b, encode_primitive_type(type, "\xff"*20)
+    assert_bin zpad("\xff"*20).b, encode_primitive_type(type, "ff"*20)
+    assert_bin zpad("\xff"*20).b, encode_primitive_type(type, "0x"+"ff"*20)
 
-    assert_equal zpad("\xff"*20), encode_address( "\xff"*20 )
-    assert_equal zpad("\xff"*20).b, encode_address( "ff"*20 )
-    assert_equal zpad("\xff"*20).b, encode_address( "0x"+"ff"*20 )
+    assert_bin zpad("\xff"*20).b, encode_address( "\xff"*20 )
+    assert_bin zpad("\xff"*20).b, encode_address( "ff"*20 )
+    assert_bin zpad("\xff"*20).b, encode_address( "0x"+"ff"*20 )
   end
 
 

@@ -18,11 +18,11 @@ class Encoder
 
     ##
     # Encodes multiple arguments using the head/tail mechanism.
+    #     returns binary string (with BINARY / ASCII_8BIT encoding)
     #
     def encode( types, args )
-
-      ## todo/fix:  enforce args.size and types.size must match!!
-      ##   raise ArgumentError - expected x arguments got y!!!
+      ## enforce args.size and types.size must match - why? why not?
+      raise ArgumentError, "Wrong number of args: found #{args.size}, expecting #{types.size}" unless args.size == types.size
 
 
       ## for convenience check if types is a String
@@ -35,7 +35,7 @@ class Encoder
                     .map {|type| type.size || 32 }
                     .sum
 
-      head, tail = '', ''
+      head, tail = ''.b, ''.b    ## note: use string buffer with BINARY / ASCII_8BIT encoding!!!
       types.each_with_index do |type, i|
         if type.dynamic?
           head += encode_uint256( head_size + tail.size )
@@ -57,10 +57,6 @@ class Encoder
     # @return [String] encoded bytes
     #
     def encode_type( type, arg )
-      ## case 1)  string or bytes (note:are dynamic too!!! most go first)
-      ##  use type == Type.new( 'string', nil, [] ) - same as Type.new('string'))
-      ##   or type == Type.new( 'bytes', nil, [] )  - same as Type.new('bytes')
-      ##   - why? why not?
       if type.is_a?( String )
         encode_string( arg )
       elsif type.is_a?( Bytes )
@@ -82,7 +78,7 @@ class Encoder
    def encode_dynamic_array( type, args )
     raise ArgumentError, "arg must be an array" unless args.is_a?(::Array)
 
-        head, tail = '', ''
+        head, tail = ''.b, ''.b    ## note: use string buffer with BINARY / ASCII_8BIT encoding!!!
 
         if type.is_a?( Array )  ## dynamic array
           head += encode_uint256( args.size )
@@ -123,7 +119,7 @@ class Encoder
                      .map {|type| type.size || 32 }
                      .sum
 
-        head, tail = '', ''
+        head, tail = ''.b, ''.b    ## note: use string buffer with BINARY / ASCII_8BIT encoding!!!
         tuple.types.each_with_index do |type, i|
           if type.dynamic?
             head += encode_uint256( head_size + tail.size )
@@ -164,19 +160,22 @@ class Encoder
 
 
     def encode_bool( arg )
+      ## raise EncodingError or ArgumentError - why? why not?
       raise ArgumentError, "arg is not bool: #{arg}" unless arg.is_a?(TrueClass) || arg.is_a?(FalseClass)
-      lpad_int( arg ? 1 : 0 )
+      lpad( arg ? BYTE_ONE : BYTE_ZERO )   ## was  lpad_int( arg ? 1 : 0 )
     end
 
 
     def encode_uint256( arg ) encode_uint( arg, 256 ); end
     def encode_uint( arg, bits )
+      ## raise EncodingError or ArgumentError - why? why not?
       raise ArgumentError, "arg is not integer: #{arg}" unless arg.is_a?(Integer)
       raise ValueOutOfBounds, arg   unless arg >= 0 && arg < 2**bits
       lpad_int( arg )
     end
 
     def encode_int( arg, bits )
+      ## raise EncodingError or ArgumentError - why? why not?
       raise ArgumentError, "arg is not integer: #{arg}" unless arg.is_a?(Integer)
       raise ValueOutOfBounds, arg   unless arg >= -2**(bits-1) && arg < 2**(bits-1)
       lpad_int( arg % 2**bits )
@@ -184,31 +183,21 @@ class Encoder
 
 
     def encode_string( arg )
-
-       ## todo/fix:  do NOT auto-unpack hexstring EVER!!!
-       ##                remove  arg.unpack('U*')
-
-      if arg.encoding == Encoding::UTF_8    ## was: name == 'UTF-8'
-        arg = arg.b
-      else
-        begin
-          arg.unpack('U*')
-        rescue ArgumentError
-          raise ValueError, "string must be UTF-8 encoded"
-        end
-      end
+      ## raise EncodingError or ArgumentError - why? why not?
+      raise EncodingError, "Expecting string: #{arg}" unless arg.is_a?(::String)
+      arg = arg.b   if arg.encoding != Encoding::BINARY    ## was: name == 'UTF-8'
 
       raise ValueOutOfBounds, "Integer invalid or out of range: #{arg.size}" if arg.size > UINT_MAX
       size  =  lpad_int( arg.size )
       value =  rpad( arg, ceil32(arg.size) )
-
       size + value
     end
 
 
     def encode_bytes( arg, length=nil )
+      ## raise EncodingError or ArgumentError - why? why not?
       raise EncodingError, "Expecting string: #{arg}" unless arg.is_a?(::String)
-      arg = arg.b
+      arg = arg.b    if arg.encoding != Encoding::BINARY
 
       if length # fixed length type
         raise ValueOutOfBounds, "invalid bytes length #{length}" if arg.size > length
@@ -227,6 +216,8 @@ class Encoder
       if arg.is_a?( Integer )
         lpad_int( arg )
       elsif arg.size == 20
+        ## note: make sure encoding is always binary!!!
+        arg = arg.b    if arg.encoding != Encoding::BINARY
         lpad( arg )
       elsif arg.size == 40
         lpad_hex( arg )
@@ -238,34 +229,42 @@ class Encoder
     end
 
 
+
 ###########
 #  encoding helpers / utils
+#    with "hard-coded" fill symbol as BYTE_ZERO
 
-def rpad( bin, l=32, symbol=BYTE_ZERO )    ## note: same as builtin String#ljust !!!
+def rpad( bin, l=32 )    ## note: same as builtin String#ljust !!!
+  # note: default l word is 32 bytes
   return bin  if bin.size >= l
-  bin + symbol * (l - bin.size)
+  bin + BYTE_ZERO * (l - bin.size)
 end
 
-def lpad( bin, l=32, symbol=BYTE_ZERO )    ## note: same as builtin String#rjust !!!
+
+## rename to lpad32 or such - why? why not?
+def lpad( bin )    ## note: same as builtin String#rjust !!!
+  l=32   # note: default l word is 32 bytes
   return bin  if bin.size >= l
-  symbol * (l - bin.size) + bin
+  BYTE_ZERO * (l - bin.size) + bin
 end
 
-def lpad_int( n, l=32, symbol=BYTE_ZERO )
+## rename to lpad32_int or such - why? why not?
+def lpad_int( n )
   raise ArgumentError, "Integer invalid or out of range: #{n}" unless n.is_a?(Integer) && n >= 0 && n <= UINT_MAX
   hex = n.to_s(16)
   hex = "0#{hex}"   if hex.size.odd?
   bin = [hex].pack("H*")
 
-  lpad( bin, l, symbol )
+  lpad( bin )
 end
 
-def lpad_hex( hex, l=32, symbol=BYTE_ZERO )
+## rename to lpad32_hex or such - why? why not?
+def lpad_hex( hex )
   raise TypeError, "Value must be a string"  unless hex.is_a?( ::String )
   raise TypeError, 'Non-hexadecimal digit found' unless hex =~ /\A[0-9a-fA-F]*\z/
   bin = [hex].pack("H*")
 
-  lpad( bin, l, symbol )
+  lpad( bin )
 end
 
 

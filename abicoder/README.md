@@ -1,6 +1,6 @@
 #  Application Binary Inteface (ABI) Coder For Ethereum & Co.
 
-abicoder - "lite" application binary interface (abi) encoding / decoding machinery / helper for Ethereum & Co. (blockchain) contracts with zero-dependencies for easy (re)use
+abicoder - "lite" application binary interface (abi) encoding / decoding machinery / helper (incl. nested arrays and/or tuples) for Ethereum & Co. (blockchain) contracts with zero-dependencies for easy (re)use
 
 
 * home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)

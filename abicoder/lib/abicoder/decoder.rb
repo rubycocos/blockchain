@@ -7,6 +7,10 @@ class Decoder
     # Decodes multiple arguments using the head/tail mechanism.
     #
     def decode( types, data, raise_errors = false )
+       ##
+       ##  todo/check:  always change data (string) to binary encoding (e.g. data = data.b )
+       ##                    or such - why? why not?
+
       ## for convenience check if types is a String
       ##   otherwise assume ABI::Type already
       types = types.map { |type| type.is_a?( Type ) ? type : Type.parse( type ) }
@@ -14,7 +18,9 @@ class Decoder
       outputs = [nil] * types.size
       start_positions = [nil] * types.size + [data.size]
 
-      # TODO: refactor, a reverse iteration will be better
+      # TODO: refactor, a reverse iteration will be better - why? why not?
+      #   try to simplify / clean-up code - possible? why? why not?
+
       pos = 0
       types.each_with_index do |t, i|
         # If a type is static, grab the data directly, otherwise record its
@@ -29,7 +35,7 @@ class Decoder
             end
           end
 
-          start_positions[i] = big_endian_to_int(data[pos, 32])
+          start_positions[i] = decode_uint256(data[pos, 32])
 
           if start_positions[i]>data.size-1
             if raise_errors
@@ -50,7 +56,19 @@ class Decoder
         else
           ## puts "step 1 - decode item [#{i}] - #{t.format}  size: #{t.size} dynamic? #{t.dynamic?}"
 
-          outputs[i] = zero_padding( data, pos, t.size, start_positions )
+          count = t.size
+          ## was zero_padding( data, pos, t.size, start_positions )
+          ##   inline for now and clean-up later - why? why not?
+          outputs[i] = if pos >= data.size
+                          start_positions[start_positions.size-1] += count
+                          BYTE_ZERO*count
+                        elsif pos + count > data.size
+                          start_positions[start_positions.size-1] += ( count - (data.size-pos))
+                          data[pos,data.size-pos] + BYTE_ZERO*( count - (data.size-pos))
+                        else
+                          data[pos, count]
+                        end
+
           pos += t.size
         end
       end
@@ -83,7 +101,7 @@ class Decoder
         end
       end
 
-      if outputs.include?(nil)
+      if outputs.include?( nil )
         if raise_errors
           raise DecodingError, "Not all data can be parsed"
         else
@@ -101,106 +119,87 @@ class Decoder
 
 
 
-    def decode_type( type, arg )
-      return nil    if arg.nil? || arg.empty?
 
+    def decode_type( type, data )
+      return nil    if data.nil? || data.empty?
 
-      if type.is_a?( String ) || type.is_a?( Bytes )
-        l = big_endian_to_int( arg[0,32] )
-        data = arg[32..-1]
-        data[0, l]
-      elsif type.is_a?( Tuple )
-          arg ? decode(type.types, arg) : []
+      if type.is_a?( Tuple )   ## todo: support empty (unit) tuple - why? why not?
+          decode( type.types, data )
       elsif type.is_a?( FixedArray )   # static-sized arrays
         l       = type.dim
         subtype = type.subtype
         if subtype.dynamic?
-          start_positions = (0...l).map {|i| big_endian_to_int(arg[32*i, 32]) }
-          start_positions.push arg.size
+          start_positions = (0...l).map {|i| decode_uint256(data[32*i, 32]) }
+          start_positions.push( data.size )
 
-          outputs = (0...l).map {|i| arg[start_positions[i]...start_positions[i+1]] }
+          outputs = (0...l).map {|i| data[start_positions[i]...start_positions[i+1]] }
 
           outputs.map {|out| decode_type(subtype, out) }
         else
-          (0...l).map {|i| decode_type(subtype, arg[subtype.size*i, subtype.size]) }
+          (0...l).map {|i| decode_type(subtype, data[subtype.size*i, subtype.size]) }
         end
       elsif type.is_a?( Array )
-        l = big_endian_to_int( arg[0,32] )
+        l = decode_uint256( data[0,32] )
         raise DecodingError, "Too long length: #{l}"  if l > 100000
         subtype = type.subtype
 
         if subtype.dynamic?
-          raise DecodingError, "Not enough data for head" unless arg.size >= 32 + 32*l
+          raise DecodingError, "Not enough data for head" unless data.size >= 32 + 32*l
 
-          start_positions = (1..l).map {|i| 32+big_endian_to_int(arg[32*i, 32]) }
-          start_positions.push arg.size
+          start_positions = (1..l).map {|i| 32+decode_uint256(data[32*i, 32]) }
+          start_positions.push( data.size )
 
-          outputs = (0...l).map {|i| arg[start_positions[i]...start_positions[i+1]] }
+          outputs = (0...l).map {|i| data[start_positions[i]...start_positions[i+1]] }
 
           outputs.map {|out| decode_type(subtype, out) }
         else
-          (0...l).map {|i| decode_type(subtype, arg[32 + subtype.size*i, subtype.size]) }
+          (0...l).map {|i| decode_type(subtype, data[32 + subtype.size*i, subtype.size]) }
         end
       else
-        decode_primitive_type( type, arg )
+        decode_primitive_type( type, data )
       end
     end
 
 
     def decode_primitive_type(type, data)
       case type
-      when Address
-        encode_hex( data[12..-1] )
-      when String, Bytes
-          if data.length == 32
-            data[0..32]
-          else
-            size = big_endian_to_int( data[0,32] )
-            data[32..-1][0,size]
-          end
-      when FixedBytes
-          data[0, type.length]
       when Uint
-        big_endian_to_int( data )
+        decode_uint256( data )
       when Int
-        u = big_endian_to_int( data )
+        u = decode_uint256( data )
         u >= 2**(type.bits-1) ? (u - 2**type.bits) : u
       when Bool
         data[-1] == BYTE_ONE
+      when String
+        ## note: convert to a string (with UTF_8 encoding NOT BINARY!!!)
+        size = decode_uint256( data[0,32] )
+        data[32..-1][0,size].force_encoding( Encoding::UTF_8 )
+      when Bytes
+        size = decode_uint256( data[0,32] )
+        data[32..-1][0,size]
+      when FixedBytes
+        data[0, type.length]
+      when Address
+        ## note: convert to a hex string (with UTF_8 encoding NOT BINARY!!!)
+        data[12..-1].unpack("H*").first.force_encoding( Encoding::UTF_8 )
       else
         raise DecodingError, "Unknown primitive type: #{type.class.name} #{type.format}"
       end
     end
 
 
-    def zero_padding( data, pos, count, start_positions )
-      if pos >= data.size
-        start_positions[start_positions.size-1] += count
-        "\x00"*count
-      elsif pos + count > data.size
-        start_positions[start_positions.size-1] += ( count - (data.size-pos))
-        data[pos,data.size-pos] + "\x00"*( count - (data.size-pos))
-      else
-        data[pos, count]
-      end
-    end
-
 
 ###########
 #  decoding helpers / utils
 
-def big_endian_to_int( bin )
-  bin = bin.sub( /\A(\x00)+/, '' )   ## keep "performance" shortcut - why? why not?
+def decode_uint256( bin )
+  # bin = bin.sub( /\A(\x00)+/, '' )   ## keep "performance" shortcut - why? why not?
   ### todo/check - allow nil - why? why not?
   ##  raise DeserializationError, "Invalid serialization (not minimal length)" if !@size && serial.size > 0 && serial[0] == BYTE_ZERO
-  bin = bin || BYTE_ZERO
+  # bin = bin || BYTE_ZERO
   bin.unpack("H*").first.to_i(16)
 end
 
-def encode_hex( bin )   ## bin_to_hex
-  raise TypeError, "Value must be a String" unless bin.is_a?(::String)
-  bin.unpack("H*").first
-end
 
 
 end  # class Decoder

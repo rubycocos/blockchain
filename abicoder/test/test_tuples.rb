@@ -9,6 +9,12 @@ require 'helper'
 class TestTuples < MiniTest::Test
 
 
+ def assert_bin( exp, bin )   ## note: always check for BINARY encoding too
+    assert bin.encoding == Encoding::BINARY
+    assert_equal exp, bin
+ end
+
+
 def test_encode
 
   types = [ 'uint256', '(uint256,string)']
@@ -20,7 +26,7 @@ def test_encode
           '000000000000000000000000000000000000000000000000000000000000000b'+
           '48656c6c6f20576f726c64000000000000000000000000000000000000000000'
 
-  assert_equal data, ABI.encode( types, args )
+  assert_bin data, ABI.encode( types, args )
   assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 
 
@@ -38,7 +44,7 @@ def test_encode
              '516d57426953453942795236767278346876726a715333534735723677453453'+
              '52713743503252567061665a5756000000000000000000000000000000000000'
 
-   assert_equal data, ABI.encode( types, args )
+   assert_bin data, ABI.encode( types, args )
    assert_equal args, ABI.decode( types, ABI.encode( types, args ))
 end
 

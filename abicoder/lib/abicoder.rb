@@ -13,7 +13,7 @@ module ABI
    ## todo/fix: move  BYTE_EMPTY, BYTE_ZERO, BYTE_ONE to upstream to bytes gem
    ##    and make "global" constants - why? why not?
 
-   BYTE_EMPTY = "".b.freeze
+   ## BYTE_EMPTY = "".b.freeze
    BYTE_ZERO  = "\x00".b.freeze
    BYTE_ONE   = "\x01".b.freeze      ## note: used for encoding bool for now
 
