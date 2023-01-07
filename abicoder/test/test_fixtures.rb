@@ -10,13 +10,6 @@ require 'helper'
 
 class TestFixtures < MiniTest::Test
 
-def assert_bin( exp, bin )   ## note: always check for BINARY encoding too
-    assert bin.encoding == Encoding::BINARY
-    assert_equal exp, bin
-end
-
-
-
 def test_basic
 
    tests = read_yml( '../test/abicoder/basic.yml' )
@@ -39,7 +32,10 @@ def test_basic
 =end
          if hex
            data  = hex( hex )  ## convert hex string to binary string
-           assert_bin data,    ABI.encode( types, args )
+           bin   = ABI.encode( types, args )
+           assert bin.encoding == Encoding::BINARY    ## note: always check for BINARY encoding too
+           assert_equal data, bin
+             
            assert_equal args,  ABI.decode( types, data )
          end
          assert_equal args, ABI.decode( types, ABI.encode( types, args ))
