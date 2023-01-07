@@ -22,7 +22,7 @@ def encode_int8( arg )      encode_int( arg, 8 ); end
 def encode_bytes( arg, length=nil ) ABI.encoder.encode_bytes( arg, length ); end
 def encode_address( arg )    ABI.encoder.encode_address( arg ); end
 
-BYTE_ZERO = "\x00".b
+BYTE_ZERO = "\x00".b.freeze
 
 def zpad( bin )    ## note: same as builtin String#rjust !!!
   l=32
