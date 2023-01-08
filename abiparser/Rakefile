@@ -22,6 +22,7 @@ Hoe.spec 'abiparser' do
     ['cocos'],
     ['bytes'],
     ['digest-lite'],
+    ['abicoder'],
   ]
 
   self.licenses = ['Public Domain']

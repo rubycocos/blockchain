@@ -36,14 +36,11 @@ def sig( bin )
 end
 
 
+require 'abicoder'
+
 
 ## our own code
 require_relative 'abiparser/version'    # note: let version always go first
-require_relative 'abiparser/type'
-require_relative 'abiparser/type_tuple'
-
-require_relative 'abiparser/codec'
-
 
 require_relative 'abiparser/param'
 require_relative 'abiparser/constructor'
@@ -127,9 +124,6 @@ module ABI
 end  # module ABI
 
 
-## add convenience alternate spellings - why? why not?
-Abi = ABI
 
-
-puts AbiParser.banner
+puts ABIParser.banner
 

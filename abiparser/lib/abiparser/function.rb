@@ -77,8 +77,8 @@ class Function
                                      Type.parse( param.sig )
                                  end
      @output_types = @outputs.map do |param|
-                                       pp param
-                                       puts "sig: #{param.sig}"
+                                       ## pp param
+                                       ## puts "sig: #{param.sig}"
                                       Type.parse( param.sig )
                                   end
   end
