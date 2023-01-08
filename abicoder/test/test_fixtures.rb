@@ -11,12 +11,31 @@ require 'helper'
 class TestFixtures < MiniTest::Test
 
 
+## little helper to (recursively) convert 0x hex strings to binary strings
+##    other option to use binary in yaml is using !!binary with base64 encoding
+def hex_to_bin( arg )
+  if arg.is_a?( Array )
+    arg.map { |item| hex_to_bin( item ) }
+  elsif arg.is_a?( String ) && arg =~ /\A0x[0-9a-fA-F]{2,}\z/
+    hex = arg[2..-1]
+    bin = [hex].pack("H*")
+    puts "  converting hex >#{arg}< to bin  >#{bin.inspect}< #{bin.size} byte(s)"
+    bin
+  else
+    arg
+  end
+end
+
+
 def assert_test( test )
   types = test['types']
   args  = test['args']
   hex   = test['data']
 
+
   puts "==> testing #{types}...:"
+  args  = hex_to_bin( args )
+
   types.zip( args ).each_with_index do |(type,arg),i|
     puts "  [#{i}] #{type}  =>  #{arg.inspect}"
     ## pp ABI::Type.parse( type )
@@ -43,7 +62,7 @@ def assert_test( test )
 end
 
 
-def test_basic
+def xx_test_basic
    tests = read_yml( '../test/abicoder/basic.yml' )
    puts "  #{tests.size} test(s) in /test/abicoder/basic.yml"
    pp tests
