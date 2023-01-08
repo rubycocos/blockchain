@@ -62,7 +62,7 @@ def assert_test( test )
 end
 
 
-def xx_test_basic
+def test_basic
    tests = read_yml( '../test/abicoder/basic.yml' )
    puts "  #{tests.size} test(s) in /test/abicoder/basic.yml"
    pp tests
