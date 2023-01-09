@@ -54,8 +54,8 @@ class Function
 
 
   attr_reader :name,
-              :inputs, :outputs,
-              :input_types, :output_types
+              :inputs, :outputs
+              ##  :input_types, :output_types
 
   def initialize( name,
                   inputs:  [],
@@ -73,14 +73,14 @@ class Function
      ##  parse inputs & outputs into types
      ##    note: use "calculated" sig(nature) and NOT the type
      ##        (differs for tuples, that is, types with components !!!)
-     @input_types  = @inputs.map do |param|
-                                     Type.parse( param.sig )
-                                 end
-     @output_types = @outputs.map do |param|
-                                       ## pp param
-                                       ## puts "sig: #{param.sig}"
-                                      Type.parse( param.sig )
-                                  end
+     ## @input_types  = @inputs.map do |param|
+     ##                                Type.parse( param.sig )
+     ##                            end
+     ## @output_types = @outputs.map do |param|
+     ##                                  ## pp param
+     ##                                  ## puts "sig: #{param.sig}"
+     ##                                 Type.parse( param.sig )
+     ##                             end
   end
 
 

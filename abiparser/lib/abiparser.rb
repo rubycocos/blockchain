@@ -36,7 +36,6 @@ def sig( bin )
 end
 
 
-require 'abicoder'
 
 
 ## our own code
