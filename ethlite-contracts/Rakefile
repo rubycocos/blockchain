@@ -1,0 +1,30 @@
+require 'hoe'
+
+
+Hoe.spec 'ethlite-contracts' do
+
+  self.version = '0.0.1'
+  self.summary = "ethlite-contracts  - ready-to-use (blockchain) contract services / function calls for ethereum & co."
+  self.description = summary
+
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+    ['ethlite'],
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end
+
