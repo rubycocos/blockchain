@@ -8,6 +8,16 @@
 
 
 class JsonRpc
+
+      ### add a global debug switch - why? why not?
+      def self.debug?()  (@debug || false) == true; end
+      def self.debug( value ) @debug = value; end
+      ####
+      # private helpers
+      def debug?()  self.class.debug?;  end
+
+
+
       def initialize( uri )
         @uri        = uri    ## assume uri always as string for now
         @request_id = 1
@@ -23,8 +33,10 @@ class JsonRpc
 
           @request_id += 1
 
-          puts "json_rpc POST payload:"
-          puts data.to_json
+          if debug?
+            puts "json_rpc POST payload:"
+            puts data.to_json
+          end
 
           response = Webclient.post( @uri, json: data )
 
@@ -33,8 +45,10 @@ class JsonRpc
             raise "Error code #{response.status.code} on request #{@uri} #{data}"
           end
 
-          puts "json_rpc response.body:"
-          puts response.body
+          if debug?
+            puts "json_rpc response.body:"
+            puts response.body
+          end
 
 
           body = JSON.parse( response.body, max_nesting: 1500 )

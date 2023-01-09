@@ -2,31 +2,6 @@
       class ContractMethod
 
 
-       def self.parse_abi( abi )
-         ## convenience helper -  auto-convert to json if string passed in
-         abi = JSON.parse( abi ) if abi.is_a?( String )
-
-         name           = abi['name']
-         constant       = !!abi['constant'] || abi['stateMutability']=='view'
-         input_types    = abi['inputs']  ? abi['inputs'].map{|a| _parse_component_type( a ) } : []
-         output_types   = abi['outputs'] ? abi['outputs'].map{|a| _parse_component_type( a ) } : []
-
-         new( name, inputs: input_types,
-                    outputs: output_types,
-                    constant: constant )
-       end
-
-       def self._parse_component_type( argument )
-        if argument['type'] =~ /^tuple((\[[0-9]*\])*)/
-          argument['components'] ? "(#{argument['components'].collect{ |c| _parse_component_type( c ) }.join(',')})#{$1}"
-                                 : "()#{$1}"
-        else
-          argument['type']
-        end
-      end
-
-
-
         attr_reader :signature,
                     :name,
                     :signature_hash,
@@ -34,7 +9,7 @@
                     :output_types,
                     :constant
 
-        def initialize( name, inputs:,
+        def initialize( name, inputs:   [],
                               outputs:  [],
                               constant: true )
           @name         = name
@@ -52,7 +27,7 @@
 
         def do_call( rpc, contract_address, args )
           data = '0x' + @signature_hash + Utils.encode_hex(
-                                           Abi.encode_abi(@input_types, args) )
+                                           ABI.encode(@input_types, args) )
 
           method = 'eth_call'
           params = [{ to:   contract_address,
@@ -60,23 +35,30 @@
                     'latest']
           response = rpc.request( method, params )
 
+          if debug?
+            puts "response:"
+            pp response
+          end
 
-          puts "response:"
-          pp response
+          bin = Utils.decode_hex( response )
+          return nil    if bin.empty?
 
-          string_data = Utils.decode_hex(
-                           Utils.remove_0x_head(response))
-          return nil if string_data.empty?
+          result = ABI.decode( @output_types, bin )
 
-          result = Abi.decode_abi( @output_types, string_data )
-          puts
-          puts "result decode_abi:"
-          pp result
 
+          if debug?
+            puts
+            puts "result decode_abi:"
+            pp result
+          end
 
           result.length==1 ? result.first : result
         end
 
+        ####
+        # private helpers
+        def debug?()  Ethlite.debug?;  end   ## forward to global Ethlite config
       end  # class ContractMethod
+
 end  # module Ethlite
 

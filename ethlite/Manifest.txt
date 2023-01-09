@@ -3,9 +3,6 @@ Manifest.txt
 README.md
 Rakefile
 lib/ethlite.rb
-lib/ethlite/abi/codec.rb
-lib/ethlite/abi/type.rb
-lib/ethlite/constant.rb
 lib/ethlite/contract.rb
 lib/ethlite/utils.rb
 lib/ethlite/version.rb

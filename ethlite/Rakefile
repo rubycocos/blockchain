@@ -20,8 +20,8 @@ Hoe.spec 'ethlite' do
 
   self.extra_deps = [
     ['cocos'],
-    ['rlp-lite'],
     ['digest-lite'],
+    ['abicoder'],
   ]
 
   self.licenses = ['Public Domain']

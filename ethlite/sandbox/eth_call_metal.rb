@@ -1,8 +1,11 @@
-$LOAD_PATH.unshift( "../abiparser/lib" )
+$LOAD_PATH.unshift( "../abicoder/lib" )
 $LOAD_PATH.unshift( "./lib" )
 require 'ethlite'
 
 
+## note: to turn on debugging output use
+##   Ethlite.config.debug = true
+##   JsonRpc.debug = true
 
 
 ## construct a json-rpc call
@@ -21,7 +24,7 @@ def eth_call( rpc,
 
   ## binary encode method arg(ument)s
   args_encoded = Ethlite::Utils.encode_hex(
-                   Ethlite::Abi.encode_abi( inputs, args) )
+                   ABI.encode( inputs, args) )
 
   data = '0x' + signature_hash + args_encoded
 
@@ -37,9 +40,8 @@ def eth_call( rpc,
   puts "response:"
   pp response
 
-  string_data = Ethlite::Utils.decode_hex(
-                     Ethlite::Utils.remove_0x_head(response))
-  result = Ethlite::Abi.decode_abi( outputs, string_data )
+  bin = Ethlite::Utils.decode_hex( response )
+  result = ABI.decode( outputs, bin )
   result.length  == 1 ? result[0] : result
 end
 

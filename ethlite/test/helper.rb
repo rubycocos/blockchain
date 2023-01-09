@@ -1,5 +1,5 @@
 ## minitest setup
-$LOAD_PATH.unshift( "../abiparser/lib" )
+$LOAD_PATH.unshift( "../abicoder/lib" )
 
 require 'minitest/autorun'
 

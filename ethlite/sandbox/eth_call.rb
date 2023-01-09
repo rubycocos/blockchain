@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift( "../abiparser/lib" )
+$LOAD_PATH.unshift( "../abicoder/lib" )
 $LOAD_PATH.unshift( "./lib" )
 require 'ethlite'
 
