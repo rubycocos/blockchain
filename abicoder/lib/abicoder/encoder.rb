@@ -248,8 +248,8 @@ end
 def lpad_int( n )
   raise ArgumentError, "Integer invalid or out of range: #{n}" unless n.is_a?(Integer) && n >= 0 && n <= UINT_MAX
   hex = n.to_s(16)
-  hex = "0#{hex}"   if hex.size.odd?
-  bin = [hex].pack("H*")
+  hex = '0'+hex    if hex.size.odd?
+  bin = [hex].pack('H*')
 
   lpad( bin )
 end
@@ -258,7 +258,7 @@ end
 def lpad_hex( hex )
   raise TypeError, "Value must be a string"  unless hex.is_a?( ::String )
   raise TypeError, 'Non-hexadecimal digit found' unless hex =~ /\A[0-9a-fA-F]*\z/
-  bin = [hex].pack("H*")
+  bin = [hex].pack('H*')
 
   lpad( bin )
 end
