@@ -1,4 +1,5 @@
 require 'abiparser'
+require 'natspec'
 
 
 ## our own code
@@ -10,12 +11,23 @@ module ABI
   class Contract
 
 
-def generate_code( name: 'Contract', address: nil )
+def generate_code( name: 'Contract',
+                   address: nil,
+                   natspec: nil )
   buf = ''
   buf << "#########################\n"
   buf << "# #{name} contract / (blockchain) services / function calls\n"
-  buf << "#    auto-generated via abigen (see https://rubygems.org/gems/abigen) on #{Time.now.utc}\n"
-  buf << "#    - #{query_functions.size} query functions(s)\n\n"
+  buf << "#  auto-generated via abigen (see https://rubygems.org/gems/abigen) on #{Time.now.utc}\n"
+  buf << "#  - #{query_functions.size} query functions(s)\n\n"
+
+
+  if natspec && natspec.head.size > 0
+     natspec.head.each do |line|
+        buf << "#  #{line}\n"
+     end
+     buf << "\n\n"
+  end
+
 
 
   buf << "class  #{name} <  Ethlite::Contract\n\n"
@@ -30,7 +42,18 @@ def generate_code( name: 'Contract', address: nil )
   if query_functions.size > 0
     buf << "\n"
     query_functions.each do |func|
-      buf << "#  #{func.doc} _readonly_\n"
+
+      if natspec && (natspec.storage[ func.name] || natspec.functions[ func.name ])
+         sect = natspec.storage[ func.name ] || natspec.functions[ func.name ]
+         buf << "#  #{sect[0]}\n#\n"
+         sect[1].each do |line|
+               buf << "#  #{line}\n"
+         end
+      else
+        buf << "#  #{func.doc} _readonly_\n"
+      end
+
+
 
       buf << %Q{sig "#{func.name}"}
 
