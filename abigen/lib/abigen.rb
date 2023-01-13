@@ -18,15 +18,15 @@ def generate_code( name: 'Contract',
   buf << "#########################\n"
   buf << "# #{name} contract / (blockchain) services / function calls\n"
   buf << "#  auto-generated via abigen (see https://rubygems.org/gems/abigen) on #{Time.now.utc}\n"
-  buf << "#  - #{query_functions.size} query functions(s)\n\n"
-
+  buf << "#  - #{query_functions.size} query functions(s)\n"
 
   if natspec && natspec.head.size > 0
+     buf << "#\n#\n"
      natspec.head.each do |line|
-        buf << "#  #{line}\n"
+        buf <<  (line.empty? ? "#\n" : "#  #{line}\n")
      end
-     buf << "\n\n"
   end
+  buf << "\n\n"
 
 
 
@@ -47,26 +47,13 @@ def generate_code( name: 'Contract',
          sect = natspec.storage[ func.name ] || natspec.functions[ func.name ]
          buf << "#  #{sect[0]}\n#\n"
          sect[1].each do |line|
-               buf << "#  #{line}\n"
-         end
+               buf <<  (line.empty? ? "#\n" : "#  #{line}\n")
+              end
       else
         buf << "#  #{func.doc} _readonly_\n"
       end
 
 
-
-      buf << %Q{sig "#{func.name}"}
-
-      if func.inputs.size > 0
-          quoted_types = func.inputs.map {|param| %Q{"#{param.sig}"} }
-          buf << ", inputs: [#{quoted_types.join(',')}]"
-      end
-
-      if func.outputs.size > 0
-        quoted_types = func.outputs.map {|param| %Q{"#{param.sig}"} }
-        buf << ", outputs: [#{quoted_types.join(',')}]"
-      end
-      buf << "\n"
 
       buf << "def #{func.name}("
 
@@ -96,6 +83,26 @@ def generate_code( name: 'Contract',
       buf << ")\n"
 
       buf << "end\n"
+
+      ## note: quick hack - for rdoc/yard doc generation
+      ##            move sig method below method
+      buf << %Q{sig "#{func.name}"}
+
+      if func.inputs.size > 0
+          quoted_types = func.inputs.map {|param| %Q{"#{param.sig}"} }
+          buf << ", inputs: [#{quoted_types.join(',')}]"
+      end
+
+      if func.outputs.size > 0
+        quoted_types = func.outputs.map {|param| %Q{"#{param.sig}"} }
+        buf << ", outputs: [#{quoted_types.join(',')}]"
+      end
+      buf << "\n"
+
+
+
+
+
       buf << "\n"
     end
   end

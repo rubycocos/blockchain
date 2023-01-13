@@ -1,38 +1,31 @@
 #########################
 # PunksV1 contract / (blockchain) services / function calls
-#  auto-generated via abigen (see https://rubygems.org/gems/abigen) on 2023-01-12 17:17:29 UTC
+#  auto-generated via abigen (see https://rubygems.org/gems/abigen) on 2023-01-13 15:31:37 UTC
 #  - 14 query functions(s)
-
+#
+#
 #  - Pragma:  solidity ^0.4.8
-#  
-#  
+#
+#
 #  **Data Structures**
-#  
-#  
-#  ```
-#      struct Offer {
-#          bool isForSale;
-#          uint punkIndex;
-#          address seller;
-#          uint minValue;          // in ether
-#          address onlySellTo;     // specify to sell only to a specific person
-#      }
-#  ```
-#  
+#
+#
+#          struct Offer {
+#              bool isForSale;
+#              uint punkIndex;
+#              address seller;
+#              uint minValue;          // in ether
+#              address onlySellTo;     // specify to sell only to a specific person
+#          }
+#
 #  **Events**
-#  
-#  ```
-#      event Assign(address indexed to, uint256 punkIndex)
-#      event Transfer(address indexed from, address indexed to, uint256 value)
-#      event PunkTransfer(address indexed from, address indexed to, uint256 punkIndex)
-#      event PunkOffered(uint indexed punkIndex, uint minValue, address indexed toAddress)
-#      event PunkBought(uint indexed punkIndex, uint value, address indexed fromAddress, address indexed toAddress)
-#      event PunkNoLongerForSale(uint indexed punkIndex)
-#  ```
-#  
-#  
-#  
-#  
+#
+#          event Assign(address indexed to, uint256 punkIndex)
+#          event Transfer(address indexed from, address indexed to, uint256 value)
+#          event PunkTransfer(address indexed from, address indexed to, uint256 punkIndex)
+#          event PunkOffered(uint indexed punkIndex, uint minValue, address indexed toAddress)
+#          event PunkBought(uint indexed punkIndex, uint value, address indexed fromAddress, address indexed toAddress)
+#          event PunkNoLongerForSale(uint indexed punkIndex)
 
 
 class  PunksV1 <  Ethlite::Contract
@@ -41,119 +34,104 @@ class  PunksV1 <  Ethlite::Contract
 
 #  storage - string public name
 #
-sig "name", outputs: ["string"]
 def name()
   do_call("name")
 end
+sig "name", outputs: ["string"]
 
 #  storage - mapping (uint => Offer) public punksOfferedForSale
 #
-#  
 #  A record of punks that are offered for sale at a specific minimum value, and perhaps to a specific person
-#  
-sig "punksOfferedForSale", inputs: ["uint256"], outputs: ["bool","uint256","address","uint256","address"]
 def punksOfferedForSale(arg0)
   do_call("punksOfferedForSale", arg0)
 end
+sig "punksOfferedForSale", inputs: ["uint256"], outputs: ["bool","uint256","address","uint256","address"]
 
 #  storage -   uint256 public totalSupply
 #
-#  
-sig "totalSupply", outputs: ["uint256"]
 def totalSupply()
   do_call("totalSupply")
 end
+sig "totalSupply", outputs: ["uint256"]
 
 #  storage -    uint8 public decimals
 #
-sig "decimals", outputs: ["uint8"]
 def decimals()
   do_call("decimals")
 end
+sig "decimals", outputs: ["uint8"]
 
 #  storage - string public imageHash
 #
-#  
 #  You can use this hash to verify the image file containing all the punks
-#  
-sig "imageHash", outputs: ["string"]
 def imageHash()
   do_call("imageHash")
 end
+sig "imageHash", outputs: ["string"]
 
 #  storage -    uint public nextPunkIndexToAssign
 #
-#  
-sig "nextPunkIndexToAssign", outputs: ["uint256"]
 def nextPunkIndexToAssign()
   do_call("nextPunkIndexToAssign")
 end
+sig "nextPunkIndexToAssign", outputs: ["uint256"]
 
 #  storage -   mapping (uint => address) public punkIndexToAddress
 #
-#  
-#  
-sig "punkIndexToAddress", inputs: ["uint256"], outputs: ["address"]
 def punkIndexToAddress(arg0)
   do_call("punkIndexToAddress", arg0)
 end
+sig "punkIndexToAddress", inputs: ["uint256"], outputs: ["address"]
 
 #  storage - string public standard
 #
-#  
-sig "standard", outputs: ["string"]
 def standard()
   do_call("standard")
 end
+sig "standard", outputs: ["string"]
 
 #  storage -  mapping (address => uint256) public balanceOf
 #
 #  This creates an array with all balances
-#  
-#  
-sig "balanceOf", inputs: ["address"], outputs: ["uint256"]
 def balanceOf(arg0)
   do_call("balanceOf", arg0)
 end
+sig "balanceOf", inputs: ["address"], outputs: ["uint256"]
 
 #  storage -    string public symbol
 #
-sig "symbol", outputs: ["string"]
 def symbol()
   do_call("symbol")
 end
+sig "symbol", outputs: ["string"]
 
 #  storage -   uint public numberOfPunksToReserve
 #
-sig "numberOfPunksToReserve", outputs: ["uint256"]
 def numberOfPunksToReserve()
   do_call("numberOfPunksToReserve")
 end
+sig "numberOfPunksToReserve", outputs: ["uint256"]
 
 #  storage -   uint public numberOfPunksReserved
 #
-#  
-sig "numberOfPunksReserved", outputs: ["uint256"]
 def numberOfPunksReserved()
   do_call("numberOfPunksReserved")
 end
+sig "numberOfPunksReserved", outputs: ["uint256"]
 
 #  storage -   uint public punksRemainingToAssign
 #
-sig "punksRemainingToAssign", outputs: ["uint256"]
 def punksRemainingToAssign()
   do_call("punksRemainingToAssign")
 end
+sig "punksRemainingToAssign", outputs: ["uint256"]
 
 #  storage - mapping (address => uint) public pendingWithdrawals
 #
-#  
-#  
-#  
-sig "pendingWithdrawals", inputs: ["address"], outputs: ["uint256"]
 def pendingWithdrawals(arg0)
   do_call("pendingWithdrawals", arg0)
 end
+sig "pendingWithdrawals", inputs: ["address"], outputs: ["uint256"]
 
 end   ## class PunksV1
 

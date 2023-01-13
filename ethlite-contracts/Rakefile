@@ -3,7 +3,7 @@ require 'hoe'
 
 Hoe.spec 'ethlite-contracts' do
 
-  self.version = '0.1.0'
+  self.version = '0.1.1'
   self.summary = "ethlite-contracts  - ready-to-use (blockchain) contract services / function calls for ethereum & co."
   self.description = summary
 
