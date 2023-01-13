@@ -95,7 +95,7 @@ resulting in:
 #  Layer is in the order of rendering
 #
 #          enum Layer {
-#              Base,      // 0 Base is the face. Determines if m or f version will be used to render the remaining layers
+#              Base,      // 0 Base is the face. Determines if m or f version will be used...
 #              Cheeks,    // 1 (Rosy Cheeks)
 #              Blemish,   // 2 (Mole, Spots)
 #              Hair,      // 3 (Purple Hair, Shaved Head, Pigtails, ...)
@@ -220,7 +220,7 @@ That's it for now.
 
 
 Tip: For some pre-packaged ready-to-use "out-of-the-gem" contracts,
-see [**ethlite-contracts »**](../ethlite_contracts)
+see [**ethlite-contracts »**](https://github.com/rubycocos/blockchain/tree/master/ethlite-contracts)
 
 
 
