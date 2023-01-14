@@ -45,7 +45,7 @@ Gems:
 
 - [centralbank](centralbank)  - print your own money / cryptocurrency; run your own federated central bank nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
 - [tulipmania](tulipmania)  - tulips on the blockchain; learn by example from the real world (anno 1637) - buy! sell! hodl! enjoy the beauty of admiral of admirals, semper augustus, and more; run your own hyper ledger tulip exchange nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
-- [cryptoquotes](cryptoquotes) - incl. oracle tool to get a random crypto quote of the day on the command line - on the new new "in math we trust" ponzi economics - on get-rich-quick blockchain secrets - on bitcoin maximalists, scammers, morons, clowns, shills & bagHODLers and more
+- [cryptoquotes](cryptoquotes) - incl. oracle tool to get a random crypto quote of the day on the command line - on the new new "in math we trust" ponzi economics - on get-rich-quick blockchain secrets - on bitcon maximalists, scammers, morons, clowns, shills & bagHODLers and more
 
 
 
