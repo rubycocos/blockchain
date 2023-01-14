@@ -3,8 +3,8 @@ require 'hoe'
 
 Hoe.spec 'ethers' do
 
-  self.version = '0.0.1'
-  self.summary = "ethers  - all-in-one umbrella for ethereum & co. (blockchain) contract services"
+  self.version = '0.1.0'
+  self.summary = 'ethers - "high-level" all-in-one umbrella quick starter gem for easy installation & usage for ethereum & co. (blockchain) contract services in ruby'
   self.description = summary
 
   self.urls    = { home: 'https://github.com/rubycocos/blockchain' }

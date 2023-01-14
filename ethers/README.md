@@ -1,6 +1,6 @@
 #  Ethers
 
-ethers - all-in-one umbrella for ethereum & co. (blockchain) contract services
+ethers - "high-level" all-in-one umbrella quick starter gem for easy installation & usage for ethereum & co. (blockchain) contract services in ruby
 
 
 * home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)
@@ -10,7 +10,18 @@ ethers - all-in-one umbrella for ethereum & co. (blockchain) contract services
 
 
 
-## Usage
+##  Download & Install The Ruby Package(s)
+
+To install use the ruby package manager (also known as rubygems):
+
+```
+$ gem install ethers
+```
+
+
+
+## Usage In Your Ruby Scripts
+
 
 For now
 
@@ -31,7 +42,7 @@ require 'etherscan-lite'
 
 ### Gems
 
-For now ethers includes:
+For now ethers includes / bundles-up:
 
 - [crypto-lite](../crypto-lite) - cryptographic secure hash functions and public key signature algorithms made easy
 - [ethlite](../ethlite) - light-weight machinery to query / call ethereum (blockchain contract) services via json-rpc (incl. tuple support)
