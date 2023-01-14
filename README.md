@@ -12,7 +12,7 @@ Gems:
 - [base58-alphabets](base58-alphabets) - base58 encoding / decoding numbers, hex or binary strings (incl. leading zeros) with bitcoin or flickr notations / alphabets
 - [elliptic](elliptic) - elliptic curve digital signature algorithm (ECDSA) cryptography with OpenSSL made easy (incl. secp256k1 curve)
 - [digest-lite](digest-lite) - crypto(graphic) hash functions / classes - Digest::KeccakLite (512bit, 256bit, etc), Digest::SHA3Lite (512bit, 256bit, etc) in "100% pure" ruby "lite" scripts, that is, without any c-extensions and with zero-dependency
-- [rlp-lite](rlp-lite) - light-weight ("lite") machinery to serialize / deserialze using the recursive-length prefix (rlp) scheme
+- [rlp-lite](rlp-lite) - light-weight ("lite") machinery to serialize / deserialize using the recursive-length prefix (rlp) scheme
 
 
 
@@ -21,7 +21,7 @@ Gems:
 - [abicoder](abicoder) - "lite" application binary interface (abi) encoding / decoding machinery / helper (incl. nested arrays and/or tuples) for Ethereum & Co. (blockchain) contracts with zero-dependencies for easy (re)use
 - [abiparser](abiparser) - application binary interface (abi) parser machinery / helper for Ethereum & Co. (blockchain) contracts
 - [abidoc](abidoc) - application binary interface (abi) documentation generator for Ethereum & Co. (blockchain) contracts
-- [abigen](abigen) - generate ready-to-use (blockchain) contract services / function calls for ethereum & co. via application binary inferfaces (abis)
+- [abigen](abigen) - generate ready-to-use (blockchain) contract services / function calls for ethereum & co. via application binary interfaces (abis)
 - [ethlite](ethlite) - light-weight machinery to query / call ethereum (blockchain contract) services via json-rpc (incl. tuple support)
 - [ethlite-contracts](ethlite-contracts) - pre-packaged ready-to-use "out-of-the-gem" (blockchain) contract services / function calls for ethereum & co
 - [etherscan-lite](etherscan-lite) - light-weight machinery / helper for the Etherscan (blockchain) JSON HTTP API / web services (note: API key sign-up required)
@@ -45,7 +45,7 @@ Gems:
 
 - [centralbank](centralbank)  - print your own money / cryptocurrency; run your own federated central bank nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
 - [tulipmania](tulipmania)  - tulips on the blockchain; learn by example from the real world (anno 1637) - buy! sell! hodl! enjoy the beauty of admiral of admirals, semper augustus, and more; run your own hyper ledger tulip exchange nodes on the blockchain peer-to-peer over HTTP; revolutionize the world one block at a time
-- [cryptoquotes](cryptoquotes) - incl. oracle tool to get a random crypto quote of the day on the command line - on the new new "in math we trust" ponzi economics - on get-rich-quick blockchain secrets - on bitcon maximalists, scammers, morons, clowns, shills & bagHODLers and more
+- [cryptoquotes](cryptoquotes) - incl. oracle tool to get a random crypto quote of the day on the command line - on the new new "in math we trust" ponzi economics - on get-rich-quick blockchain secrets - on bitcoin maximalists, scammers, morons, clowns, shills & bagHODLers and more
 
 
 
