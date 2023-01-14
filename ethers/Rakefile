@@ -1,0 +1,36 @@
+require 'hoe'
+
+
+Hoe.spec 'ethers' do
+
+  self.version = '0.0.1'
+  self.summary = "ethers  - all-in-one umbrella for ethereum & co. (blockchain) contract services"
+  self.description = summary
+
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+    ['crypto-lite'],
+    ['ethlite'],
+    ['ethlite-contracts'],
+    ['ethname'],
+    ['etherscan-lite'],
+    ['abidoc'],
+    ['abigen'],
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end
+
