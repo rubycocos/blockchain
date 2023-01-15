@@ -5,5 +5,13 @@ Rakefile
 lib/ethlite-contracts.rb
 lib/ethlite/contract.rb
 lib/ethlite/contracts.rb
+lib/ethlite/contracts/mad_camels.rb
+lib/ethlite/contracts/marcs.rb
+lib/ethlite/contracts/moonbirds.rb
+lib/ethlite/contracts/mooncats.rb
+lib/ethlite/contracts/phunks_v2.rb
 lib/ethlite/contracts/punk_blocks.rb
+lib/ethlite/contracts/punks_data.rb
+lib/ethlite/contracts/punks_meta.rb
 lib/ethlite/contracts/punks_v1.rb
+lib/ethlite/contracts/synth_punks.rb

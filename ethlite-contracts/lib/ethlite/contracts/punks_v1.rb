@@ -1,7 +1,8 @@
-#########################
 # PunksV1 contract / (blockchain) services / function calls
-#  auto-generated via abigen (see https://rubygems.org/gems/abigen) on 2023-01-13 15:31:37 UTC
+#
+#  auto-generated via abigen (see https://rubygems.org/gems/abigen) on 2023-01-15 16:36:57 UTC
 #  - 14 query functions(s)
+#  - 0 helper functions(s)
 #
 #
 #  - Pragma:  solidity ^0.4.8

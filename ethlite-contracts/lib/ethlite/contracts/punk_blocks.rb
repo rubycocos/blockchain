@@ -1,7 +1,8 @@
-#########################
 # PunkBlocks contract / (blockchain) services / function calls
-#  auto-generated via abigen (see https://rubygems.org/gems/abigen) on 2023-01-13 15:31:38 UTC
+#
+#  auto-generated via abigen (see https://rubygems.org/gems/abigen) on 2023-01-15 16:36:58 UTC
 #  - 8 query functions(s)
+#  - 0 helper functions(s)
 #
 #
 #  - Author: tycoon.eth, thanks to @geraldb & @samwilsn on Github for inspiration!
