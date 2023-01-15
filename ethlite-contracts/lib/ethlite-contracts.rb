@@ -13,7 +13,7 @@ require_relative 'ethlite/contract'
 ### generated contracts via abigen
 require_relative 'ethlite/contracts/punks_v1'
 require_relative 'ethlite/contracts/punk_blocks'
-require_relative 'ethlite/contracts/punk_meta'
+require_relative 'ethlite/contracts/punks_meta'
 
 require_relative 'ethlite/contracts/mooncats'
 require_relative 'ethlite/contracts/phunks_v2'
