@@ -35,7 +35,7 @@ contract = PunksMeta.new
 #      string is parsed.
 #    @param _tokenId the punk id
 ary = contract.parseAttributes( 0 )
-#=> ["Female 2", "Earring", "Blonde Bob", "Green Eye Shadow", "", "", "",
+#=> ["Female 2", "Earring", "Blonde Bob", "Green Eye Shadow", "", "", "", ""]
 
 
 #  function getAttributes(uint256 _tokenId) returns (string)
