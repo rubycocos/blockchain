@@ -2,21 +2,17 @@
 
 ###  punks v1 | crypto punks v1 - Jun 9, 2017
 
-_erc20_
-
 contract @ [**0x6ba6f2207e343923ba692e5cae646fb0f566db8d**](https://etherscan.io/address/0x6ba6f2207e343923ba692e5cae646fb0f566db8d)
 
 created by [0xc352b534e8b987e036a93539fd6897f53488e56a](https://etherscan.io/address/0xc352b534e8b987e036a93539fd6897f53488e56a)) at block no. 3842489 (2017-06-09 00:22:50 UTC) - txid [0x9fef127966d59d440c70f28c8e6f1eac3af0d91f94384e207deb3c98ff9c3088](https://etherscan.io/tx/0x9fef127966d59d440c70f28c8e6f1eac3af0d91f94384e207deb3c98ff9c3088)
 
 ###  punks v2 | crypto punks v2 | crypto punks market - Jun 22, 2017
 
-_erc20_
-
 contract @ [**0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb**](https://etherscan.io/address/0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb)
 
 created by [0xc352b534e8b987e036a93539fd6897f53488e56a](https://etherscan.io/address/0xc352b534e8b987e036a93539fd6897f53488e56a)) at block no. 3914495 (2017-06-22 19:40:00 UTC) - txid [0x0885b9e5184f497595e1ae2652d63dbdb2785de2e498af837d672f5765f28430](https://etherscan.io/tx/0x0885b9e5184f497595e1ae2652d63dbdb2785de2e498af837d672f5765f28430)
 
-###  mooncats | mooncatrescue - Aug 9, 2017
+###  mooncats | mooncat rescue - Aug 9, 2017
 
 contract @ [**0x60cd862c9c687a9de49aecdc3a99b74a4fc54ab6**](https://etherscan.io/address/0x60cd862c9c687a9de49aecdc3a99b74a4fc54ab6)
 
@@ -69,6 +65,30 @@ _erc721_
 contract @ [**0x031920cc2d9f5c10b444fd44009cd64f829e7be2**](https://etherscan.io/address/0x031920cc2d9f5c10b444fd44009cd64f829e7be2)
 
 created by [0x3549d95f144c0cc9eb5fc29fc8b6881a84d51536](https://etherscan.io/address/0x3549d95f144c0cc9eb5fc29fc8b6881a84d51536)) at block no. 12975638 (2021-08-07 04:01:17 UTC) - txid [0x7e7c76df42ac448443e5b6dfadb35d64ebd44d03abf8cc04536ef43dca54f27a](https://etherscan.io/tx/0x7e7c76df42ac448443e5b6dfadb35d64ebd44d03abf8cc04536ef43dca54f27a)
+
+###  nouns descriptor - Aug 8, 2021
+
+contract @ [**0x0cfdb3ba1694c2bb2cfacb0339ad7b1ae5932b63**](https://etherscan.io/address/0x0cfdb3ba1694c2bb2cfacb0339ad7b1ae5932b63)
+
+created by [0xfd16f84e1f9bb5ec33b52d0133d61f7d20699658](https://etherscan.io/address/0xfd16f84e1f9bb5ec33b52d0133d61f7d20699658)) at block no. 12985431 (2021-08-08 16:00:38 UTC) - txid [0x960163ec070b46543c027eb989be368c0f2a75feca499d4c9d58208e61913818](https://etherscan.io/tx/0x960163ec070b46543c027eb989be368c0f2a75feca499d4c9d58208e61913818)
+
+###  nouns seeder - Aug 8, 2021
+
+contract @ [**0xcc8a0fb5ab3c7132c1b2a0109142fb112c4ce515**](https://etherscan.io/address/0xcc8a0fb5ab3c7132c1b2a0109142fb112c4ce515)
+
+created by [0xfd16f84e1f9bb5ec33b52d0133d61f7d20699658](https://etherscan.io/address/0xfd16f84e1f9bb5ec33b52d0133d61f7d20699658)) at block no. 12985434 (2021-08-08 16:01:13 UTC) - txid [0xb6a8df13518c626e85b3ad796a01a407dcf2f4f44953e906d9f4719e5a89fe54](https://etherscan.io/tx/0xb6a8df13518c626e85b3ad796a01a407dcf2f4f44953e906d9f4719e5a89fe54)
+
+###  nouns token | nouns - Aug 8, 2021
+
+contract @ [**0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03**](https://etherscan.io/address/0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03)
+
+created by [0xfd16f84e1f9bb5ec33b52d0133d61f7d20699658](https://etherscan.io/address/0xfd16f84e1f9bb5ec33b52d0133d61f7d20699658)) at block no. 12985438 (2021-08-08 16:02:23 UTC) - txid [0xe8aeb9055e334dc12e4e7cf16a7b630b1a070727c380caf65a03feccc26e0be3](https://etherscan.io/tx/0xe8aeb9055e334dc12e4e7cf16a7b630b1a070727c380caf65a03feccc26e0be3)
+
+###  nouns auction house - Aug 8, 2021
+
+contract @ [**0xf15a943787014461d94da08ad4040f79cd7c124e**](https://etherscan.io/address/0xf15a943787014461d94da08ad4040f79cd7c124e)
+
+created by [0xfd16f84e1f9bb5ec33b52d0133d61f7d20699658](https://etherscan.io/address/0xfd16f84e1f9bb5ec33b52d0133d61f7d20699658)) at block no. 12985445 (2021-08-08 16:03:33 UTC) - txid [0xa2f3f5be9be42806b10b4897415a8da717d72ea01f2b96cb5d1f04b65844825a](https://etherscan.io/tx/0xa2f3f5be9be42806b10b4897415a8da717d72ea01f2b96cb5d1f04b65844825a)
 
 ###  xpunks | expansion punks - Aug 15, 2021
 
@@ -124,7 +144,7 @@ contract @ [**0xd12882c8b5d1bccca57c994c6af7d96355590dbd**](https://etherscan.io
 
 created by [0xc874f918f29addeb8d0a377a625fcaa91007ca66](https://etherscan.io/address/0xc874f918f29addeb8d0a377a625fcaa91007ca66)) at block no. 14138557 (2022-02-04 08:57:46 UTC) - txid [0xd02314f9638dd3db61c85cfaf4d11dd3abf85952619e7a87aea43c72c6adb3b9](https://etherscan.io/tx/0xd02314f9638dd3db61c85cfaf4d11dd3abf85952619e7a87aea43c72c6adb3b9)
 
-###  synthetic punks | synth punks - Feb 13, 2022
+###  synth punks | synthetic punks - Feb 13, 2022
 
 _erc721_
 
@@ -140,6 +160,12 @@ contract @ [**0x23581767a106ae21c074b2276d25e5c3e136a68b**](https://etherscan.io
 
 created by [0x6c8984baf566db08675310b122bf0be9ea269eca](https://etherscan.io/address/0x6c8984baf566db08675310b122bf0be9ea269eca)) at block no. 14591056 (2022-04-15 16:38:30 UTC) - txid [0xd4547dc336dd4a0655f11267537964d7641f115ef3d5440d71514e3efba9d210](https://etherscan.io/tx/0xd4547dc336dd4a0655f11267537964d7641f115ef3d5440d71514e3efba9d210)
 
+###  nouns descriptor v2 - Jul 14, 2022
+
+contract @ [**0x6229c811d04501523c6058bfaac29c91bb586268**](https://etherscan.io/address/0x6229c811d04501523c6058bfaac29c91bb586268)
+
+created by [0xac56e6156c9c0c56b6d9a4e8388799f25d7feb86](https://etherscan.io/address/0xac56e6156c9c0c56b6d9a4e8388799f25d7feb86)) at block no. 15141356 (2022-07-14 14:40:29 UTC) - txid [0x2d1785073b0eac3fefc126badf6cfee3128639a35e439dcee7255f2397e9d531](https://etherscan.io/tx/0x2d1785073b0eac3fefc126badf6cfee3128639a35e439dcee7255f2397e9d531)
+
 ###  marcs | crypto marcs - Jul 17, 2022
 
 _erc721_
@@ -147,6 +173,12 @@ _erc721_
 contract @ [**0xe9b91d537c3aa5a3fa87275fbd2e4feaaed69bd0**](https://etherscan.io/address/0xe9b91d537c3aa5a3fa87275fbd2e4feaaed69bd0)
 
 created by [0xdf12dba344515c98f866af1436245438cd7d8566](https://etherscan.io/address/0xdf12dba344515c98f866af1436245438cd7d8566)) at block no. 15161039 (2022-07-17 15:49:16 UTC) - txid [0xf6cca6972347e21871d55febe8f091e1d9d7584919826bce9d5ced237e8dd937](https://etherscan.io/tx/0xf6cca6972347e21871d55febe8f091e1d9d7584919826bce9d5ced237e8dd937)
+
+###  synth nouns | synthetic nouns - Jul 23, 2022
+
+contract @ [**0x8761b55af5a703d5855f1865db8fe4dd18e94c53**](https://etherscan.io/address/0x8761b55af5a703d5855f1865db8fe4dd18e94c53)
+
+created by [0x970a2bafd2bea9f62592e9b036bf07c287078151](https://etherscan.io/address/0x970a2bafd2bea9f62592e9b036bf07c287078151)) at block no. 15198659 (2022-07-23 11:31:20 UTC) - txid [0xd730f037162e1c9602d2881ceb4600b5d595e0032b21a9e77157e668f35e28be](https://etherscan.io/tx/0xd730f037162e1c9602d2881ceb4600b5d595e0032b21a9e77157e668f35e28be)
 
 ###  mad camels - Sep 4, 2022
 
@@ -187,6 +219,12 @@ _erc721_
 contract @ [**0x2204a94f96d39df3b6bc0298cf068c8c82dc8d61**](https://etherscan.io/address/0x2204a94f96d39df3b6bc0298cf068c8c82dc8d61)
 
 created by [0x29323644b5540d20e834578943a2bd91027699b1](https://etherscan.io/address/0x29323644b5540d20e834578943a2bd91027699b1)) at block no. 15816968 (2022-10-24 09:07:47 UTC) - txid [0xa4af8ee34de9681242bdec6b690aa98dc8325f0d7a3719300d7566d5af24ebfa](https://etherscan.io/tx/0xa4af8ee34de9681242bdec6b690aa98dc8325f0d7a3719300d7566d5af24ebfa)
+
+###  punks meta | punks token uri - Dec 4, 2022
+
+contract @ [**0xd8e916c3016be144eb2907778cf972c4b01645fc**](https://etherscan.io/address/0xd8e916c3016be144eb2907778cf972c4b01645fc)
+
+created by [0xc43473fa66237e9af3b2d886ee1205b81b14b2c8](https://etherscan.io/address/0xc43473fa66237e9af3b2d886ee1205b81b14b2c8)) at block no. 16111829 (2022-12-04 13:45:59 UTC) - txid [0x0d073c189b337ced2275e2f717b6ddd596e306de7e594588f12132d7fefb33ac](https://etherscan.io/tx/0x0d073c189b337ced2275e2f717b6ddd596e306de7e594588f12132d7fefb33ac)
 
 ###  punk blocks - Dec 9, 2022
 
