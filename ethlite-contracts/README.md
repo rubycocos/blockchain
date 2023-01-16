@@ -30,7 +30,7 @@ contract.totalSupply    # as of Jan/16, 2023
 
 token_ids = [1,2,3]
 token_ids.each do |token_id|
-  pp seeds = contract.seeds( token_id )
+  seeds = contract.seeds( token_id )
   #=> [1, 20, 95, 88, 14]
   #  for background, body, accessory, head, glasses
 
@@ -39,7 +39,6 @@ token_ids.each do |token_id|
     str = str.sub( 'data:application/json;base64,', '' )
     ## get metadata (base64-encoded)
     data = JSON.parse( Base64.decode64( str ) )
-    pp data
 #=>  {"name"=>"Noun 1",
 #      "description"=>"Noun 1 is a member of the Nouns DAO",
 #      "image"=> "data:image/svg+xml;base64..."
