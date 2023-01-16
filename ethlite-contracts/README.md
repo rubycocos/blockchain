@@ -44,7 +44,7 @@ token_ids.each do |token_id|
 #      "description"=>"Noun 1 is a member of the Nouns DAO",
 #      "image"=> "data:image/svg+xml;base64..."
 #     }
-    str_image = data.delete( 'image' )
+    str_image = data['image']
     str_image = str_image.sub( 'data:image/svg+xml;base64,', '' )
     image = Base64.decode64( str_image )
     write_text( "./tmp/noun#{token_id}.svg", image )
