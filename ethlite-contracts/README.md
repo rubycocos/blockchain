@@ -46,7 +46,7 @@ token_ids.each do |token_id|
     str_image = data['image']
     str_image = str_image.sub( 'data:image/svg+xml;base64,', '' )
     image = Base64.decode64( str_image )
-    write_text( "./tmp/noun#{token_id}.svg", image )
+    write_text( "nouns/noun#{token_id}.svg", image )
   else
     puts "!! ERROR - expected json base64-encoded; got:"
     pp str
