@@ -15,7 +15,16 @@ recs = [
  ['moonbirds',   'Moonbirds',  '0x23581767a106ae21c074b2276d25e5c3e136a68b'],
  ['marcs',       'Marcs',      '0xe9b91d537c3aa5a3fa87275fbd2e4feaaed69bd0'],
  ['mad_camels',  'MadCamels',  '0xad8474ba5a7f6abc52708f171f57fefc5cdc8c1c' ],
+
+ ['nouns_descriptor',    'NounsDescriptor',   '0x0cfdb3ba1694c2bb2cfacb0339ad7b1ae5932b63'],
+  ['nouns_seeder',        'NounsSeeder',       '0xcc8a0fb5ab3c7132c1b2a0109142fb112c4ce515'],
+  ['nouns',               'Nouns',             '0x9c8ff314c9bc7f6e59a9d9225fb22946427edc03'],
+  ['nouns_auction_house', 'NounsAuctionHouse', '0xf15a943787014461d94da08ad4040f79cd7c124e'],
+
+  ['nouns_descriptor_v2', 'NounsDescriptorV2', '0x6229c811d04501523c6058bfaac29c91bb586268'],
+  ['synth_nouns',         'SynthNouns',        '0x8761b55af5a703d5855f1865db8fe4dd18e94c53'],
 ]
+
 
 recs.each do |name1, name2, address|
   abi = ABI.read( "../../awesome-contracts/address/#{address}/abi.json" )

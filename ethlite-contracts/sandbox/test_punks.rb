@@ -1,6 +1,6 @@
 ###
 #  to run use
-#     ruby -I ./lib sandbox/test_call.rb
+#     ruby -I ./lib sandbox/test_punks.rb
 
 
 

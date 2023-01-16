@@ -1,6 +1,6 @@
 # Ethname - Free Crowd-Sourced "Off-Chain" Eth(erum) Name Service
 
-ethname - light-weight crowd-sourced "off-chain" ethereum name to (contract) address service / helper (incl. punks v1,v2,v3,v4; phunks v1,v2, synth punks, punk blocks, etc.)  - yes, you can! - add more names / contracts via git ;-)
+ethname - light-weight crowd-sourced "off-chain" ethereum name to (contract) address service / helper (incl. punks v1,v2,v3,v4; phunks v1,v2, synth punks, punk blocks, nouns, nouns descriptor, synth nouns, etc.)  - yes, you can! - add more names / contracts via git ;-)
 
 
 * home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)
