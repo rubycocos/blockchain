@@ -1,4 +1,5 @@
 require 'abiparser'
+require 'natspec'
 
 
 ## our own code
@@ -10,9 +11,19 @@ module ABI
   class Contract
 
 
-def generate_doc( title: 'Contract ABI' )
+def generate_doc( title: 'Contract ABI',
+                  natspec: nil )
   buf = ''
   buf << "# #{title}\n\n"
+
+  if natspec && natspec.head.size > 0
+    natspec.head.each do |line|
+       buf <<  (line.empty? ? "\n" : "#{line}\n")
+    end
+ end
+ buf << "\n\n"
+
+
 
   if @ctor
     buf << "\n"
@@ -39,12 +50,22 @@ def generate_doc( title: 'Contract ABI' )
     end
   end
 
+
   if query_functions.size > 0
     buf << "\n"
     buf << "**#{query_functions.size} Query Functions(s)**\n\n"
     query_functions.each do |func|
-      buf << "- #{func.doc} _readonly_\n"
-      ## buf << "  - sig #{func.sig}  =>  0x#{sig(func.sig).hexdigest}\n"
+      if natspec && (natspec.storage[ func.name] || natspec.functions[ func.name ])
+        sect = natspec.storage[ func.name ] || natspec.functions[ func.name ]
+        buf << "-  #{sect[0]}"
+        sect[1].each do |line|
+              buf <<  (line.empty? ? " <br>" : " <br> #{line}")
+             end
+        buf << "\n"
+      else
+       buf << "- #{func.doc} _readonly_\n"
+       ## buf << "  - sig #{func.sig}  =>  0x#{sig(func.sig).hexdigest}\n"
+      end
     end
   end
 
