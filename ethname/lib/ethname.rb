@@ -13,6 +13,7 @@ def self.dir
    @dir ||= Directory.read( "#{root}/config/contracts.2017.csv",
                             "#{root}/config/contracts.2021.csv",
                             "#{root}/config/contracts.2022.csv",
+                            "#{root}/config/contracts.2023.csv",
                             )
 end
 class << self

@@ -5,6 +5,7 @@ Rakefile
 config/contracts.2017.csv
 config/contracts.2021.csv
 config/contracts.2022.csv
+config/contracts.2023.csv
 lib/ethname.rb
 lib/ethname/directory.rb
 lib/ethname/version.rb
