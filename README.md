@@ -23,6 +23,7 @@ Gems:
 - [abidoc](abidoc) - application binary interface (abi) documentation generator for Ethereum & Co. (blockchain) contracts
 - [abigen](abigen) - generate ready-to-use (blockchain) contract services / function calls for ethereum & co. via application binary interfaces (abis)
 - [abibase](abibase) - command line tool / helper to manage application binary interfaces (abis)
+- [solidity](solidity) - (fuzzy) parser for (crypto) contracts for ethereum & co.
 - [ethlite](ethlite) - light-weight machinery to query / call ethereum (blockchain contract) services via json-rpc (incl. tuple support)
 - [ethlite-contracts](ethlite-contracts) - pre-packaged ready-to-use "out-of-the-gem" (blockchain) contract services / function calls for ethereum & co
 - [etherscan-lite](etherscan-lite) - light-weight machinery / helper for the Etherscan (blockchain) JSON HTTP API / web services (note: API key sign-up required)

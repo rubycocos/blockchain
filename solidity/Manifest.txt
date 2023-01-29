@@ -1,0 +1,6 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+lib/solidity.rb
+lib/solidity/version.rb
