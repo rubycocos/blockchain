@@ -10,10 +10,17 @@ require_relative 'solidity/version'    # note: let version always go first
 module Solidity
 
 class Parser
+
+   def self.read( path )
+      txt = read_text( path )
+      new( txt )
+   end
+
+
+
    def initialize( txt )
      @txt = txt
    end
-
 
    SINGLE_COMMENT_RX         = %r{^[ ]*//}
    MULTI_COMMENT_BEGIN_RX    = %r{^[ ]*/\*}

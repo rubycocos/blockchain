@@ -24,9 +24,7 @@ Get / generate outline from source in the solidity (`.sol`) contract programming
 ].each do |addr|
 
   path = "awesome-contracts/address/#{addr}/contract.sol"
-  txt = read_text( path )
-
-  parser = Solidity::Parser.new( txt )
+  parser = Solidity::Parser.read( path )
 
   puts "---"
   puts "outline:"

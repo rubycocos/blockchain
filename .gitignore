@@ -1,6 +1,7 @@
 # do NOT check in dev/test enviroment variables in .env (dot env files)
 .env
-
+.env.yml
+.env.yaml
 
 ##
 # ignore tmp directories
