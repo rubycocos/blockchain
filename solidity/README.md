@@ -65,6 +65,7 @@ library Address
 library Base64
 abstract contract Context
 library MerkleProof
+interface ERC721A__IERC721Receiver
 contract ERC721A is IERC721A
 interface IERC721A
 ```

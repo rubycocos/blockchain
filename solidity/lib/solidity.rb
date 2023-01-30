@@ -22,69 +22,120 @@ class Parser
      @txt = txt
    end
 
-   SINGLE_COMMENT_RX         = %r{^[ ]*//}
-   MULTI_COMMENT_BEGIN_RX    = %r{^[ ]*/\*}
-   MULTI_COMMENT_END_RX      = %r{\*/[ ]*$}
 
-   ID = '[a-zA-Z][a-zA-Z0-9]*'
+  ###############
+  ## quotes
+  ##
+  ## note: regex pattern \\ needs to get escaped twice, thus, \\.
+  ##  and for literal \\ use \\\\\.
 
-   PRAGMA_RX            = %r{^[ ]*pragma}
-   LIBRARY_RX           = %r{^[ ]*library[ ]+(?<id>#{ID})[ \{]}
-   ABSTRACT_CONTRACT_RX = %r{^[ ]*abstract[ ]+contract[ ]+(?<id>#{ID})[ \{]}
-   CONTRACT_RX          = %r{^[ ]*contract[ ]+(?<id>#{ID})[ \{]}
-   INTERFACE_RX         = %r{^[ ]*interface[ ]+(?<id>#{ID})[ \{]}
+  ## => \\\\.    --  allow backslash escapes e.g. \n \t \\ etc.
+  ## => [^`]     --  everything except backquote
 
+  ## todo/fix - check if [^`] includes/matches newline too (yes)? -- add \n for multi-line!
+
+  SINGLE_QUOTE       = %r{'
+                           ( \\\\. | [^'] )*
+                         '}x
+
+  DOUBLE_QUOTE       = %r{"
+                           ( \\\\. | [^"] )*
+                          "}x
+
+
+   NAME                    = /[a-zA-Z][a-zA-Z0-9_]*/
+   END_OF_LINE             = /\n|$/
+   ## inline comments (multi- or end-of-line)
+   END_OF_LINE_OR_COMMENT_OR_KEYWORD_OR_QUOTE  = / \n
+                                         | $
+                                         | (?=['"])
+                                         | (?=\/(\/|\*))
+                                         | (?=pragma\b)
+                                         | (?=contract\b)
+                                         | (?=abstract\b)
+                                         | (?=library\b)
+                                         | (?=interface\b)
+                                       /x
+
+
+   def _norm_whitespace( str )
+      ## change newlines to spaces and
+      ##   all multiple spaces to one
+      str = str.gsub( /[ \t\n\r]+/, ' ' )
+      str.strip
+   end
 
    def _quick_pass_one
+     ## note:  CANNOT handle inline comments
+     ##           in pragma, contract, etc.  (get "silently" slurped)
+     ##         report a parse error - if comments slurped - why? why not?
+     ##
+
+
      tree = []
-     node = nil
 
-     inside_comment = false
+     s = StringScanner.new( @txt )
 
-     @txt.each_line do |line|
-         line = line.chomp ## remove trailing newline
-         ## pp line
-
-         if inside_comment
-            node[1] << line
-            if  MULTI_COMMENT_END_RX.match( line )
-               tree << node
-               inside_comment = false
-            end
-         else
-           if SINGLE_COMMENT_RX.match( line )   #  end-of-line comments
-               line = line.strip  ## remove leading & trailing spaces
-               ## note: fold end-of-line comments into a block (if not separated by newline)
-               node = tree[-1]
-               if  node.is_a?( Array ) &&
-                   node[0] == :comment && node[1][0].start_with?( '//' )
-                  node[1] << line
-               else
-                 tree << [:comment, [line]]
-               end
-           elsif MULTI_COMMENT_BEGIN_RX.match( line )
-              inside_comment = true
-              node = [:comment, [line]]
-           elsif PRAGMA_RX.match( line )
-              line = line.strip
-              tree << [:pragma, line]
-           elsif LIBRARY_RX.match( line )
-              line = line.strip
-              tree << [:library, line]
-           elsif ABSTRACT_CONTRACT_RX.match( line )
-              line = line.strip
-              tree << [:abstract_contract, line]
-           elsif CONTRACT_RX.match( line )
-              line = line.strip
-              tree << [:contract, line]
-           elsif INTERFACE_RX.match( line )
-              line = line.strip
-              tree << [:interface, line]
-           else
-              tree << line
-           end
-         end
-     end # each_line
+     loop do
+       s.skip( /[ \t]+/ )  ## note: do NOT skip newlines here; pass along blank/empty lines for now - why? why not?
+       if s.check( "'" )   ## single-quoted string
+          str = s.scan( SINGLE_QUOTE )
+          tree << [:string, str]
+       elsif s.check( '"' )  ## double-quoted string
+          str = s.scan( DOUBLE_QUOTE )
+          tree << [:string, str]
+       elsif s.check( '/*' )
+          comment = s.scan_until( /\*\// )
+          ## print "multi-line comment:"
+          ## pp comment
+          tree << [:comment, comment]
+       elsif s.check( '//' )
+          comment = s.scan_until( END_OF_LINE ).rstrip
+          ## print "comment:"
+          ## pp comment
+          tree << [:comment, comment]
+       else
+          name = s.check( NAME )
+          case name
+          when 'pragma'
+             code = s.scan_until( /;/ )
+             code = _norm_whitespace( code )
+             ## print "pragma:"
+             ## pp code
+             tree << [:pragma, code]
+          when 'contract'
+             code = s.scan_until( /(?=\{)/ )
+             code = _norm_whitespace( code )
+             ## print "contract:"
+             ## pp code
+             tree << [:contract, code]
+          when 'abstract'
+            code = s.scan_until( /(?=\{)/ )
+            code = _norm_whitespace( code )
+            ## print "abstract contract:"
+            ## pp code
+            tree << [:abstract_contract, code]
+         when 'library'
+            code = s.scan_until( /(?=\{)/ )
+            code = _norm_whitespace( code )
+            ## print "library:"
+            ## pp code
+            tree << [:library, code]
+          when 'interface'
+            code = s.scan_until( /(?=\{)/ )
+            code = _norm_whitespace( code )
+            ## print "interface:"
+            ## pp code
+            tree << [:interface, code]
+          else
+            ## slurp chunk ,that is, until newline or comment or tracked keyword
+            chunk = s.scan_until( END_OF_LINE_OR_COMMENT_OR_KEYWORD_OR_QUOTE ).rstrip
+            ## puts "chunk: >#{chunk.inspect}<"
+            tree << chunk
+          end
+       end
+       break if s.eos?
+      end
 
      tree
    end
