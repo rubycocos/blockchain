@@ -9,9 +9,9 @@ require 'solidity'
 ## addr = "0x34625ecaa75c0ea33733a05c584f4cf112c10b6b"
 addr = "0x031920cc2d9f5c10b444fd44009cd64f829e7be2"
 
-path = "../../awesome-contracts/address/#{addr}/contract.sol"
+## path = "../../awesome-contracts/address/#{addr}/contract.sol"
 
-## path = "./sandbox/contract2.sol"
+path = "./sandbox/contract6.sol"
 
 parser = Solidity::Parser.read( path )
 pp parser._quick_pass_one
