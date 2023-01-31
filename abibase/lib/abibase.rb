@@ -6,7 +6,11 @@ require 'optparse'
 
 require 'etherscan-lite'
 require 'abidoc'
+require 'solidity'
 
+
+
+require_relative 'abibase/directory'
 
 
 def format_code( txt )
@@ -130,9 +134,13 @@ class Tool
     puts "args:"
     pp args
 
-    command          = args[0] || 'download'
+    command          = args[0] || 'add'
 
-    if ['d', 'dl', 'download'].include?( command )
+    if ['a', 'add'].include?( command )
+      do_add
+    elsif ['l', 'ls', 'list'].include?( command )
+      do_list
+    elsif ['d', 'dl', 'download'].include?( command )
       do_download_abis
     elsif ['code'].include?( command )
       do_download_code
@@ -148,6 +156,40 @@ class Tool
   end
 
 
+  def self.do_add
+    puts "==> add abis..."
+
+    recs = read_csv( "./contracts.csv" )
+    puts "   #{recs.size} record(s)"
+  end
+
+  def self.do_list
+    puts "==> list contracts..."
+
+    #    recs = read_meta( "./address" )
+
+    each_contract do |meta|
+      puts "==> #{meta.addr}"
+
+      print "  name: "
+      puts  meta.name
+      print "  names (#{meta.names.size}): "
+      puts  meta.names.join(' | ' )
+
+      print "  timestamp: "
+      puts  meta.timestamp
+
+      print "  created: "
+      puts  meta.created
+
+      print "  block: "
+      puts  meta.block
+      print "  txid: "
+      puts  meta.txid
+      print "  creator: "
+      puts  meta.creator
+    end
+  end
 
 
 
@@ -237,15 +279,72 @@ class Tool
     end
   end
 
-
-
   def self.do_generate_docs
+    puts "==> generate docs..."
+
+    each_contract do |meta|
+
+       addr = meta.addr
+       ##  add solidity contract outline
+       parser = Solidity::Parser.read( "./address/#{addr}/contract.sol" )
+
+       buf = String.new( '' )
+       buf << "Contract outline - [contract.sol](contract.sol):\n\n"
+       buf << "```\n"
+       buf << parser.outline
+       buf << "```\n"
+       buf << "\n\n"
+
+       ## add some more metadata
+       buf << "Created on Ethereum Mainnet:\n"
+       buf << "- Block #{meta.block} @ #{meta.created} (#{meta.timestamp})\n"
+       buf << "- Tx Id #{meta.txid}\n"
+       buf << "- By #{meta.creator}\n"
+       buf << "\n\n"
+
+
+       abi = ABI.read( "./address/#{addr}/abi.json" )
+
+       natspec =  if File.exist?( "./address/#{addr}/contract.md" )
+                     Natspec.read( "./address/#{addr}/contract.md" )
+                  else
+                    nil
+                  end
+
+       buf << abi.generate_doc( title: "#{meta.names.join(' | ')} - Contract ABI @ #{addr}",
+                                natspec: natspec )
+       puts buf
+
+       write_text( "./address/#{addr}/README.md", buf )
+
+       buf =  abi.generate_interface( name: '' )    # solidity interface declarations (source code)
+       write_text( "./address/#{addr}/interface.sol", buf )
+    end
+  end
+
+
+
+
+  def self.do_generate_docs_old
     puts "==> generate docs..."
 
     paths = Dir.glob( "./address/**/abi.json" )
     ## paths = paths[0..2]
     paths.each do |path|
        basename = File.basename( File.dirname( path ))
+
+
+       ##  add solidity contract outline
+       parser = Solidity::Parser.read( "./address/#{basename}/contract.sol" )
+
+       buf = String.new( '' )
+       buf << "Contract outline:\n\n"
+       buf << "```\n"
+       buf << parser.outline
+       buf << "```\n"
+       buf << "(source: [contract.sol](contract.sol))\n"
+       buf << "\n\n"
+
 
        abi = ABI.read( path )
 
@@ -255,9 +354,10 @@ class Tool
                     nil
                   end
 
-       buf = abi.generate_doc( title: "Contract ABI - #{basename}",
-                               natspec: natspec )
+       buf << abi.generate_doc( title: "Contract ABI - #{basename}",
+                                natspec: natspec )
        puts buf
+
        write_text( "./address/#{basename}/README.md", buf )
 
        buf =  abi.generate_interface( name: '' )    # solidity interface declarations (source code)
