@@ -95,24 +95,24 @@ Note:  The outline includes:
 
 1. contract definitions e.g.
 
-      contract NounsDescriptor is INounsDescriptor, Ownable
+        contract NounsDescriptor is INounsDescriptor, Ownable
 
 2. abstract contract definitions e.g.
 
-      abstract contract Ownable is Context
-      abstract contract Context
+        abstract contract Ownable is Context
+        abstract contract Context
 
 3. library definitions e.g.
 
-      library Strings
-      library NFTDescriptor
-      library MultiPartRLEToSVG
-      library Base64
+        library Strings
+        library NFTDescriptor
+        library MultiPartRLEToSVG
+        library Base64
 
 4. interface definitions e.g.
 
-      interface INounsDescriptor
-      interface INounsSeeder
+        interface INounsDescriptor
+        interface INounsSeeder
 
 
 
