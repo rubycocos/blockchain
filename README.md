@@ -1,3 +1,17 @@
+---
+
+_The Ruby Programming Language for Contract / Transaction Scripts on the Blockchain World Computer - Yes, It's Just Ruby_
+
+**sruby - Small, Smart, Secure, Safe, Solid & Sound (S6) Ruby**
+
+sruby is a subset of mruby that is a subset of "classic" ruby.
+
+
+For more see the [**Red Paper »**](https://github.com/s6ruby/redpaper)
+
+---
+
+
 # blockchain tools, libraries & scripts
 
 Gems:
