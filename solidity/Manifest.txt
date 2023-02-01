@@ -3,4 +3,5 @@ Manifest.txt
 README.md
 Rakefile
 lib/solidity.rb
+lib/solidity/parser.rb
 lib/solidity/version.rb

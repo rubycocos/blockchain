@@ -1,3 +1,20 @@
+
+---
+
+_The Ruby Programming Language for Contract / Transaction Scripts on the Blockchain World Computer - Yes, It's Just Ruby_
+
+**sruby - Small, Smart, Secure, Safe, Solid & Sound (S6) Ruby**
+
+sruby is a subset of mruby that is a subset of "classic" ruby.
+
+
+For more see the [**Red Paper »**](https://github.com/s6ruby/redpaper)
+
+---
+
+
+
+
 # Solidity
 
 solidity gem - (fuzzy) parser for (crypto) contracts for ethereum & co.
@@ -10,12 +27,34 @@ solidity gem - (fuzzy) parser for (crypto) contracts for ethereum & co.
 
 
 
+## New to the Solidity (Contract) Programming Language?
+
+_Official_
+
+Solidity Language @ <https://soliditylang.org>
+
+- Read the Docs @ <https://docs.soliditylang.org/en/latest/>
+- Blog @  <https://blog.soliditylang.org>
+- Forum @ <https://forum.soliditylang.org>
+- Source @ <https://github.com/ethereum/solidity>
+
+<!-- break -->
+
+_More_
+
+Solidity by Example @ <https://solidity-by-example.org>
+
+Learn X in Y Minutes (Where X=Solidity) @ <https://learnxinyminutes.com/docs/solidity>
+
+Awesome Solidity @ <https://github.com/bkrem/awesome-solidity>
+
+
+
 
 
 ## Usage
 
 Get / generate outline from source in the solidity (`.sol`) contract programming language:
-
 ```ruby
 [
  "0x34625ecaa75c0ea33733a05c584f4cf112c10b6b",
@@ -51,6 +90,36 @@ abstract contract Context
 library Base64
 ```
 
+
+Note:  The outline includes:
+
+1. contract definitions e.g.
+
+    contract NounsDescriptor is INounsDescriptor, Ownable
+
+2. abstract contract definitions e.g.
+
+    abstract contract Ownable is Context
+    abstract contract Context
+
+3. library definitions e.g.
+
+    library Strings
+    library NFTDescriptor
+    library MultiPartRLEToSVG
+    library Base64
+
+4. interface definitions e.g.
+
+    interface INounsDescriptor
+    interface INounsSeeder
+
+
+
+
+<!-- break -->
+
+More outline samples:
 
 ```
 outline:
@@ -93,6 +162,15 @@ interface IERC721Enumerable is IERC721
 library EnumerableSet
 ```
 
+
+
+
+
+## Bonus: Solidity (Fuzzy) Parser in the Wild / Real-World
+
+See [**Awesome (Ethereum) Contracts @ Open Blockchains »**](https://github.com/openblockchains/awesome-contracts)
+
+Add your usage here. Yes, you can.
 
 
 

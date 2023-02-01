@@ -1,25 +1,35 @@
 # Notes About Solidity
 
 
-## Todos
-
-fix moonbirds scan
-
-```
-interface ITokenURIGenerator
-contract Moonbirds is ERC721ACommon, BaseTokenURI, FixedPriceSeller, SignerManager, ERC2981, AccessControlEnumerable
-contract) external onlyOwner
-contract; } /** @notice If renderingContract is set then returns its tokenURI(tokenId) return value, otherwise returns the standard baseTokenURI + tokenId. */ function tokenURI(uint256 tokenId) public view override returns (string memory)
-contract ERC721A is Context, ERC165, IERC721, IERC721Metadata
-```
-
 
 
 ## More
 
-Solidity by Example -
+**Solidity**
+Docu:
+- Grammar @ <https://docs.soliditylang.org/en/latest/grammar.html>
 
-Solidity in x Minutes -
+Source:
+- Grammar (Parser) @ <https://github.com/ethereum/solidity/blob/develop/docs/grammar/SolidityParser.g4>
+- Grammar (Lexer) @ <https://github.com/ethereum/solidity/blob/develop/docs/grammar/SolidityLexer.g4>
 
-Awesome Solidity - <https://github.com/bkrem/awesome-solidity>
+
+
+
+**SolGrep** - A scriptable semantic grep utility for solidity
+- Source @ <https://github.com/tintinweb/solgrep>
+- Package @ <https://www.npmjs.com/package/solgrep>
+
+
+**Solidity Parser for JavaScript** - A Solidity parser for JS built on top of a robust ANTLR4 grammar
+- Source @ <https://github.com/solidity-parser/parser>
+- Package @ <https://www.npmjs.com/package/@solidity-parser/parser>
+
+
+
+**Solidity Language Grammar** -
+The ANTLR (ANother Tool for Language Recognition) grammar for Solidity
+- Source @ <https://github.com/solidity-parser/antlr>
+- Grammar @ <https://github.com/solidity-parser/antlr/blob/master/Solidity.g4>
+
 

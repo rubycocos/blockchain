@@ -1,6 +1,15 @@
 require 'hoe'
 require './lib/solidity/version.rb'
 
+
+###
+# hack/ quick fix for broken intuit_values - overwrite with dummy
+class Hoe
+  def intuit_values( input ); end
+end
+
+
+
 Hoe.spec 'solidity' do
 
   self.version = Solidity::VERSION
