@@ -48,8 +48,6 @@ require_relative 'abiparser/utils'
 require_relative 'abiparser/contract'
 require_relative 'abiparser/interface'
 
-require_relative 'abiparser/export/interface'
-
 
 
 
