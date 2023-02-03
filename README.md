@@ -36,6 +36,7 @@ Gems:
 - [abiparser](abiparser) - application binary interface (abi) parser machinery / helper for Ethereum & Co. (blockchain) contracts
 - [abidoc](abidoc) - application binary interface (abi) documentation generator for Ethereum & Co. (blockchain) contracts
 - [abigen](abigen) - generate ready-to-use (blockchain) contract services / function calls for ethereum & co. via application binary interfaces (abis)
+- [abi2sol](abi2sol) - command-line tool for application binary interface (abi) to solidity (contract) source code generation for Ethereum & Co.
 - [abibase](abibase) - command line tool / helper to manage application binary interfaces (abis)
 - [solidity](solidity) - (fuzzy) parser for (crypto) contracts for ethereum & co.
 - [ethlite](ethlite) - light-weight machinery to query / call ethereum (blockchain contract) services via json-rpc (incl. tuple support)
