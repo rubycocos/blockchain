@@ -1,0 +1,7 @@
+CHANGELOG.md
+Manifest.txt
+README.md
+Rakefile
+bin/abi2sol
+lib/abi2sol.rb
+lib/abi2sol/generate.rb

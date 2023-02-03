@@ -1,20 +1,3 @@
-
----
-
-_The Ruby Programming Language for Contract / Transaction Scripts on the Blockchain World Computer - Yes, It's Just Ruby_
-
-**sruby - Small, Smart, Secure, Safe, Solid & Sound (S6) Ruby**
-
-sruby is a subset of mruby that is a subset of "classic" ruby.
-
-
-For more see the [**Red Paper »**](https://github.com/s6ruby/redpaper)
-
----
-
-
-
-
 # Solidity
 
 solidity gem - (fuzzy) parser for (crypto) contracts for ethereum & co.
@@ -29,25 +12,7 @@ solidity gem - (fuzzy) parser for (crypto) contracts for ethereum & co.
 
 ## New to the Solidity (Contract) Programming Language?
 
-_Official_
-
-Solidity Language @ <https://soliditylang.org>
-
-- Read the Docs @ <https://docs.soliditylang.org/en/latest/>
-- Blog @  <https://blog.soliditylang.org>
-- Forum @ <https://forum.soliditylang.org>
-- Source @ <https://github.com/ethereum/solidity>
-
-<!-- break -->
-
-_More_
-
-Solidity by Example @ <https://solidity-by-example.org>
-
-Learn X in Y Minutes (Where X=Solidity) @ <https://learnxinyminutes.com/docs/solidity>
-
-Awesome Solidity @ <https://github.com/bkrem/awesome-solidity>
-
+See [**Awesome Solidity @ Open Blockchains »**](https://github.com/openblockchains/awesome-solidity)
 
 
 
