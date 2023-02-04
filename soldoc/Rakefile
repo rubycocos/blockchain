@@ -1,0 +1,38 @@
+require 'hoe'
+
+
+###
+# hack/ quick fix for broken intuit_values - overwrite with dummy
+class Hoe
+  def intuit_values( input ); end
+end
+
+
+Hoe.spec 'soldoc' do
+
+  self.version = '0.0.1'
+
+  self.summary = "soldoc gem - command-line tool for solidity (contract) source code documentationn for Ethereum & Co."
+  self.description = summary
+
+  self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
+
+  self.author  = 'Gerald Bauer'
+  self.email   = 'wwwmake@googlegroups.com'
+
+  # switch extension to .markdown for gihub formatting
+  self.readme_file  = 'README.md'
+  self.history_file = 'CHANGELOG.md'
+
+  self.extra_deps = [
+    ['solidity'],
+  ]
+
+  self.licenses = ['Public Domain']
+
+  self.spec_extras = {
+    required_ruby_version: '>= 2.3'
+  }
+
+end
+
