@@ -154,11 +154,39 @@ class Lexer
       ## note: returns type lexeme (string content) for now
       ##            and NOT token struct for now - why? why not?
       t = @tokens[@pos]
-      tt =  t.nil? || t.is_a?( String ) ? t : t[1]
+      str =  t.nil? || t.is_a?( String ) ? t : t[1]
       @pos += 1      unless t.nil?
-      tt
+      str
    end
    def eos?()  peek().nil?; end
+
+
+
+
+   #################################################
+   #  "higher-level" helpers
+   def scan_until( tt, include: false )
+      code = String.new('')
+      while (peek=self.peek) != tt do
+         ## note:  turn inline comments into a single space
+         code <<   if peek == :comment
+                       self.next   ## note: next (w/o self) is parsed as keyword
+                       ' '
+                   else
+                       self.next  ## note: next (w/o self) is parsed as keyword
+                   end
+      end
+      code << self.next       if include  ## include ';' too - why? why not?
+      code = _norm_whitespace( code )
+      code
+   end
+
+   def _norm_whitespace( str )
+      ## change newlines to spaces and
+      ##   all multiple spaces to one
+      str = str.gsub( /[ \t\n\r]+/, ' ' )
+      str.strip
+   end
 
 
 

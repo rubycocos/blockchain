@@ -17,30 +17,6 @@ class Parser
 
 
 
-   def _scan_until( lex, tt, include: false )
-      code = String.new('')
-      while (peek=lex.peek) != tt do
-         ## note:  turn inline comments into a single space
-         code <<   if peek == :comment
-                       lex.next
-                       ' '
-                   else
-                        lex.next
-                   end
-      end
-      code << lex.next     if include  ## include ';' too - why? why not?
-      code = _norm_whitespace( code )
-      code
-   end
-
-   def _norm_whitespace( str )
-      ## change newlines to spaces and
-      ##   all multiple spaces to one
-      str = str.gsub( /[ \t\n\r]+/, ' ' )
-      str.strip
-   end
-
-
    def _quick_pass_one
      tree = []
 
@@ -55,28 +31,28 @@ class Parser
        when :comment  ## single or multi-line comment
            tree << [:comment, lex.next]
        when :pragma
-            code = _scan_until( lex, :';',
-                                 include: true )
+            code = lex.scan_until( :';',
+                                   include: true )
              ## print "pragma:"
              ## pp code
              tree << [:pragma, code]
        when :contract
-             code = _scan_until( lex, :'{' )
+             code = lex.scan_until( :'{' )
              ## print "contract:"
              ## pp code
              tree << [:contract, code]
        when :abstract
-             code = _scan_until( lex, :'{' )
+             code = lex.scan_until( :'{' )
              ## print "abstract contract:"
              ## pp code
              tree << [:abstract_contract, code]
        when :library
-             code = _scan_until( lex, :'{' )
+             code = lex.scan_until( :'{' )
              ## print "library:"
              ## pp code
              tree << [:library, code]
        when :interface
-             code = _scan_until( lex, :'{' )
+             code = lex.scan_until( :'{' )
              ## print "interface:"
              ## pp code
              tree << [:interface, code]
