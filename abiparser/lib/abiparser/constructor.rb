@@ -14,6 +14,21 @@ class Constructor
     payable = nil
 
     ## old soliditity before v0.6
+    ## check - assert "strict" abi version keys - why? why not?
+    if o.has_key?( 'stateMutability' ) && (o.has_key?( 'payable') || o.has_key?( 'constant'))
+      puts "!! WARN:  ABI version mismatch? got stateMutability AND (payable AND/OR constant):"
+      pp o
+    end
+
+    if o.has_key?( 'constant')
+      puts "!! WARN: constant for constructor possible?"
+      pp o
+      exit 1
+    end
+
+    payable = o['payable']    if o.has_key?( 'payable')
+
+
     ##  newer version uses stateMutability
     if o.has_key?( 'stateMutability' )
       case o[ 'stateMutability' ]
@@ -27,21 +42,6 @@ class Constructor
          raise ArgumentError, "unexpected stateMutability (constructor) value ; got: #{ o[ 'stateMutability' ]}"
       end
     end
-
-    ## check - assert "strict" abi version keys - why? why not?
-    if o.has_key?( 'stateMutability' ) && (o.has_key?( 'payable') || o.has_key?( 'constant'))
-      pp o
-      puts "!! WARN:  ABI version mismatch? got stateMutability AND payable OR constant"
-      exit 1
-    end
-
-    if o.has_key?( 'constant')
-      pp o
-      puts "!! WARN: constant for constructor possible?"
-      exit 1
-    end
-
-    payable = o['payable']    if o.has_key?( 'payable')
 
     new( inputs: inputs,  payable: payable )
   end

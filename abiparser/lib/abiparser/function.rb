@@ -11,7 +11,20 @@ class Function
     constant = nil
     pure     = nil
 
+
+
+
     ## old soliditity before v0.6
+    payable = o['payable']    if o.has_key?( 'payable')
+    constant = o['constant']  if o.has_key?( 'constant')
+
+    ## check - assert "strict" abi version keys - why? why not?
+    if o.has_key?( 'stateMutability' ) && (o.has_key?( 'payable') || o.has_key?( 'constant'))
+      puts "!! WARN:  ABI version mismatch? got stateMutability AND (payable AND/OR constant):"
+      pp o
+    end
+
+
     ##  newer version uses stateMutability
     if o.has_key?( 'stateMutability' )
       case o[ 'stateMutability' ]
@@ -35,15 +48,6 @@ class Function
       end
     end
 
-    ## check - assert "strict" abi version keys - why? why not?
-    if o.has_key?( 'stateMutability' ) && (o.has_key?( 'payable') || o.has_key?( 'constant'))
-       pp o
-       puts "!! WARN:  ABI version mismatch? got stateMutability AND payable OR constant"
-       exit 1
-    end
-
-    payable = o['payable']    if o.has_key?( 'payable')
-    constant = o['constant']  if o.has_key?( 'constant')
 
 
     new( name, inputs: inputs, outputs: outputs,
