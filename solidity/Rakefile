@@ -14,7 +14,7 @@ Hoe.spec 'solidity' do
 
   self.version = Solidity::VERSION
 
-  self.summary = "solidity - (fuzzy) parser for (crypto) contracts for ethereum & co."
+  self.summary = "solidity - (fuzzy) lexer & parser for (crypto) contracts for ethereum & co."
   self.description = summary
 
   self.urls    = { home: 'https://github.com/rubycocos/blockchain' }

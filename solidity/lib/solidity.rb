@@ -3,6 +3,7 @@ require 'cocos'
 
 ## our own code
 require_relative 'solidity/version'    # note: let version always go first
+require_relative 'solidity/lexer'
 require_relative 'solidity/parser'
 
 

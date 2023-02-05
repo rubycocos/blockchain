@@ -1,6 +1,6 @@
 # Solidity
 
-solidity gem - (fuzzy) parser for (crypto) contracts for ethereum & co.
+solidity gem - (fuzzy) lexer & parser for (crypto) contracts for ethereum & co.
 
 
 * home  :: [github.com/rubycocos/blockchain](https://github.com/rubycocos/blockchain)
