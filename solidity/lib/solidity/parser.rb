@@ -23,13 +23,11 @@ class Parser
      lex = Lexer.new( @txt )
 
      until lex.eos?
-       while lex.peek == :sp do   ## note: do NOT skip newlines here; pass along blank/empty lines for now - why? why not?
-           lex.next
-       end
-
        case lex.peek
        when :comment  ## single or multi-line comment
            tree << [:comment, lex.next]
+           ## note:  if next token is newline - slurp / ignore
+           lex.next    if lex.peek == :nl
        when :pragma
             code = lex.scan_until( :';',
                                    include: true )

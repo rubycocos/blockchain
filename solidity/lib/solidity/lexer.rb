@@ -43,14 +43,13 @@ class Lexer
   ## SingleQuotedStringCharacter
   ##   : ~['\r\n\\] | ('\\' .) ;
 
+  DOUBLE_QUOTE       = %r{"
+                           ( \\\\. | [^"\r\n\\] )*
+                          "}x
 
   SINGLE_QUOTE       = %r{'
-                           ( \\\\. | [^'] )*
+                           ( \\\\. | [^'\r\n\\] )*
                          '}x
-
-  DOUBLE_QUOTE       = %r{"
-                           ( \\\\. | [^"] )*
-                          "}x
 
 
   ## from the solidity grammar
@@ -76,40 +75,34 @@ class Lexer
   ##
   ## COMMENT
   ##   : '/*' .*? '*/'  ;
-  ##
   ## LINE_COMMENT
   ##   : '//' ~[\r\n]* ;
 
+  COMMENT = %r{/\*
+                .*?
+                \*/}x
+
+  LINE_COMMENT = %r{//
+                     [^\r\n]*}x
 
    def tokenize
      t = []
      s = StringScanner.new( @txt )
 
      until s.eos?   ## loop until hitting end-of-string (file)
-       if s.check( /[ \t]*\/\*/ )
-          ## note: auto-slurp leading (optinal) spaces!!!! - why? why not?
-          comment = s.scan_until( /\*\// )
-          ## print "multi-line comment:"
-          ## pp comment
-          t << [:comment, comment.lstrip]
-       elsif s.check( /[ \t]*\/\// )
-          ## note: auto-slurp leading (optinal) spaces!!!!  - why? why not?
-          ## note: auto-remove newline AND trailing whitespace - why? why not?
-          comment = s.scan_until( /\n|$/ ).strip
-          ## print "comment:"
-          ## pp comment
-          t << [:comment, comment]
-       elsif s.scan( /[ \t]+/ )   ## one or more spaces
+       if s.scan( /[ \t]+/ )   ## one or more spaces
           ## note: (auto-)convert tab to space - why? why not?
           t << [:sp, s.matched.gsub( /[\t]/, ' ') ]
        elsif s.scan( /\r?\n/ )    ## check for (windows) carriage return (\r) - why? why not?
           t << [:nl, "\n" ]
-       elsif s.check( "'" )   ## single-quoted string
-          str = s.scan( SINGLE_QUOTE )
-          t << [:string, str]
-       elsif s.check( '"' )  ## double-quoted string
-          str = s.scan( DOUBLE_QUOTE )
-          t << [:string, str]
+       elsif s.scan( COMMENT )
+          t << [:comment, s.matched]
+       elsif s.scan( LINE_COMMENT )
+          t << [:comment, s.matched]
+       elsif s.scan( DOUBLE_QUOTE )  ## double-quoted string
+          t << [:string, s.matched]
+       elsif s.scan( SINGLE_QUOTE )  ## single-quoted string
+          t << [:string, s.matched]
        elsif s.scan( NAME )
           name = s.matched
           case name
