@@ -40,7 +40,7 @@ Usage: abidump [options]
 
 
 Let's pretty print (dump) the application binary interface (abi)
-for punks v1 (anno 2017):
+for [punks v1 (anno 2017)](https://github.com/openblockchains/awesome-contracts/tree/master/address/0x6ba6f2207e343923ba692e5cae646fb0f566db8d):
 
 ```
 $ abidump ./address/0x6ba6f2207e343923ba692e5cae646fb0f566db8d/abi.json
@@ -117,7 +117,7 @@ resulting in:
 
 Let's try to dump (pretty print) the
 application binary interface (abi)
-for punk blocks (anno 2022):
+for [punk blocks (anno 2022)](https://github.com/openblockchains/awesome-contracts/tree/master/address/0x58e90596c2065befd3060767736c829c18f3474c):
 
 ```
 $ abidump ./address/0x58e90596c2065befd3060767736c829c18f3474c/abi.json
