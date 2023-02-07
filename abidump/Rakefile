@@ -10,7 +10,7 @@ end
 
 Hoe.spec 'abidump' do
 
-  self.version = '0.1.0'
+  self.version = '0.1.1'
 
   self.summary = "abidump gem - command-line tool to dump / pretty print or (re)format application binary interfaces (abi) for Ethereum & Co."
   self.description = summary

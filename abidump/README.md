@@ -60,82 +60,56 @@ resulting in:
 
 ==> constructor:
       payable: true
-    inputs (0):
-       []
+    inputs (0)
 
 ==> event Assign:
       anonymous: false
     inputs (2):
-      - type: address
-        indexed: true
-        name: to
-      - type: uint256
-        indexed: false
-        name: punkIndex
+      address indexed to
+      uint256 punkIndex
 
 ==> event Transfer:
       anonymous: false
     inputs (3):
-      - type: address
-        indexed: true
-        name: from
-      - type: address
-        indexed: true
-        name: to
-      - type: uint256
-        indexed: false
-        name: value
+      address indexed from
+      address indexed to
+      uint256 value
 
 ==> event PunkTransfer:
       anonymous: false
     inputs (3):
-      - type: address
-        indexed: true
-        name: from
-      - type: address
-        indexed: true
-        name: to
-      - type: uint256
-        indexed: false
-        name: punkIndex
+      address indexed from
+      address indexed to
+      uint256 punkIndex
 
 ...
+
 
 ==> function name:
       constant: true
       payable: false
-    inputs (0):
-       []
+    inputs (0)
     outputs (1):
-      - type: string
-        name: _
+      string _
 
 ==> function reservePunksForOwner:
       constant: false
       payable: false
     inputs (1):
-      - type: uint256
-        name: maxForThisRun
-    outputs (0):
-       []
+      uint256 maxForThisRun
+    outputs (0)
 
 ==> function punksOfferedForSale:
       constant: true
       payable: false
     inputs (1):
-      - type: uint256
-        name: _
+      uint256 _
     outputs (5):
-      - type: bool
-        name: isForSale
-      - type: uint256
-        name: punkIndex
-      - type: address
-        name: seller
-      - type: uint256
-        name: minValue
-      - type: address
-        name: onlySellTo
+      bool isForSale
+      uint256 punkIndex
+      address seller
+      uint256 minValue
+      address onlySellTo
 
 ...
 ```
@@ -162,94 +136,64 @@ resulting in:
 
 ==> constructor:
       stateMutability: nonpayable
-    inputs (0):
-       []
+    inputs (0)
 
 ==> event NewBlock:
       anonymous: false
     inputs (3):
-      - type: address
-        indexed: false
-        name: _
-      - type: uint256
-        indexed: false
-        name: _
-      - type: string
-        indexed: false
-        name: _
+      address _
+      uint256 _
+      string _
 
 ==> function blocks:
       stateMutability: view
     inputs (1):
-      - type: bytes32
-        name: _
+      bytes32 _
     outputs (3):
-      - type: uint8 (enum PunkBlocks.Layer)
-        name: layer
-      - type: bytes
-        name: dataMale
-      - type: bytes
-        name: dataFemale
+      uint8 layer - enum PunkBlocks.Layer
+      bytes dataMale
+      bytes dataFemale
 
 ==> function getBlocks:
       stateMutability: view
     inputs (2):
-      - type: uint256
-        name: _fromID
-      - type: uint256
-        name: _count
+      uint256 _fromID
+      uint256 _count
     outputs (2):
-      - type: tuple[] (struct PunkBlocks.Block[])
-        name: _
-        components:
-        - type: uint8 (enum PunkBlocks.Layer)
-          name: layer
-        - type: bytes
-          name: dataMale
-        - type: bytes
-          name: dataFemale
-      - type: uint256
-        name: _
+      tuple[] _ - struct PunkBlocks.Block[]
+        uint8 layer - enum PunkBlocks.Layer
+        bytes dataMale
+        bytes dataFemale
+      uint256 _
 
 ==> function index:
       stateMutability: view
     inputs (1):
-      - type: uint256
-        name: _
+      uint256 _
     outputs (1):
-      - type: bytes32
-        name: _
+      bytes32 _
 
 ==> function nextId:
       stateMutability: view
-    inputs (0):
-       []
+    inputs (0)
     outputs (1):
-      - type: uint256
-        name: _
+      uint256 _
 
 ==> function registerBlock:
       stateMutability: nonpayable
     inputs (4):
-      - type: bytes
-        name: _dataMale
-      - type: bytes
-        name: _dataFemale
-      - type: uint8
-        name: _layer
-      - type: string
-        name: _name
-    outputs (0):
-       []
+      bytes _dataMale
+      bytes _dataFemale
+      uint8 _layer
+      string _name
+    outputs (0)
 
 ==> function svgFromIDs:
       stateMutability: view
     inputs (1):
-      - type: uint256[]
-        name: _ids
+      uint256[] _ids
     outputs (1):
-      - type: string
-        name: _
+      string _
 
 ...
 ```

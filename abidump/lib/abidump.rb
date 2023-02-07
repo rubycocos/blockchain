@@ -72,7 +72,7 @@ module ABIDump
       puts buf
     end
 
-    def self._norm_types( data )
+    def self._dump_types( data, indent: 2 )
        ## hack:  remove items and re-add to sort key order!!!
        ##
        ## clean-up / normalize type
@@ -91,24 +91,22 @@ module ABIDump
             exit 1
           end
 
-          h['type'] = type   if type
-          if type && internal_type && type != internal_type
-            h['type'] += " (#{internal_type})"
-          end
-
-          h['indexed'] = indexed   unless indexed.nil?  ## note: indexed is a true/false prop
-
+          print ' ' * indent
+          print type
+          print ' indexed'   if indexed  ## note: indexed is a true/false prop
           ## note: change empty name e.g. '' to _  - why? why not?
           if name
-            h['name']    = name.empty?  ? "_" : name
+            print ' '
+            print name.empty?  ? "_" : name
           end
 
-          if components
-             h['components'] = components
-            _norm_types( components)
-          end
+          print " - #{internal_type}" if type && internal_type && type != internal_type
+          print "\n"
+
+          _dump_types( components, indent: indent+2 )  if components
        end
     end
+
 
 
     def self._dump( data, indent: 2 )
@@ -153,15 +151,23 @@ module ABIDump
           _dump( h, indent: 6 )
 
           if inputs
-            puts "    inputs (#{inputs.size}):"
-            _norm_types( inputs )
-            _dump( inputs, indent: 6 )
+            print "    inputs (#{inputs.size})"
+            if inputs.size > 0
+              print ":\n"
+              _dump_types( inputs, indent: 6 )
+            else
+              print "\n"
+            end
           end
 
           if outputs
-            puts "    outputs (#{outputs.size}):"
-            _norm_types( outputs )
-            _dump( outputs, indent: 6 )
+            print "    outputs (#{outputs.size})"
+            if outputs.size > 0
+              print ":\n"
+              _dump_types( outputs, indent: 6 )
+            else
+              print "\n"
+            end
           end
        end
 
