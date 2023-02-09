@@ -3,7 +3,7 @@
 #     ruby -I ./lib sandbox/test_gen.rb
 
 $LOAD_PATH.unshift( "../natspec/lib" )
-require 'abigen'
+require 'abi2ruby'
 
 punks_v1    = '0x6ba6f2207e343923ba692e5cae646fb0f566db8d'
 

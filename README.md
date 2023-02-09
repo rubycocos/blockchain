@@ -35,7 +35,8 @@ Gems:
 - [abicoder](abicoder) - "lite" application binary interface (abi) encoding / decoding machinery / helper (incl. nested arrays and/or tuples) for Ethereum & Co. (blockchain) contracts with zero-dependencies for easy (re)use
 - [abiparser](abiparser) - application binary interface (abi) parser machinery / helper for Ethereum & Co. (blockchain) contracts
 - [abidoc](abidoc) - application binary interface (abi) documentation generator for Ethereum & Co. (blockchain) contracts
-- [abigen](abigen) - generate ready-to-use (blockchain) contract services / function calls for ethereum & co. via application binary interfaces (abis)
+- [abi2ruby](abi2ruby) - generate ready-to-use (blockchain) contract services / function calls for ethereum & co. via application binary inferfaces (abis)
+- [abigen](abigen) - "high-level" all-in-one umbrella quick starter gem for easy installation & usage application binary interface (abi) code or doc(umentation) gen(eration) for ethereum & co.
 - [abidump](abidump) - command-line tool to dump / pretty print or (re)format application binary interfaces (abi) for Ethereum & Co.
 - [abi2sol](abi2sol) - command-line tool for application binary interface (abi) to solidity (contract) source code generation for Ethereum & Co.
 - [abibase](abibase) - command line tool / helper to manage application binary interfaces (abis)
@@ -44,7 +45,7 @@ Gems:
 - [ethlite-contracts](ethlite-contracts) - pre-packaged ready-to-use "out-of-the-gem" (blockchain) contract services / function calls for ethereum & co
 - [etherscan-lite](etherscan-lite) - light-weight machinery / helper for the Etherscan (blockchain) JSON HTTP API / web services (note: API key sign-up required)
 - [ethname](ethname) - light-weight crowd-sourced "off-chain" ethereum name to (contract) address service / helper (incl. punks v1,v2,v3,v4; phunks v1,v2, synth punks, punk blocks, etc.)  - yes, you can! - add more names / contracts via git ;-)
-- [ethers](ethers) -  "high-level" all-in-one umbrella quick starter gem for easy installation & usage for ethereum & co. (blockchain) contract services in ruby'
+- [ethers](ethers) -  "high-level" all-in-one umbrella quick starter gem for easy installation & usage for ethereum & co. (blockchain) contract services in ruby
 
 
 

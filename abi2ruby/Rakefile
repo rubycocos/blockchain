@@ -1,10 +1,17 @@
 require 'hoe'
 
 
-Hoe.spec 'abigen' do
+###
+# hack/ quick fix for broken intuit_values - overwrite with dummy
+class Hoe
+  def intuit_values( input ); end
+end
 
-  self.version = '0.1.1'
-  self.summary = '"high-level" all-in-one umbrella quick starter gem for easy installation & usage application binary interface (abi) code or doc(umentation) gen(eration) for ethereum & co.'
+
+Hoe.spec 'abi2ruby' do
+
+  self.version = '0.1.0'
+  self.summary = "abi2ruby  - generate ready-to-use (blockchain) contract services / function calls for ethereum & co. via application binary inferfaces (abis)"
   self.description = summary
 
   self.urls    = { home: 'https://github.com/rubycocos/blockchain' }
@@ -17,9 +24,8 @@ Hoe.spec 'abigen' do
   self.history_file = 'CHANGELOG.md'
 
   self.extra_deps = [
-    ['abi2ruby'],
-    ['abi2sol'],
-    ['abidoc'],
+    ['abiparser'],
+    ['natspec'],
   ]
 
   self.licenses = ['Public Domain']
