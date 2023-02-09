@@ -4,7 +4,9 @@ require 'optparse'
 
 
 ##  our own code
+require_relative 'abi2sol/model'
 require_relative 'abi2sol/generate'
+
 
 
 

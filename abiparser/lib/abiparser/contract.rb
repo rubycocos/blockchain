@@ -15,6 +15,7 @@ class Contract
     funcs = []
     has_fallback = false
     has_receive  = true
+    events = []
 
     data.each do |o|
        if o['type'] == 'function'
@@ -23,6 +24,7 @@ class Contract
           raise ArgumentError, "constructor already defined; only one declaration allowed"   if ctor
           ctor =  Constructor.parse( o )
        elsif o['type'] == 'event'
+          events << Event.parse( o )
        elsif o['type'] == 'receive'
           ## skip for now
           ## e.g.
@@ -46,7 +48,7 @@ class Contract
      end
      new( constructor: ctor,
           functions: funcs,
-          events: [],
+          events: events,
           has_receive: has_receive,
           has_fallback: has_fallback  )
   end
@@ -96,6 +98,8 @@ class Contract
 
   def constructor() @ctor; end
   def functions() @funcs; end
+  def events() @events; end
+
 
   ###
   ##  how to name functions categories ???

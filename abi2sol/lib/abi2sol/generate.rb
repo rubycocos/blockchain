@@ -16,6 +16,16 @@ class Contract
 #      buf << "#{@ctor.decl}\n"
 #    end
 
+
+    if events.size > 0
+      buf << "\n"
+      buf << "// #{events.size} Event(s)\n"
+      events.each do |event|
+        buf << "#{event.decl}\n"
+      end
+    end
+
+
     if payable_functions.size > 0
       buf << "\n"
       buf << "// #{payable_functions.size} Payable Function(s)\n"

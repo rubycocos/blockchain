@@ -134,29 +134,6 @@ class Function
       buf
   end
 
-  def decl
-    buf = "function #{@name}"
-    if @inputs.empty?
-      buf << "()"
-    else
-      buf2 = @inputs.map {|param| param.decl }
-      buf << "(#{buf2.join(', ')})"
-    end
-    buf << " payable "  if @payable
-    buf << " view "     if @constant && !@pure
-    buf << " pure "     if @constant && @pure
-
-    if @outputs.empty?
-       ## do nothing
-    else
-      buf << " returns "
-      buf2 = @outputs.map {|param| param.decl }
-      buf << "(#{buf2.join(', ')})"
-    end
-    buf << ";"
-    buf
-  end
-
 
 def types
     ## for debugging / analytics return all used types (input+output)

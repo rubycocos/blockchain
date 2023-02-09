@@ -2,6 +2,7 @@
 #  to run use
 #     ruby -I ./lib sandbox/test_parse.rb
 
+$LOAD_PATH.unshift( "../abiparser/lib" )
 require 'abi2sol'
 
 

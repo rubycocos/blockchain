@@ -44,6 +44,7 @@ require_relative 'abiparser/version'    # note: let version always go first
 require_relative 'abiparser/param'
 require_relative 'abiparser/constructor'
 require_relative 'abiparser/function'
+require_relative 'abiparser/event'
 require_relative 'abiparser/utils'
 require_relative 'abiparser/contract'
 require_relative 'abiparser/interface'

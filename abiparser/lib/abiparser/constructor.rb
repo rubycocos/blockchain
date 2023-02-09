@@ -20,7 +20,7 @@ class Constructor
       pp o
     end
 
-    if o.has_key?( 'constant')
+    if o.has_key?( 'constant' )
       puts "!! WARN: constant for constructor possible?"
       pp o
       exit 1
@@ -94,19 +94,6 @@ class Constructor
       end
       buf
   end
-
-  def decl
-    buf = "constructor"
-    if @inputs.empty?
-      buf << "()"
-    else
-      buf2 = @inputs.map {|param| param.decl }
-      buf << "(#{buf2.join(', ')})"
-    end
-    buf << ";"
-    buf
-  end
-
 
 end  # class Constructor
 end  # module ABI

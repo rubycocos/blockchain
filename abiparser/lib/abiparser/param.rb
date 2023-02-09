@@ -9,17 +9,20 @@ class Param
       internal_type = o['internalType']
       name          = o['name']
       components    = o['components'] ? o['components'].map { |c| parse( c ) } : nil
+      indexed       = o['indexed']
 
       new( type, name,
              internal_type: internal_type,
-             components: components )
+             components: components,
+             indexed: indexed )
     end
 
     ### check - find a "better" name for internal_type
     ##            use a keyword param - why? why not?
     def initialize( type, name=nil,
                      internal_type: nil,
-                     components: nil  )  ## note: type goes first!!!
+                     components: nil,
+                      indexed: nil  )  ## note: type goes first!!!
       @type          = type
       ## note: convert empty string "" to nil - why? why not?
       @name          = if name && name.empty?
@@ -33,7 +36,9 @@ class Param
                           internal_type
                        end
       @components  = components
+      @indexed = indexed   ## note: only used for event params (create a subparam type - why? why not??)
     end
+
 
 
     def sig
@@ -61,18 +66,6 @@ class Param
         buf <<  (@name ?  @name : '_')
         buf
     end
-
-    def decl
-      buf = ''
-      buf << "#{sig} "
-      buf <<  (@name ? @name :  '_')
-      ## use inline comment - why? why not?
-      if @internal_type && @internal_type != sig
-         buf << " /* #{@internal_type} */"
-      end
-      buf
-    end
-
 
 end  ## class Param
 end  ## module ABI
