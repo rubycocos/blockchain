@@ -3,4 +3,6 @@ Manifest.txt
 README.md
 Rakefile
 lib/abidoc.rb
+lib/abidoc/generate.rb
+lib/abidoc/model.rb
 lib/abidoc/version.rb

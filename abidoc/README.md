@@ -119,7 +119,7 @@ and so on.
 
 ## Bonus - Awesome Contracts
 
-See the [**Awesome (Ethereum) Contracts  / Blockchain Services**](https://github.com/rubycocos/awesome-contracts) repo.
+See the [**Awesome (Ethereum) Contracts  / Blockchain Services @ Open Blockchains**](https://github.com/openblockchains/awesome-contracts) repo.
 that is a cache of (ethereum) contract ABIs (application binary interfaces)
 and  open source code (if verified / available)
 with auto-generated docs via abidoc & friends.

@@ -2,6 +2,7 @@
 #  to run use
 #     ruby -I ./lib sandbox/test_gen.rb
 
+$LOAD_PATH.unshift( "../abiparser/lib" )
 require 'abidoc'
 
 punks_v1    = '0x6ba6f2207e343923ba692e5cae646fb0f566db8d'

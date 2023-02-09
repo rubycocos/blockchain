@@ -115,25 +115,6 @@ class Function
   end
 
 
-  def doc
-      ## note: text with markdown formatting
-      buf = "function **#{@name}**"
-      if @inputs.empty?
-        buf << "()"
-      else
-        buf2 = @inputs.map {|param| param.doc }
-        buf << "(#{buf2.join(', ')})"
-      end
-      if @outputs.empty?
-         ## do nothing
-      else
-        buf << " ⇒ "
-        buf2 = @outputs.map {|param| param.doc }
-        buf << "(#{buf2.join(', ')})"
-      end
-      buf
-  end
-
 
 def types
     ## for debugging / analytics return all used types (input+output)

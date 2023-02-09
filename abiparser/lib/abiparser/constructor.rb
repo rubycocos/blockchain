@@ -83,18 +83,6 @@ class Constructor
     buf
   end
 
-
-  def doc
-      buf = "constructor"
-      if @inputs.empty?
-        buf << "()"
-      else
-        buf2 = @inputs.map {|param| param.doc }
-        buf << "(#{buf2.join(', ')})"
-      end
-      buf
-  end
-
 end  # class Constructor
 end  # module ABI
 

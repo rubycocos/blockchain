@@ -55,17 +55,5 @@ class Param
       @sig
     end
 
-
-    def doc
-        buf = ''
-        if @internal_type && @internal_type != sig
-          buf << "#{@internal_type} "
-        else
-          buf << "#{sig} "
-        end
-        buf <<  (@name ?  @name : '_')
-        buf
-    end
-
 end  ## class Param
 end  ## module ABI
