@@ -1,6 +1,7 @@
 # Notes
 
-detailed base article (2023) - includes the "magic" for adding / handling padding. 
+detailed base article (2023) - includes the "magic" for adding / handling padding.  
+uses chunks of ?? bytes instead of one "big number", thus, will work with any size.
 
 <https://ptrchm.com/posts/base32-explained>
 
