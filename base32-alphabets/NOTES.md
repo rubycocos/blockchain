@@ -5,7 +5,7 @@ uses chunks of ?? bytes instead of one "big number", thus, will work with any si
 
 <https://ptrchm.com/posts/base32-explained>
 
-and the bas32 decode/encode in the based uuid gem
+and the base32 decode/encode in the based uuid gem
 <https://github.com/pch/based_uuid/blob/main/lib/based_uuid/base32_uuid.rb>
 
 
