@@ -1,5 +1,10 @@
 # Notes
 
+detailed base article (2023) - includes the "magic" for adding / handling padding. 
+
+<https://ptrchm.com/posts/base32-explained>
+
+
 ## Todos
 
 - [ ]  add split or width parameter to encode for "auto-formatting" with one call - why? why not?
